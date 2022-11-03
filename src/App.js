@@ -11,6 +11,7 @@ import AppNotFound from "general/components/AppNotFound";
 import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignInScreen from "features/Auth/SignInScreen";
+import LandingPage from "features/LandingPage";
 
 
 // Load BS
@@ -43,7 +44,7 @@ function App() {
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             {/* Landing Page */}
-            {/* <Route path="" element={<HomeScreen />} /> */}
+            <Route path="" element={<LandingPage />} />
             {/* Dashboard */}
             {/* <Route
               path="dashboard/*"
