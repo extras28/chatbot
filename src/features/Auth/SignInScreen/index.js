@@ -13,13 +13,6 @@ function SignInScreen(props) {
     return (
         <div>
             <HeaderLandingPage />
-            <DateRangePickerInput 
-                format = 'DD/MM'
-                className = 'mr-lg-4'
-                getRange = {
-                    (e) => console.log(e)
-                }
-            />
         </div>
     );
 }
