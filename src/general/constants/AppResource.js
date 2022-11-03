@@ -17,7 +17,7 @@ const AppResource = {
   // colors
   colors: {
     mainBGColor: "#F2F6FD",
-    featureColor: "#E92E4E",
+    featureColor: "#F48023",
   },
 };
 
