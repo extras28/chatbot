@@ -11,6 +11,7 @@ import AppNotFound from "general/components/AppNotFound";
 import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignInScreen from "features/Auth/SignInScreen";
+import SignUpScreen from "features/Auth/SignUpScreen";
 
 
 // Load BS
@@ -77,14 +78,14 @@ function App() {
               }
             />
             {/* Sign up */}
-            {/* <Route
+            <Route
               path="/sign-up"
               element={
-                <GuestRoute>
+                // <GuestRoute>
                   <SignUpScreen />
-                </GuestRoute>
+                // </GuestRoute>
               }
-            /> */}
+            />
             {/* forgot pass */}
             {/* <Route
               path="/forgot-pass"

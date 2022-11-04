@@ -33,24 +33,44 @@
     border-radius: 6px !important;
 }
 
-.ButtonCancel {
-    background-color: #f2f3f7 !important;
-    border: 1px solid #dbe3ef !important;
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.06) !important;
+.ButtonPrimary {
+    background-color: #F48023 !important;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 5px;
 
     &:hover {
-        background-color: #eeeff3 !important;
-        border: 1px solid #dbe3ef !important;
+        background-color: #ff9c4b !important;
     }
 }
 
-.ButtonPrimary {
-    background-color: #e92e4e !important;
-    border: 1px solid #c80022 !important;
-    box-shadow: 0px 4px 8px rgba(255, 148, 148, 0.71) !important;
+.ButtonSecondary {
+    background-color: #eaeaea !important;
+    color: #1682FD;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 5px;
 
     &:hover {
-        background-color: #e42042 !important;
-        border: 1px solid #a2001c !important;
+        background-color: rgb(211, 219, 250) !important;
+    }
+}
+
+.ButtonCancel {
+    background-color: #eaeaea !important;
+    color: #303030;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 5px;
+
+    &:hover {
+        background-color: rgb(206, 206, 206) !important;
     }
 }
