@@ -4,10 +4,16 @@ import PropTypes from "prop-types";
 import logo from "../../../assets/images/icon.png";
 import avatar from "../../../assets/images/avatar.png";
 import "./style.scss";
-HeaderLandingPage.propTypes = {};
+HeaderLandingPage.propTypes = {
+    loggedIn: PropTypes.bool,
+};
+
+HeaderLandingPage.defaultProps = {
+    loggedIn: false,
+}
 
 function HeaderLandingPage(props) {
-    let user = 0;
+    const { loggedIn } = props;
     return (
         <div className="d-flex justify-content-between align-items-center shadow-sm px-5 py-4 ps-5 bg-body rounded">
             <NavLink to="/" className="text-decoration-none text-black">
@@ -16,7 +22,7 @@ function HeaderLandingPage(props) {
                     Code<div className="fw-bolder">Helper</div>
                 </div>
             </NavLink>
-            {!user && (
+            {!loggedIn && (
                 <div>
                     <NavLink to="/sign-up">
                         <button type="button" className="ButtonPrimary">
@@ -31,7 +37,7 @@ function HeaderLandingPage(props) {
                     </NavLink>
                 </div>
             )}
-            {user === 1 && (                
+            {loggedIn  && (                
                 <div className="d-flex align-items-center justify-content-between">
                     <NavLink to="">
                         <button type="button" className="ButtonPrimary">

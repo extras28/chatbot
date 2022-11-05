@@ -13,6 +13,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignInScreen from "features/Auth/SignInScreen";
 import SignUpScreen from "features/Auth/SignUpScreen";
 import LandingPage from "features/LandingPage";
+import Dashboard from "features/Dashboard";
 
 
 // Load BS
@@ -47,18 +48,18 @@ function App() {
             {/* Landing Page */}
             <Route path="" element={<LandingPage />} />
             {/* Dashboard */}
-            {/* <Route
+            <Route
               path="dashboard/*"
               element={
-                auth ? (
-                  <PrivateRoute>
-                    <DashboardScreen />
-                  </PrivateRoute>
-                ) : (
-                  <HomeScreen />
-                )
+                // auth ? (
+                //   <PrivateRoute>
+                    <Dashboard />
+                //   {/* </PrivateRoute>
+                // ) : (
+                //   <HomeScreen />
+                // ) */}
               }
-            /> */}
+            />
 
             {/* Account */}
             {/* <Route
