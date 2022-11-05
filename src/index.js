@@ -7,7 +7,8 @@ import "assets/styles/custom.scss";
 // bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 // keen
-// keen
+import "assets/styles/keen/theme07/style.bundle.css";
+
 import "assets/styles/keen/theme07/style.bundle.css";
 // app custom style
 import "assets/styles/app.style.scss";

@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
-LandingPage.propTypes = {
+FooterDashboard.propTypes = {
     
 };
 
-function LandingPage(props) {
+function FooterDashboard(props) {
     return (
         <div>
-
+            
         </div>
     );
 }
 
-export default LandingPage;
+export default FooterDashboard;
