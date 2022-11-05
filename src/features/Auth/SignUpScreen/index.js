@@ -9,7 +9,7 @@ function SignUpScreen(props) {
     return (
         <div>
             <HeaderLandingPage />
-            <div className="container-fluid d-flex p-0 justify-content-center">
+            <div className="container-fluid d-flex p-0 justify-content-center w-100vh">
                 <div className="register-form">
                     <h2>Tham gia cộng đồng CodeHelper</h2>
                     <p>
