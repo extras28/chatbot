@@ -3,64 +3,78 @@ import PropTypes from "prop-types";
 import HeaderLandingPage from "general/components/HeaderLandingPage";
 import imgRegister from "../../../assets/images/ImageRegister.png";
 import "./style.scss";
+import AuthContent from "../components/AuthContent";
+import AppResource from "general/constants/AppResource";
+import { useFormik } from "formik";
+import BaseTextField from "general/components/Form/BaseTextField";
+import AppButton from "general/components/AppButton";
 SignUpScreen.propTypes = {};
 
 function SignUpScreen(props) {
+    const formik = useFormik({
+        initialValues: {
+            fullname: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+        }
+    })
     return (
-        <div>
+        <div className="SignUpScreen min-vh-100">
             <HeaderLandingPage />
-            <div className="container-fluid d-flex p-0 justify-content-center w-100vh">
-                <div className="register-form">
-                    <h2>Tham gia cộng đồng CodeHelper</h2>
-                    <p>
-                        Get more features and privileges by joining to the most
-                        helpful community
-                    </p>
-                    <div class="form-floating mb-3">
-                        <input
-                            type="text"
-                            class="form-control is-valid"
-                            id="floatingInput"
-                            placeholder="Tên đăng nhập"
+            <AuthContent 
+                leftTitle="Tham gia vào cộng đồng CodeHelper"
+                leftDescription="Học hỏi và thu nạp nhiều kiến thức hơn với cộng đồng của những lập trình viên vừa có tâm vừa có tầm"
+                authImage={AppResource.images.imgSignUp}
+                leftElement={(
+                    <div>
+                        <div>
+                            <BaseTextField 
+                                name='fullname'
+                                placeholder='Nhập Họ tên...'
+                                label='Họ tên'
+                                fieldHelper={formik.getFieldHelpers('fullname')}
+                                fieldProps={formik.getFieldProps('fullname')}
+                                fieldMeta={formik.getFieldMeta('fullname')}
+                            />
+                        </div>
+                        <div>
+                            <BaseTextField 
+                                name='email'
+                                placeholder='Nhập email...'
+                                label='Email'
+                                fieldHelper={formik.getFieldHelpers('email')}
+                                fieldProps={formik.getFieldProps('email')}
+                                fieldMeta={formik.getFieldMeta('email')}
+                            />
+                        </div>
+                        <div>
+                            <BaseTextField 
+                                name='password'
+                                placeholder='Nhập mật khẩu...'
+                                label='Mật khẩu'
+                                fieldHelper={formik.getFieldHelpers('password')}
+                                fieldProps={formik.getFieldProps('password')}
+                                fieldMeta={formik.getFieldMeta('password')}
+                            />
+                        </div>
+                        <div>
+                            <BaseTextField 
+                                name='conrfirmPassword'
+                                placeholder='Nhập lại mật khẩu...'
+                                label='Nhập lại mật khẩu'
+                                fieldHelper={formik.getFieldHelpers('conrfirmPassword')}
+                                fieldProps={formik.getFieldProps('conrfirmPassword')}
+                                fieldMeta={formik.getFieldMeta('conrfirmPassword')}
+                            />
+                        </div>
+                        <AppButton 
+                            className="btn-orange mt-10 w-100"
+                            text="Đăng ký"
                         />
-                        <label for="floatingInput">Tên đăng nhập</label>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input
-                            type="email"
-                            class="form-control is-invalid"
-                            id="floatingInput"
-                            placeholder="name@example.com"
-                        />
-                        <label for="floatingInput">Email</label>
-                    </div>
-                    <div class="form-floating  mb-3">
-                        <input
-                            type="password"
-                            class="form-control"
-                            id="floatingPassword"
-                            placeholder="Mật khẩu"
-                        />
-                        <label for="floatingPassword">Mật khẩu</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input
-                            type="password"
-                            class="form-control"
-                            id="floatingPassword"
-                            placeholder="Nhập lại mật khẩu"
-                        />
-                        <label for="floatingPassword">Nhập lại mật khẩu</label>
-                    </div>
-                    <p className="fw-bold text-danger ms-4 mb-3">Email đã được đăng ký!</p>
-                    <button type="button" className="ButtonPrimary w-100">
-                        ĐĂNG KÝ
-                    </button>
-                </div>
-                <div className="d-md-none d-lg-block">
-                    <img className="w-100" src={imgRegister} alt="" />
-                </div>
-            </div>
+                )}
+            />
         </div>
     );
 }

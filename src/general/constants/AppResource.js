@@ -6,9 +6,11 @@ const AppResource = {
   images: {
    img404NotFound: require('assets/images/img_404_notfound.png'),
    imgNoData: require('assets/images/img_no_data.png'),
+   imgSignIn: require('assets/images/ImageLogin.png'),
+   imgSignUp: require('assets/images/ImageRegister.png')
   },
   icons: {
-    
+    icPageUp: require('assets/icons/PageUp.png')
   },
 
   // colors
