@@ -10,6 +10,8 @@ import AppButton from "general/components/AppButton";
 import Utils from "general/utils/Utils";
 import * as Yup from 'yup';
 import ToastHelper from "general/helpers/ToastHelper";
+import AppResource from "general/constants/AppResource";
+import { useNavigate } from "react-router-dom";
 SignInScreen.propTypes = {
 
 };
@@ -17,6 +19,8 @@ SignInScreen.propTypes = {
 const sTag = '[SignInScreen]';
 
 function SignInScreen(props) {
+
+    const navigate = useNavigate();
 
     const formik = useFormik({
         initialValues: {
@@ -45,7 +49,11 @@ function SignInScreen(props) {
             email: Yup.string().required('Bạn chưa nhập email').email('Email không hợp lệ'),
             password: Yup.string().required('Bạn chưa nhập mật khẩu'),
         }),
-    })
+    });
+
+    function handleNavigate(url){
+        navigate(url)
+    }
 
     return (
         <div className='SignInScreen min-vh-100 bg-light'>
@@ -81,12 +89,15 @@ function SignInScreen(props) {
                                     fieldMeta={formik.getFieldMeta('password')}
                                 />
                             </div>
+
+                            <div className="text-center font-weight-bolder cursor-pointer text-center" style={{color: AppResource.colors.featureColor}} >Quên mật khẩu ?</div>
     
                             {/* sign in button */}
                             <AppButton 
-                                className="btn-orange w-100 mt-10"
+                                className="btn-orange w-100 mt-5"
                                 text="Đăng nhập"
                             />
+                            <div className="text-center mt-5">Bạn chưa có tài khoản CodeHelper? <span onClick={()=>handleNavigate('/sign-up')} className="cursor-pointer" style={{color: AppResource.colors.featureColor, textDecoration: "underline"}}>Đăng ký</span></div>
                         </div>
                     </form>
                 )}

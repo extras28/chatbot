@@ -26,7 +26,7 @@ function HeaderLandingPage(props) {
                 <div>
                     <NavLink to="/sign-up">
                         <button type="button" className="ButtonPrimary">
-                            <i class="far fa-user-plus me-2"></i>
+                            <i className="far fa-user-plus me-2 text-white"></i>
                             Đăng ký
                         </button>
                     </NavLink>
@@ -41,12 +41,12 @@ function HeaderLandingPage(props) {
                 <div className="d-flex align-items-center justify-content-between">
                     <NavLink to="">
                         <button type="button" className="ButtonPrimary">
-                            <i class="far fa-plus-circle me-3"></i>
+                            <i className="far fa-plus-circle me-3"></i>
                             Thêm câu hỏi
                         </button>
                     </NavLink>
                     <div className="bell mx-5">
-                        <i class="far fa-bell"></i>
+                        <i className="far fa-bell"></i>
                         <div></div>
                     </div>
                     <label for="dropdownMenuButton">
@@ -57,25 +57,25 @@ function HeaderLandingPage(props) {
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
                         >
-                            <i class="fas fa-sort-down"></i>
+                            <i className="fas fa-sort-down"></i>
                         </button>
 
                         <ul
-                            class="dropdown-menu my-4"
+                            className="dropdown-menu my-4"
                             aria-labelledby="dropdownMenuButton"
                         >
                             <li>
-                                <a class="dropdown-item pe-5" href="#">
+                                <a className="dropdown-item pe-5" href="#">
                                     Thông tin cá nhân
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">
+                                <a className="dropdown-item" href="#">
                                     Đổi mật khẩu
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">
+                                <a className="dropdown-item" href="#">
                                     Đăng xuất
                                 </a>
                             </li>
