@@ -26,7 +26,7 @@ function HeaderLandingPage(props) {
                 <div>
                     <NavLink to="/sign-up">
                         <button type="button" className="ButtonPrimary">
-                            <i class="far fa-user-plus me-2 text-white"></i>
+                            <i className="far fa-user-plus me-2 text-white"></i>
                             Đăng ký
                         </button>
                     </NavLink>
@@ -41,12 +41,12 @@ function HeaderLandingPage(props) {
                 <div className="d-flex align-items-center justify-content-between">
                     <NavLink to="">
                         <button type="button" className="ButtonPrimary">
-                            <i class="far fa-plus-circle me-3 text-white"></i>
+                            <i className="far fa-plus-circle me-3"></i>
                             Thêm câu hỏi
                         </button>
                     </NavLink>
                     <div className="bell mx-5">
-                        <i class="far fa-bell"></i>
+                        <i className="far fa-bell"></i>
                         <div></div>
                     </div>
                     <label for="dropdownMenuButton">
@@ -57,7 +57,7 @@ function HeaderLandingPage(props) {
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
                         >
-                            <i class="fas fa-sort-down"></i>
+                            <i className="fas fa-sort-down"></i>
                         </button>
 
                         <ul

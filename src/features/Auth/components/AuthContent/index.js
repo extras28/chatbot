@@ -26,11 +26,13 @@ function AuthContent(props) {
             <div className='w-lg-100 w-md-50 w-100 mx-10 mx-md-0'>
                 <div className='d-flex'>
                     {/* left */}
-                    <div className='AuthContent_Form d-flex flex-column justify-content-center w-lg-50 p-10 w-100 px-lg-40 border-top bg-white mt-40 mt-lg-0 rounded rounded-lg-0'>
-                        <p className='AuthContent_Title text-center text-lg-left text-dark-75'>{leftTitle}</p>
-                        <p className='AuthContent_Description text-center text-lg-left text-dark-75'>{leftDescription}</p>
-                        <div>
-                            {leftElement}
+                    <div className='AuthContent_Form d-flex flex-column justify-content-center align-items-center w-lg-50 p-10 w-100 px-lg-40 border-top bg-white mt-40 mt-lg-0 rounded rounded-lg-0'>
+                        <div  className='w-sm-375px'>
+                            <p className='AuthContent_Title text-center text-lg-left text-dark-75'>{leftTitle}</p>
+                            <p className='AuthContent_Description text-center text-lg-left text-dark-75'>{leftDescription}</p>
+                            <div>
+                                {leftElement}
+                            </div>
                         </div>
                     </div>
 

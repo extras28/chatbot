@@ -10,9 +10,11 @@ import AppButton from "general/components/AppButton";
 import * as Yup from 'yup';
 import ToastHelper from "general/helpers/ToastHelper";
 import Utils from "general/utils/Utils";
+import { useNavigate } from "react-router-dom";
 SignUpScreen.propTypes = {};
 
 function SignUpScreen(props) {
+    const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
             fullname: '',
@@ -42,7 +44,11 @@ function SignUpScreen(props) {
             .required('Bạn chưa xác nhận mật khẩu')
             .oneOf([Yup.ref('password'), null], 'Mật khẩu không khớp')
         }),
-    })
+    });
+
+    function handleNavigate(url){
+        navigate(url);
+    }
     return (
         <div className="SignUpScreen min-vh-100">
             <HeaderLandingPage />
@@ -66,7 +72,7 @@ function SignUpScreen(props) {
                             <div>
                                 <BaseTextField 
                                     name='email'
-                                    placeholder='Nhập email...'
+                                    placeholder='hi@example.com'
                                     label='Email'
                                     fieldHelper={formik.getFieldHelpers('email')}
                                     fieldProps={formik.getFieldProps('email')}
@@ -75,6 +81,7 @@ function SignUpScreen(props) {
                             </div>
                             <div>
                                 <BaseTextField 
+                                    type="password"
                                     name='password'
                                     placeholder='Nhập mật khẩu...'
                                     label='Mật khẩu'
@@ -85,6 +92,7 @@ function SignUpScreen(props) {
                             </div>
                             <div>
                                 <BaseTextField 
+                                    type="password"
                                     name='confirmPassword'
                                     placeholder='Nhập lại mật khẩu...'
                                     label='Nhập lại mật khẩu'
@@ -93,10 +101,12 @@ function SignUpScreen(props) {
                                     fieldMeta={formik.getFieldMeta('confirmPassword')}
                                 />
                             </div>
+                            <div className="text-center font-weight-bolder cursor-pointer text-center" style={{color: AppResource.colors.featureColor}} >Quên mật khẩu ?</div>
                             <AppButton 
-                                className="btn-orange mt-10 w-100"
+                                className="btn-orange mt-5 w-100"
                                 text="Đăng ký"
                             />
+                            <div className="text-center mt-5">Bạn đã có tài khoản CodeHelper? <span onClick={()=>handleNavigate('/sign-in')} className="cursor-pointer" style={{color: AppResource.colors.featureColor, textDecoration: "underline"}}>Đăng nhập</span></div>
                         </div>
                    </form>
                 )}
