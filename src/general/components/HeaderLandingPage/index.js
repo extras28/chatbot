@@ -15,7 +15,7 @@ HeaderLandingPage.defaultProps = {
 function HeaderLandingPage(props) {
     const { loggedIn } = props;
     return (
-        <div className="d-flex justify-content-between align-items-center shadow-sm px-5 py-4 ps-5 bg-body rounded">
+        <div className="d-flex fixed-top justify-content-between align-items-center shadow-sm px-5 py-4 ps-5 bg-body rounded">
             <NavLink to="/" className="text-decoration-none text-black">
                 <div className="d-flex align-items-end fs-5 fw-normal ">
                     <img className="me-3" src={logo} alt="" />
@@ -26,7 +26,7 @@ function HeaderLandingPage(props) {
                 <div>
                     <NavLink to="/sign-up">
                         <button type="button" className="ButtonPrimary">
-                            <i class="far fa-user-plus me-2"></i>
+                            <i class="far fa-user-plus me-2 text-white"></i>
                             Đăng ký
                         </button>
                     </NavLink>
@@ -41,7 +41,7 @@ function HeaderLandingPage(props) {
                 <div className="d-flex align-items-center justify-content-between">
                     <NavLink to="">
                         <button type="button" className="ButtonPrimary">
-                            <i class="far fa-plus-circle me-3"></i>
+                            <i class="far fa-plus-circle me-3 text-white"></i>
                             Thêm câu hỏi
                         </button>
                     </NavLink>
@@ -61,21 +61,21 @@ function HeaderLandingPage(props) {
                         </button>
 
                         <ul
-                            class="dropdown-menu my-4"
+                            className="dropdown-menu my-4"
                             aria-labelledby="dropdownMenuButton"
                         >
                             <li>
-                                <a class="dropdown-item pe-5" href="#">
+                                <a className="dropdown-item pe-5" href="#">
                                     Thông tin cá nhân
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">
+                                <a className="dropdown-item" href="#">
                                     Đổi mật khẩu
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">
+                                <a className="dropdown-item" href="#">
                                     Đăng xuất
                                 </a>
                             </li>

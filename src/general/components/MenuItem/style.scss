@@ -1,0 +1,27 @@
+.MenuItem{
+    color: #000;
+    cursor: pointer;
+    font-size: 0.9rem;
+    letter-spacing: 0.03rem;
+    transition: ease 0.2s;
+    border-left: 3px solid #fff;
+
+    &:hover{
+        border-left: 3px solid #FCF4EC;
+        background-color: #FCF4EC;
+    }
+
+    &_active{
+        border-left: 3px solid #F48023 ;
+        color: #F48023;
+        background-color:#FCF4EC;
+
+        & i{
+            color: #F48023;
+        }
+
+        &:hover{
+            border-left: 3px solid #F48023;
+        }
+    }
+}
