@@ -1,0 +1,19 @@
+.SideBar{
+    transition: ease 0.2s;
+}
+.SearchPopover{
+    position: absolute;
+    top: 6rem;
+    left: 5.8rem;
+    right: 0;
+}
+.SearchButton{
+    transition: ease 0.2s;
+    cursor: pointer;
+    &:hover{
+        background-color: #FCF4EC;
+    }
+}
+@media only screen and (max-width: 768px) {
+    
+}
