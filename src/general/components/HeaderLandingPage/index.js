@@ -15,7 +15,7 @@ HeaderLandingPage.defaultProps = {
 function HeaderLandingPage(props) {
     const { loggedIn } = props;
     return (
-        <div className="d-flex fixed-top justify-content-between align-items-center shadow-sm px-5 py-4 ps-5 bg-body rounded">
+        <div className="HeaderLandingPage d-flex sticky-top justify-content-between align-items-center shadow-sm px-5 py-4 ps-5 bg-body rounded">
             <NavLink to="/" className="text-decoration-none text-black">
                 <div className="d-flex align-items-end fs-5 fw-normal ">
                     <img className="me-3" src={logo} alt="" />

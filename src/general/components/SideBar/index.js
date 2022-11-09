@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import BaseSearchBar from "../Form/BaseSearchBar";
 import MenuItem from "../MenuItem";
@@ -12,12 +12,12 @@ function SideBar(props) {
         setShowshowSearchBar(!showSearchBar);
     };
     return (
-        <div className="SideBar d-inline-flex flex-column align-items-center bg-white h-100">
-            <div className="SearchBar d-none d-md-block mx-5 mt-35 mb-10">
+        <div className="SideBar d-inline-flex flex-column align-items-center bg-white min-vh-100 py-10" style={{position: 'fixed'}}>
+            <div className="SearchBar d-none d-md-block mx-5 mb-10">
                 <BaseSearchBar placeholder="Search..." />
             </div>
             <div
-                className="SearchButton d-flex d-md-none justify-content-center w-100 mt-24 p-3"
+                className="SearchButton d-flex d-md-none justify-content-center w-100 p-3"
                 onClick={handleShowSearchBar}
             >
                 {!showSearchBar && <i class="fas fa-search"></i>}
