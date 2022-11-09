@@ -49,7 +49,7 @@ function HeaderLandingPage(props) {
                         <i className="far fa-bell"></i>
                         <div></div>
                     </div>
-                    <label for="dropdownMenuButton">
+                    <label htmlFor="dropdownMenuButton">
                         <img className="header-avatar" src={avatar} alt="" />
                         <button
                             className="show-option"

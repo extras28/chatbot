@@ -24,8 +24,8 @@ function MenuItem(props) {
                 className={`MenuItem d-flex align-items-center fw-bold p-4 ${className}`}
                 title={text}
             >
-                <i class={`col-2 ${icon}`}></i>
-                <div className="MenuItemName d-none d-md-block">{text}</div>
+                <i className={`col-2 ${icon}`}></i>
+                <div className='MenuItemName d-none d-md-block'>{text}</div>
             </div>
         </NavLink>
     );
