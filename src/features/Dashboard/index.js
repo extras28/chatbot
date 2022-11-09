@@ -13,9 +13,11 @@ function Dashboard(props) {
     return (
         <div>
             <HeaderLandingPage loggedIn={true} />
-            <SideBar />
-            <div>
-                <Argument />
+            <div className=''>
+                <SideBar />
+                <div className='ml-50'>
+                    <Argument />
+                </div>
             </div>
         </div>
     );

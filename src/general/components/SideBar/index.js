@@ -4,15 +4,22 @@ import BaseSearchBar from "../Form/BaseSearchBar";
 import MenuItem from "../MenuItem";
 import "./style.scss";
 
-SideBar.propTypes = {};
+SideBar.propTypes = {
+    className: PropTypes.string,
+};
+
+SideBar.defaultProps = {
+    className: ''
+}
 
 function SideBar(props) {
+    const { className } = props;
     let [showSearchBar, setShowshowSearchBar] = useState(false);
     const handleShowSearchBar = () => {
         setShowshowSearchBar(!showSearchBar);
     };
     return (
-        <div className="SideBar d-inline-flex flex-column align-items-center bg-white min-vh-100 py-10" style={{position: 'fixed'}}>
+        <div className={`SideBar d-inline-flex flex-column align-items-center bg-white min-vh-100 py-10 ${className}`} style={{position: 'fixed'}}>
             <div className="SearchBar d-none d-md-block mx-5 mb-10">
                 <BaseSearchBar placeholder="Search..." />
             </div>
