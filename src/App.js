@@ -14,6 +14,7 @@ import SignInScreen from "features/Auth/SignInScreen";
 import SignUpScreen from "features/Auth/SignUpScreen";
 import LandingPage from "features/LandingPage";
 import Dashboard from "features/Dashboard";
+import CreateQuestionScreen from "features/CreateQuestionScreen";
 // import Admin from "Admin";
 
 
@@ -105,6 +106,9 @@ function App() {
                 // </GuestRoute>
               }
             />
+
+            {/* Create quétion */}
+            <Route path="/create-question" element={<CreateQuestionScreen />}/>
             {/* forgot pass */}
             {/* <Route
               path="/forgot-pass"
