@@ -1,6 +1,6 @@
 // api/axiosClient.js
 import axios from "axios";
-import PreferenceKeys from "general/constants/PreferenceKeys";
+import PreferenceKeys from "general/constants/PreferenceKey";
 import ToastHelper from "general/helpers/ToastHelper";
 import UserHelper from "general/helpers/UserHelper";
 import queryString from "query-string";

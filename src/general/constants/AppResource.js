@@ -9,6 +9,7 @@ const AppResource = {
    imgSignIn: require('assets/images/ImageLogin.png'),
    imgSignUp: require('assets/images/ImageRegister.png'),
    imgDefaultAvatar: require('assets/images/img_default_avatar.jpg'),
+   imgPageNotFound: require('assets/images/Page-not-found.png')
   },
   icons: {
     icPageUp: require('assets/icons/PageUp.png')
