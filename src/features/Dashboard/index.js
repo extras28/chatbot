@@ -12,9 +12,9 @@ Dashboard.propTypes = {
 function Dashboard(props) {
     return (
         <div className='Dashboard'>
-            <HeaderLandingPage loggedIn={true} />
+            <HeaderLandingPage loggedIn={false} />
             <div className=''>
-                <SideBar />
+                <SideBar loggedIn={false}/>
                 <div className='Dashboard_Content pt-10'>
                     <Argument />
                 </div>

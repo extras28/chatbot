@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./style.scss";
@@ -8,6 +8,7 @@ MenuItem.propTypes = {
     icon: PropTypes.string,
     text: PropTypes.string,
     linkTo: PropTypes.string,
+    onClick: PropTypes.func,
 };
 
 MenuItem.defaultProps = {
@@ -15,17 +16,19 @@ MenuItem.defaultProps = {
     icon: null,
     text: null,
     linkTo: null,
+    onClick: null,
 };
 function MenuItem(props) {
-    const { className, icon, text, linkTo } = props;
+    const { className, icon, text, linkTo, onClick} = props;
+
     return (
-        <NavLink to={linkTo}>
+        <NavLink to={linkTo} onClick = {onClick}>
             <div
-                className={`MenuItem d-flex align-items-center fw-bold p-4 ${className}`}
+                className={`MenuItem d-flex align-items-center fw-bold py-4 p-lg-4 ${className}`}
                 title={text}
             >
-                <i class={`col-2 ${icon}`}></i>
-                <div className="MenuItemName d-none d-md-block">{text}</div>
+                <i class={`col-lg-2 ${icon}`}></i>
+                <div className="MenuItemName d-none d-lg-block">{text}</div>
             </div>
         </NavLink>
     );
