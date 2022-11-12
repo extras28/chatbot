@@ -14,12 +14,26 @@ import SignInScreen from "features/Auth/SignInScreen";
 import SignUpScreen from "features/Auth/SignUpScreen";
 import LandingPage from "features/LandingPage";
 import Dashboard from "features/Dashboard";
+import CreateQuestionScreen from "features/CreateQuestionScreen";
+// import Admin from "Admin";
 
 
 // Load BS
 
 require("bootstrap/dist/js/bootstrap.min");
-
+// Load KT plugins
+// require("assets/plugins/ktutil");
+// require("assets/plugins/ktmenu");
+// require("assets/plugins/ktoffcanvas");
+// require("assets/plugins/ktcookie");
+// require("assets/plugins/kttoggle");
+// // aside
+// require("assets/plugins/aside/aside");
+// require("assets/plugins/aside/aside-menu");
+// require("assets/plugins/aside/aside-toggle");
+// // header 
+// require("assets/plugins/header/ktheader-mobile");
+// require("assets/plugins/header/ktheader-topbar");
 
 // Lazy load - Code splitting
 
@@ -45,8 +59,12 @@ function App() {
         {/* Suspense */}
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
+            {/* Admin */}
+            {/* <Route path="/admin/*" element={<Admin />} /> */}
+
             {/* Landing Page */}
             <Route path="" element={<LandingPage />} />
+
             {/* Dashboard */}
             <Route
               path="dashboard/*"
@@ -88,6 +106,9 @@ function App() {
                 // </GuestRoute>
               }
             />
+
+            {/* Create quétion */}
+            <Route path="/create-question" element={<CreateQuestionScreen />}/>
             {/* forgot pass */}
             {/* <Route
               path="/forgot-pass"

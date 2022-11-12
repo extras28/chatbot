@@ -30,6 +30,7 @@
     "react-spinners": "^0.13.6",
     "react-toastify": "^9.1.0",
     "sass": "^1.55.0",
+    "sweetalert2": "^11.6.7",
     "web-vitals": "^2.1.4",
     "websocket": "^1.0.34",
     "yup": "^0.32.11"

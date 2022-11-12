@@ -1,5 +1,7 @@
 import { removeAxiosAccessToken } from "api/axiosClient";
-import PreferenceKeys from "general/constants/PreferenceKeys";
+import AppResource from "general/constants/AppResource";
+import PreferenceKeys from "general/constants/PreferenceKey";
+import Utils from "general/utils/Utils";
 import _ from "lodash";
 import moment from 'moment';
 
@@ -52,7 +54,16 @@ const UserHelper = {
 
     isHasRemoteSigning: (account) => {
         return account?.hasRemoteSigningP12 ?? false;
-    }
+    },
+
+    getAccountAvatar: (account) => {
+        const avatar = account?.avatar;
+        if (avatar) {
+            return Utils.getFullUrl(avatar);
+        } else {
+            return AppResource.images.imgDefaultAvatar;
+        }
+    },
 };
 
 export default UserHelper;
