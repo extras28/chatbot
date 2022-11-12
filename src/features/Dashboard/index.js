@@ -1,13 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import HeaderLandingPage from 'general/components/HeaderLandingPage';
-import SideBar from 'general/components/SideBar';
-import Argument from 'general/components/Argument';
-import './style.scss'
+import React from "react";
+import PropTypes from "prop-types";
+import HeaderLandingPage from "general/components/HeaderLandingPage";
+import SideBar from "general/components/SideBar";
+import Argument from "general/components/Argument";
+import "./style.scss";
+import MiniProfile from "general/components/MiniProfile";
 
-Dashboard.propTypes = {
-    
-};
+Dashboard.propTypes = {};
 
 function Dashboard(props) {
     return (
@@ -15,8 +14,13 @@ function Dashboard(props) {
             <HeaderLandingPage loggedIn={false} />
             <div className=''>
                 <SideBar loggedIn={false}/>
-                <div className='Dashboard_Content pt-10'>
-                    <Argument />
+                <div className='Dashboard_Content pt-10 row m-0 flex-row-reverse px-0'>
+                    <div className='col-3'>
+                        <MiniProfile />
+                    </div>
+                    <div className='col-7'>
+                        <Argument />
+                    </div>
                 </div>
             </div>
         </div>
