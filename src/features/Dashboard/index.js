@@ -13,7 +13,7 @@ function Dashboard(props) {
         <div className='Dashboard'>
             <HeaderLandingPage loggedIn={false} />
             <div className=''>
-                <SideBar loggedIn={false}/>
+                <SideBar loggedIn={false} />
                 <div className='Dashboard_Content pt-10 row m-0 flex-row-reverse px-0'>
                     <div className='col-3'>
                         <MiniProfile />
