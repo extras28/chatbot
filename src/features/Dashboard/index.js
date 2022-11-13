@@ -11,9 +11,9 @@ Dashboard.propTypes = {};
 function Dashboard(props) {
     return (
         <div className='Dashboard'>
-            <HeaderLandingPage loggedIn={true} />
+            <HeaderLandingPage loggedIn={false} />
             <div className=''>
-                <SideBar />
+                <SideBar loggedIn={false} />
                 <div className='Dashboard_Content pt-10 row m-0 flex-row-reverse px-0'>
                     <div className='col-3'>
                         <MiniProfile />
