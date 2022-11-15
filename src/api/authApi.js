@@ -3,7 +3,6 @@ import axiosClient from "./axiosClient";
 const authApi = {
     // sign in
     signIn: (params) => {
-        debugger
         const url = '/account/sign-in';
         return axiosClient.post(url, params);
     },

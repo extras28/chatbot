@@ -38,20 +38,15 @@ function SignInScreen(props) {
             let inputPassword = params.password;
             params.password = Utils.sha256(inputPassword);
             try {
-                // const res = unwrapResult(await dispatch(thunkSignIn(params)));
-                // if (res) {
-                //     const displayName = UserHelper.getDisplayName(res.account);
-                //     ToastHelper.showSuccess(`Xin chào, ${displayName}`);
-                //     navigate('/dashboard');
-                // }
-                const res = await axios.post('https://group8be.herokuapp.com/api/v1/account/sign-in', {
-                    email: params.email,
-                    password: values.password
-                  })
-                  console.log(res);
+                const res = unwrapResult(await dispatch(thunkSignIn(params)));
+                if (res) {
+                    const displayName = UserHelper.getDisplayName(res.account);
+                    ToastHelper.showSuccess(`Xin chào, ${displayName}`);
+                    navigate('/dashboard');
+                }
             } catch (error) {
                 console.log(`${sTag} loggin error: ${error.message}`);
-                ToastHelper.showError('Đăng nhập không thành công');
+                // ToastHelper.showError('Đăng nhập không thành công');
             }
         },
         validationSchema: Yup.object({

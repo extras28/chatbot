@@ -39,7 +39,7 @@ function SignUpScreen(props) {
                 if (res) {
                     localStorage.setItem(PreferenceKeys.savedEmail, values.email);
                     localStorage.setItem(PreferenceKeys.savedPassword, /*values.password*/ '');
-                    ToastHelper.showSuccess('Đăng ký thành công, vui lòng vào email để kích hoạt tài khoản !!!');
+                    ToastHelper.showSuccess('Đăng ký tài khoản mới thành công');
                     navigate('/sign-in');
                 }
             } catch (err) {

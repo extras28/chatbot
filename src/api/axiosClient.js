@@ -44,13 +44,17 @@ axiosClient.interceptors.response.use((response) => {
     }
     if (response && response.data) {
         const data = response.data;
-        const { result, reason, detail } = data;
-        if (result === 'failed') {
-            if (reason) {
-                errorMessage = reason;
-            } else if (detail) {
-                errorMessage = detail;
-            }
+        // const { result, reason, detail } = data;
+        // if (result === 'failed') {
+        //     if (reason) {
+        //         errorMessage = reason;
+        //     } else if (detail) {
+        //         errorMessage = detail;
+        //     }
+        // }
+        const { result, message } = response.data;
+        if(result === 'failed'){
+          errorMessage = message
         }
     }
     if (errorMessage) {
