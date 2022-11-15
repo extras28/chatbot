@@ -1,11 +1,13 @@
 // Import reducers
+import authReducer from "./authSlice";
 
-
-const { configureStore } = require("@reduxjs/toolkit");
+const {
+  configureStore
+} = require("@reduxjs/toolkit");
 
 // root reducer
 const rootReducer = {
-
+  auth: authReducer,
 
 };
 

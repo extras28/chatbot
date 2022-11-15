@@ -12,6 +12,11 @@ import * as Yup from 'yup';
 import ToastHelper from "general/helpers/ToastHelper";
 import AppResource from "general/constants/AppResource";
 import { useNavigate } from "react-router-dom";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
+import { thunkSignIn } from "app/authSlice";
+import UserHelper from "general/helpers/UserHelper";
+import axios from "axios";
 SignInScreen.propTypes = {
 
 };
@@ -21,6 +26,7 @@ const sTag = '[SignInScreen]';
 function SignInScreen(props) {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const formik = useFormik({
         initialValues: {
@@ -32,22 +38,20 @@ function SignInScreen(props) {
             let inputPassword = params.password;
             params.password = Utils.sha256(inputPassword);
             try {
-                console.log(params);
-                ToastHelper.showSuccess('Đăng nhập thành công')
-                // const res = unwrapResult(await dispatch(thunkSignIn(params)));
-                // if (res) {
-                //     const displayName = UserHelper.getDisplayName(res.account);
-                //     ToastHelper.showSuccess(`Xin chào, ${displayName}`);
-                //     navigate(-1);
-                // }
+                const res = unwrapResult(await dispatch(thunkSignIn(params)));
+                if (res) {
+                    const displayName = UserHelper.getDisplayName(res.account);
+                    ToastHelper.showSuccess(`Xin chào, ${displayName}`);
+                    navigate('/dashboard');
+                }
             } catch (error) {
                 console.log(`${sTag} loggin error: ${error.message}`);
                 // ToastHelper.showError('Đăng nhập không thành công');
             }
         },
         validationSchema: Yup.object({
-            email: Yup.string().required('Bạn chưa nhập email').email('Email không hợp lệ'),
-            password: Yup.string().required('Bạn chưa nhập mật khẩu'),
+            email: Yup.string().trim().required('Bạn chưa nhập email').email('Email không hợp lệ'),
+            password: Yup.string().trim().required('Bạn chưa nhập mật khẩu'),
         }),
     });
 

@@ -186,7 +186,17 @@ const Utils = {
 
   openInCurrentTab: (url) => {
     window.open(url);
-  }
+  },
+
+  removeNullField: (object) => {
+    for (const key in object) {
+        const value = object[key];
+        if (value === 'Invalid date') {
+            delete object[key];
+        }
+    }
+    return object;
+}
 };
 
 export default Utils;

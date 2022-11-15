@@ -11,7 +11,11 @@ import * as Yup from 'yup';
 import ToastHelper from "general/helpers/ToastHelper";
 import Utils from "general/utils/Utils";
 import { useNavigate } from "react-router-dom";
+import authApi from "api/authApi";
+import PreferenceKeys from "general/constants/PreferenceKey";
 SignUpScreen.propTypes = {};
+
+const sTag = '[SignUpScreen]'
 
 function SignUpScreen(props) {
     const navigate = useNavigate();
@@ -27,13 +31,19 @@ function SignUpScreen(props) {
                 ...values
             };
             delete params?.confirmPassword;
-            params.password = Utils.sha256(params.password);
+            let hashPassword = Utils.sha256(params.password);
+            params.password = hashPassword;
+            console.log(`${sTag} on submit: ${JSON.stringify(params)}`);
             try {
-                console.log(params);
-                ToastHelper.showSuccess('Đăng ký thành công')
-            } catch (error) {
-                ToastHelper.showError('Đăng ký không thành công');
-                console.log(error);
+                const res = await authApi.signUp(params);
+                if (res) {
+                    localStorage.setItem(PreferenceKeys.savedEmail, values.email);
+                    localStorage.setItem(PreferenceKeys.savedPassword, /*values.password*/ '');
+                    ToastHelper.showSuccess('Đăng ký tài khoản mới thành công');
+                    navigate('/sign-in');
+                }
+            } catch (err) {
+                console.log(`${sTag} sign up account error: ${err.message}`);
             }
         },
         validationSchema: Yup.object({
