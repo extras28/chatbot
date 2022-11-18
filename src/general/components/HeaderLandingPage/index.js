@@ -1,9 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
-import logo from "../../../assets/images/icon.png";
 import avatar from "../../../assets/images/avatar.png";
 import "./style.scss";
+import UserHelper from "general/helpers/UserHelper";
 HeaderLandingPage.propTypes = {
     loggedIn: PropTypes.bool,
 };
@@ -13,24 +13,10 @@ HeaderLandingPage.defaultProps = {
 };
 
 function HeaderLandingPage(props) {
-    const { loggedIn } = props;
+    const loggedIn = UserHelper.checkAccessTokenValid();
     return (
-        <div className='HeaderLandingPage d-flex sticky-top justify-content-between align-items-center shadow-sm px-5 py-4 ps-5 bg-body rounded'>
-            <NavLink
-                to='/'
-                className='text-decoration-none text-black'
-            >
-                <div className='d-flex align-items-end fs-5 fw-normal '>
-                    <img
-                        className='me-3'
-                        src={logo}
-                        alt=''
-                    />
-                    <div className='d-none d-sm-flex'>
-                        Code<div className='fw-bolder'>Helper</div>
-                    </div>
-                </div>
-            </NavLink>
+        <div className='HeaderLandingPage d-flex sticky-top justify-content-end align-items-center shadow-sm px-5 py-4 ps-5 bg-body' style={{zIndex: '1000'}}>
+            
             {!loggedIn && (
                 <div>
                     {/* Screen >= 576px */}

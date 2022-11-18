@@ -5,25 +5,26 @@ import SideBar from "general/components/SideBar";
 import Argument from "general/components/Argument";
 import "./style.scss";
 import MiniProfile from "general/components/MiniProfile";
+import BaseLayout from "general/components/BaseLayout";
 
 Dashboard.propTypes = {};
 
 function Dashboard(props) {
     return (
-        <div className='Dashboard'>
-            <HeaderLandingPage loggedIn={false} />
-            <div className=''>
-                <SideBar loggedIn={false} />
-                <div className='Dashboard_Content pt-10 row m-0 flex-row-reverse px-0'>
-                    <div className='col-3'>
-                        <MiniProfile />
-                    </div>
-                    <div className='col-7'>
-                        <Argument />
-                    </div>
-                </div>
+        <BaseLayout>
+            <div>
+                <Argument />
+                <Argument />
+                <Argument />
+                <Argument />
+                <Argument />
+                <Argument />
+                <Argument />
+                <Argument />
+                <Argument />
+                <Argument />
             </div>
-        </div>
+        </BaseLayout>
     );
 }
 

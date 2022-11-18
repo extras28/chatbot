@@ -15,6 +15,7 @@ import SignUpScreen from "features/Auth/SignUpScreen";
 import LandingPage from "features/LandingPage";
 import Dashboard from "features/Dashboard";
 import CreateQuestionScreen from "features/CreateQuestionScreen";
+import GuestRoute from "general/components/AppRoutes/GuestRoute";
 // import Admin from "Admin";
 
 
@@ -92,18 +93,18 @@ function App() {
             <Route
               path="/sign-in"
               element={
-                // <GuestRoute>
+                <GuestRoute>
                   <SignInScreen />
-                // </GuestRoute>
+                </GuestRoute>
               }
             />
             {/* Sign up */}
             <Route
               path="/sign-up"
               element={
-                // <GuestRoute>
+                <GuestRoute>
                   <SignUpScreen />
-                // </GuestRoute>
+                </GuestRoute>
               }
             />
 

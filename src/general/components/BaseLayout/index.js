@@ -3,12 +3,18 @@ import PropTypes from 'prop-types';
 import HeaderLandingPage from '../HeaderLandingPage';
 import './style.scss';
 import AppResource from 'general/constants/AppResource';
+import SideBar from '../SideBar';
+import UserHelper from 'general/helpers/UserHelper';
+import MiniProfile from '../MiniProfile';
 
 BaseLayout.propTypes = {
     
 };
 
 function BaseLayout(props) {
+
+    const isAuth = UserHelper.checkAccessTokenValid();
+    const headerHeight = document.getElementsByClassName('HeaderLandingPage')[0]
 
     const PageUp = useRef();
     const handleScrollTop = () => {
@@ -22,15 +28,26 @@ function BaseLayout(props) {
         }
     };
     return (
-        <div className='min-vh-100 bg-white'>
-            {/* header */}
-            <HeaderLandingPage />
+        <div className='min-vh-100 bg-light d-flex' style={{flexFlow: 'row wrap'}}>
+            {/* side bar */}
+            <div ><SideBar /></div>
             
-            {/* Content */}
-            <div
-                className={`flex-grow-1 w-100 align-self-center d-flex flex-column justify-content-between`}
-            >
-                {props.children}
+            <div className='d-flex flex-column flex-grow-1' >
+                {/* header */}
+                <HeaderLandingPage />
+
+                <div>
+                    {/* Content */}
+                    <div
+                        className={`flex-grow-1 align-self-center d-flex flex-column justify-content-between m-8`}
+                    >
+                        {props.children}
+                    </div>
+
+                {/* mini profile */}
+                {isAuth && <MiniProfile />}
+                </div>
+
             </div>
             
             <div className="fixed-button">
