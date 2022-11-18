@@ -3,31 +3,53 @@ import PropTypes from "prop-types";
 import BaseSearchBar from "../Form/BaseSearchBar";
 import MenuItem from "../MenuItem";
 import "./style.scss";
+import UserHelper from "general/helpers/UserHelper";
+import { NavLink } from "react-bootstrap";
+import AppResource from "general/constants/AppResource";
 
 SideBar.propTypes = {
     className: PropTypes.string,
     loggedIn: PropTypes.bool,
+    headerHeight: PropTypes.string,
 };
 
 SideBar.defaultProps = {
     className: "",
     loggedIn: false,
+    headerHeight: '78',
 };
 
 function SideBar(props) {
-    const { className, loggedIn } = props;
+    const { className, headerHeight } = props;
+    const loggedIn = UserHelper.checkAccessTokenValid();
     let [showSearchBar, setShowshowSearchBar] = useState(false);
     let [selected, setSelected] = useState("questions");
     const handleShowSearchBar = () => {
         setShowshowSearchBar(!showSearchBar);
     };
+    
+
+    useEffect(()=>{
+        // console.log(headerHeight);
+    },[])
     return (
         <div
-            className={`SideBar d-inline-flex flex-column align-items-center bg-white min-vh-100 ${className}`}
-            style={{ position: "fixed" }}
+            className={`SideBar sticky-top top-0 d-inline-flex flex-column align-items-center bg-white min-vh-100 ${className}`}
+            // style={{ top: `${headerHeight}px` }}
         >
+            <NavLink
+                to='/'
+                className='text-decoration-none text-black w-100 mt-4'
+            >
+                <div className='d-flex w-100 flex-start align-items-center fs-5 fw-normal '>
+                    <i className="fab fa-forumbee fa-2x mr-2" style={{color: AppResource.colors.featureColor}}></i>
+                    <div className='d-none d-sm-flex'>
+                        Code<div className='fw-bolder'>Helper</div>
+                    </div>
+                </div>
+            </NavLink>
             <div className='d-inline-flex flex-column align-items-center'>
-                <div className='SearchBar d-none d-lg-block mx-5 mb-10 pt-10'>
+                <div className='SearchBar d-none d-lg-block mx-5 mb-10'>
                     <BaseSearchBar name="searchBarDashboardlg" placeholder='Search...' />
                 </div>
                 <div
@@ -38,7 +60,7 @@ function SideBar(props) {
                     {showSearchBar && <i className='fas fa-times'></i>}
                 </div>
                 {showSearchBar && (
-                    <div className='SearchPopover d-block d-lg-none'>
+                    <div className='SearchPopover d-block d-lg-none mt-20'>
                         <BaseSearchBar name="searchBarDashboard" placeholder='Search...' />
                     </div>
                 )}
