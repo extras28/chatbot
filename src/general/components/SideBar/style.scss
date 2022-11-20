@@ -1,29 +1,43 @@
 .SideBar {
+    background-color: #f48023;
     transition: ease 0.2s;
     box-sizing: border-box;
     // justify-content: space-between;
-}
-.SearchPopover {
-    position: absolute;
-    top: 0;
-    left: 3.9rem;
-    min-width: calc(100vw - 4rem);
-}
-.IconFooter {
-    margin-top: 0.5rem;
-    margin-bottom: 7rem;
     i {
-        font-size: 1.5rem;
-        color: #f48023;
-        padding: 0.5rem 1rem 0.5rem;
+      color: #fff;
     }
-}
-.SearchButton {
+  }
+  .SearchPopover {
+    position: absolute;
+    left: 5.7rem;
+    min-width: calc(100vw - 7rem);
+  }
+  .IconFooter {
+    i {
+      font-size: 1.5rem;
+      color: #fff;
+      padding: 0.5rem 1rem 0.5rem;
+    }
+  }
+  .SearchButton {
     transition: ease 0.2s;
     cursor: pointer;
     &:hover {
-        background-color: #fcf4ec;
+      background-color: #e0751e;
     }
-}
-@media only screen and (max-width: 768px) {
-}
+  }
+  .ButtonShowSideBar {
+    position: absolute;
+    border-radius: 50%;
+    font-size: 2rem;
+    right: -12px;
+    background-color: #f48023;
+    box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  @media only screen and (max-width: 992px) {
+    .SearchPopover {
+      left: 5.2rem;
+      min-width: calc(100vw - 6.5rem);
+    }
+  }

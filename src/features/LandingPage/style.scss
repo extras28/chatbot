@@ -1,0 +1,140 @@
+.IntroductionLeft {
+    position: relative;
+    img {
+        position: absolute;
+        bottom: -1rem;
+        left:24rem;
+        width: 16rem;
+        height: auto;
+    }
+    p {
+        color: #5a7184;
+    }
+    button {
+        width: fit-content;
+        padding: 15px 30px;
+        margin-top: 2rem;
+    }
+    i {
+        color: #04cb00;
+        margin-right: 0.5rem;
+    }
+}
+
+.TextIntroduction {
+    min-width: 40rem;
+    text-align: center;
+    font-size: 4rem;
+    font-weight: 750;
+    color: #183b56;
+}
+.IconWrapper {
+    display: flex;
+    height: 5rem;
+    width: 5rem;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0px 26px 40px rgba(0, 0, 0, 0.1);
+}
+
+.SlideText1,
+.SlideText2 {
+    clear: both;
+    width: 35rem;
+    height: 0px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 28px;
+    color: #5a7184;
+    margin-left: 4rem;
+    overflow: hidden;
+    text-align: start;
+    transition: all 0.5s ease;
+}
+.ArrowDown1,
+.ArrowUp1,
+.ArrowDown2,
+.ArrowUp2 {
+    cursor: pointer;
+    color: #00b8d9;
+}
+
+#LabelDrop1 {
+    display: flex;
+    align-items: center;
+    width: 38rem;
+    padding: 1rem 1.5rem;
+    border: 1px solid #eceef2;
+    border-radius: 12px;
+    transition: all 0.5s ease;
+    .ArrowUp1 {
+        display: none;
+    }
+    &:hover {
+        background-color: #f6fbff;
+        .ArrowDown1 {
+            display: none;
+        }
+        .ArrowUp1 {
+            display: block;
+        }
+    }
+}
+
+#LabelDrop2 {
+    display: flex;
+    align-items: center;
+    width: 38rem;
+    padding: 1rem 1.5rem;
+    border: 1px solid #eceef2;
+    border-radius: 12px;
+    transition: all 0.5s ease;
+    .ArrowUp2 {
+        display: none;
+    }
+    &:hover {
+        background-color: #f6fbff;
+        .ArrowDown2 {
+            display: none;
+        }
+        .ArrowUp2 {
+            display: block;
+        }
+    }
+}
+
+#touch1,
+#touch2 {
+    position: absolute;
+    opacity: 0;
+    height: 0px;
+}
+
+#touch1:hover ~ .SlideText1,
+#touch1:checked ~ .SlideText1 {
+    height: 60px;
+}
+#touch1:checked ~ #LabelDrop1 {
+    background-color: #f6fbff;
+    .ArrowDown1 {
+        display: none;
+    }
+    .ArrowUp1 {
+        display: block;
+    }
+}
+#touch2:hover ~ .SlideText2,
+#touch2:checked ~ .SlideText2 {
+    height: 60px;
+}
+#touch2:checked ~ #LabelDrop2 {
+    background-color: #f6fbff;
+    .ArrowDown2 {
+        display: none;
+    }
+    .ArrowUp2 {
+        display: block;
+    }
+}
