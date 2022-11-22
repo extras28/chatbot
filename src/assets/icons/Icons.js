@@ -1,4 +1,4 @@
-export const HtmlIcon = ({width = '3.2rem', height = '3.3rem', className }) => (
+export const HtmlIcon = ({width = '3.2rem', height = '3.2rem', className }) => (
     <svg 
     className={className}
     width={width}
@@ -11,7 +11,7 @@ export const HtmlIcon = ({width = '3.2rem', height = '3.3rem', className }) => (
     </svg>
 );
 
-export const CssIcon = ({width = '3.2rem', height = '3.3rem', className }) => (
+export const CssIcon = ({width = '3.2rem', height = '3.2rem', className }) => (
     <svg 
     className={className}
     width={width}
@@ -43,7 +43,7 @@ export const JavascriptIcon = ({width = '3.2rem', height = '3.2rem', className }
     </svg>
 );
 
-export const JavaIcon = ({width = '2.4rem', height = '3.2rem', className }) => (
+export const JavaIcon = ({width = '3.2rem', height = '3.2rem', className }) => (
     <svg 
     className={className}
     width={width}

@@ -20,7 +20,7 @@ function HeaderLandingPage(props) {
             {!loggedIn && (
                 <div>
                     {/* Screen >= 576px */}
-                    <div className='d-none d-sm-block'>
+                    <div className='d-none d-md-block'>
                         <NavLink to='/sign-up'>
                             <button
                                 type='button'
@@ -40,7 +40,7 @@ function HeaderLandingPage(props) {
                         </NavLink>
                     </div>
                     {/* Screen < 576px */}
-                    <div className='d-flex d-sm-none'>
+                    <div className='d-flex d-md-none'>
                         <input
                             type='checkbox'
                             id='dropdownMenu-notLoggedIn'
