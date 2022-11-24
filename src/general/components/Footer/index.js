@@ -8,7 +8,7 @@ FooterDashboard.propTypes = {
 function FooterDashboard(props) {
     return (
         <div>
-            footer landingpage
+            Footer
         </div>
     );
 }
