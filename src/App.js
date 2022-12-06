@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignInScreen from "features/Auth/SignInScreen";
 import SignUpScreen from "features/Auth/SignUpScreen";
+import Profile from "features/Profile";
 import LandingPage from "features/LandingPage";
 import Dashboard from "features/Dashboard";
 import CreateQuestionScreen from "features/CreateQuestionScreen";
@@ -76,6 +77,16 @@ function App() {
                 // ) : (
                 //   <HomeScreen />
                 // ) */}
+              }
+            />
+
+            {/* Profle */}
+            <Route
+              path="Profile/*"
+              element={
+                // <PrivateRoute>
+                  <Profile />
+                // </PrivateRou>
               }
             />
 
