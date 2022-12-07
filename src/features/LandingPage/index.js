@@ -43,14 +43,14 @@ LandingPage.propTypes = {};
 function LandingPage(props) {
     return (
         <div className="min-vh-100 min-vw-90">
-            <HeaderLandingPage />
+            <HeaderLandingPage logo={true} searchBar={false} menu={true} buttonAddQuestion={false}/>
             <div className="bg-white">
                 {/* Screen 1 */}
-                <div className="Screen1">
+                <div className="Screen1" id="home">
                     <div className="py-20">
                         <div className="h-100 container-xl">
                             <div className="row">
-                                <div className="col-md-6 d-flex flex-column align-items-center align-items-md-start p-10 p-lg-0">
+                                <div className="col-md-6 d-flex flex-column align-items-center align-items-md-start p-10">
                                     <Fade left>
                                         <h1>
                                             <span>Nền tảng trao đổi </span>
@@ -104,7 +104,7 @@ function LandingPage(props) {
                 </div>
 
                 {/* Screen 2 */}
-                <div className="Screen2 d-flex flex-column align-items-center">
+                <div className="Screen2 d-flex flex-column align-items-center" id="introduction">
                     <div
                         className="d-flex flex-column align-items-center"
                         style={{
@@ -793,6 +793,7 @@ function LandingPage(props) {
                         width: "95%",
                         borderRadius: "2rem",
                     }}
+                    id="contact"
                 >
                     <div className="h-100 container-xl">
                         <div className="row d-flex flex-row-reverse">

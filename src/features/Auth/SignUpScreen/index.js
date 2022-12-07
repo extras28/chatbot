@@ -61,7 +61,7 @@ function SignUpScreen(props) {
     }
     return (
         <div className="SignUpScreen min-vh-100">
-            <HeaderLandingPage />
+            <HeaderLandingPage logo={true} searchBar={false} menu={true} buttonSign={false} buttonAddQuestion={false}/>
             <AuthContent 
                 leftTitle="Tham gia vào cộng đồng CodeHelper"
                 leftDescription="Học hỏi và thu nạp nhiều kiến thức hơn với cộng đồng của những lập trình viên vừa có tâm vừa có tầm"
