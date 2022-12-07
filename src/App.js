@@ -16,6 +16,7 @@ import LandingPage from "features/LandingPage";
 import Dashboard from "features/Dashboard";
 import CreateQuestionScreen from "features/CreateQuestionScreen";
 import GuestRoute from "general/components/AppRoutes/GuestRoute";
+import PrivateRoute from "general/components/AppRoutes/PrivateRoute";
 // import Admin from "Admin";
 
 
@@ -72,7 +73,9 @@ function App() {
               element={
                 // auth ? (
                 //   <PrivateRoute>
-                    <Dashboard />
+                    // <PrivateRoute>
+                      <Dashboard />
+                    // </PrivateRoute>
                 //   {/* </PrivateRoute>
                 // ) : (
                 //   <HomeScreen />
