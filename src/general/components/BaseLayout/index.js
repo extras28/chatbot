@@ -34,7 +34,7 @@ function BaseLayout(props) {
             
             <div className='d-flex flex-column flex-grow-1' >
                 {/* header */}
-                <HeaderLandingPage />
+                <HeaderLandingPage logo={false}/>
 
                 <div>
                     {/* Content */}

@@ -12,10 +12,12 @@ import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignInScreen from "features/Auth/SignInScreen";
 import SignUpScreen from "features/Auth/SignUpScreen";
+import Profile from "features/Profile";
 import LandingPage from "features/LandingPage";
 import Dashboard from "features/Dashboard";
 import CreateQuestionScreen from "features/CreateQuestionScreen";
 import GuestRoute from "general/components/AppRoutes/GuestRoute";
+import PrivateRoute from "general/components/AppRoutes/PrivateRoute";
 // import Admin from "Admin";
 
 
@@ -72,11 +74,23 @@ function App() {
               element={
                 // auth ? (
                 //   <PrivateRoute>
-                    <Dashboard />
+                    // <PrivateRoute>
+                      <Dashboard />
+                    // </PrivateRoute>
                 //   {/* </PrivateRoute>
                 // ) : (
                 //   <HomeScreen />
                 // ) */}
+              }
+            />
+
+            {/* Profle */}
+            <Route
+              path="Profile/*"
+              element={
+                // <PrivateRoute>
+                  <Profile />
+                // </PrivateRou>
               }
             />
 
@@ -85,7 +99,7 @@ function App() {
               path="account/*"
               element={
                 <PrivateRoute>
-                  <Account />
+                  <Profile />
                 </PrivateRoute>
               }
             /> */}

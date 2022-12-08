@@ -4,7 +4,7 @@ import BaseSearchBar from "../Form/BaseSearchBar";
 import MenuItem from "../MenuItem";
 import "./style.scss";
 import UserHelper from "general/helpers/UserHelper";
-import { NavLink } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 
 SideBar.propTypes = {
   className: PropTypes.string,
@@ -21,12 +21,8 @@ SideBar.defaultProps = {
 function SideBar(props) {
   const { className, headerHeight } = props;
   const loggedIn = UserHelper.checkAccessTokenValid();
-  let [showSearchBar, setShowSearchBar] = useState(false);
   let [showSideBar, setShowSideBar] = useState(true);
   let [selected, setSelected] = useState("questions");
-  const handleShowSearchBar = () => {
-    setShowSearchBar(!showSearchBar);
-  };
   const handleShowSideBar = () => {
     setShowSideBar(!showSideBar);
   };
@@ -39,22 +35,21 @@ function SideBar(props) {
       className={`SideBar sticky-top top-0 d-inline-flex flex-column align-items-center min-vh-100 ${className}`}
       // style={{ top: `${headerHeight}px` }}
     >
-      <NavLink
-        to="/"
+      <div
         className="d-flex text-decoration-none align-items-center w-100"
         style={{
           color: "#fff",
           height: `${loggedIn ? 6 : 5}rem`,
         }}
       >
-        <div className="d-flex w-100 align-items-center fs-5 fw-normal ">
-          <i className="fab fa-forumbee d-flex fa-2x"></i>
+        <NavLink to="/" className="d-flex w-100 mx-4 align-items-center fs-5 fw-normal ">
+          <i className="fab fa-forumbee d-flex fa-2x ms-lg-2"></i>
           {showSideBar && (
-            <div className="d-none d-lg-flex ms-2">
+            <div className="d-none d-lg-flex ms-2 text-white mr-lg-25">
               Code<div className="fw-bolder">Helper</div>
             </div>
           )}
-        </div>
+        </NavLink>
         {showSideBar && (
           <i
             className="ButtonShowSideBar fas fa-caret-circle-left d-none d-lg-flex"
@@ -64,9 +59,6 @@ function SideBar(props) {
         {!showSideBar && (
           <div
             className="ButtonShowSideBar d-none d-lg-flex"
-            onClick={() => {
-              setShowSearchBar(false);
-            }}
           >
             <i
               className="fas fa-caret-circle-right"
@@ -75,60 +67,10 @@ function SideBar(props) {
             ></i>
           </div>
         )}
-      </NavLink>
-      <div className="d-block d-lg-none w-100 border border-bottom border-secondary"></div>
-      {!showSideBar && (
-        <div className="d-none d-lg-block w-100 border border-bottom border-secondary"></div>
-      )}
+      </div>
       <div className="d-inline-flex flex-column align-items-center w-100">
-        {/* ===== SearchBar when SideBar is showed ===== */}
-        {showSideBar && (
-          <div className="SearchBar d-none d-lg-block mx-5 mb-10 mt-lg-10">
-            <BaseSearchBar
-              name="searchBarDashboardlg"
-              placeholder="Search..."
-            />
-          </div>
-        )}
-        {/* ============================================ */}
-        <div
-          className="SearchButton d-flex d-lg-none justify-content-center w-100 p-3"
-          onClick={handleShowSearchBar}
-        >
-          {!showSearchBar && <i className="fas fa-search"></i>}
-          {showSearchBar && <i className="fas fa-times"></i>}
-        </div>
-        {!showSideBar && (
-          <div
-            className="SearchButton d-none d-lg-flex justify-content-center w-100 p-3"
-            onClick={handleShowSearchBar}
-          >
-            {!showSearchBar && <i className="fas fa-search"></i>}
-            {showSearchBar && <i className="fas fa-times"></i>}
-          </div>
-        )}
-        {/* ===== SearchBar when SideBar is not showed or Screen is small ===== */}
-        {showSearchBar && !showSideBar && (
-          <div
-            className="SearchPopover"
-            style={{
-              top: `${loggedIn ? 6.1 : 5.1}rem`,
-            }}
-          >
-            <BaseSearchBar name="searchBarDashboard" placeholder="Search..." />
-          </div>
-        )}
-        {/* =================================================================== */}
-        {showSideBar && (
-          <div className="MenuTitle d-none d-lg-block fw-bolder text-white opacity-80 col-9 mb-2">
-            DANH SÁCH
-          </div>
-        )}
-        <div className="d-block d-lg-none w-100 border border-bottom border-secondary mb-5"></div>
-        {!showSideBar && (
-          <div className="d-none d-lg-block w-100 border border-bottom border-secondary mb-5"></div>
-        )}
-        <div className="MenuSideBar w-100">
+        
+        <div className="MenuSideBar w-100 mt-5">
           <MenuItem
             className={selected === "questions" && "MenuItem_active"}
             linkTo=""
@@ -138,12 +80,12 @@ function SideBar(props) {
             onClick={() => setSelected("questions")}
           />
           <MenuItem
-            className={selected === "blogs" && "MenuItem_active"}
+            className={selected === "users" && "MenuItem_active"}
             linkTo=""
-            text={showSideBar ? "Bài viết" : ""}
-            title="Bài viết"
-            icon="far fa-scroll"
-            onClick={() => setSelected("blogs")}
+            text={showSideBar ? "Người dùng" : ""}
+            title="Người dùng"
+            icon="far fa-users"
+            onClick={() => setSelected("users")}
           />
           <MenuItem
             className={selected === "tags" && "MenuItem_active"}
@@ -189,14 +131,6 @@ function SideBar(props) {
                 title="Câu trả lời của bạn"
                 icon="far fa-comment"
                 onClick={() => setSelected("my-answers")}
-              />
-              <MenuItem
-                className={selected === "my-blogs" && "MenuItem_active"}
-                linkTo=""
-                text={showSideBar ? "Bài viết của bạn" : ""}
-                title="Bài viết của bạn"
-                icon="far fa-scroll"
-                onClick={() => setSelected("my-blogs")}
               />
               <MenuItem
                 className={selected === "my-likes" && "MenuItem_active"}

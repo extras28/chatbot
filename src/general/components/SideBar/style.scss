@@ -7,11 +7,6 @@
       color: #fff;
     }
   }
-  .SearchPopover {
-    position: absolute;
-    left: 5.7rem;
-    min-width: calc(100vw - 7rem);
-  }
   .IconFooter {
     i {
       font-size: 1.5rem;
@@ -19,25 +14,17 @@
       padding: 0.5rem 1rem 0.5rem;
     }
   }
-  .SearchButton {
-    transition: ease 0.2s;
-    cursor: pointer;
-    &:hover {
-      background-color: #e0751e;
-    }
-  }
+
   .ButtonShowSideBar {
     position: absolute;
+    cursor: pointer;
     border-radius: 50%;
     font-size: 2rem;
     right: -12px;
     background-color: #f48023;
     box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.3);
-  }
-  
-  @media only screen and (max-width: 992px) {
-    .SearchPopover {
-      left: 5.2rem;
-      min-width: calc(100vw - 6.5rem);
+    transition: all linear 0.2s;
+    &:hover{
+      transform: translateY(-2px);
     }
   }
