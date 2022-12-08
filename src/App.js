@@ -99,7 +99,7 @@ function App() {
               path="account/*"
               element={
                 <PrivateRoute>
-                  <Account />
+                  <Profile />
                 </PrivateRoute>
               }
             /> */}
