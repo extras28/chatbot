@@ -1,29 +1,30 @@
 .SideBar {
+    background-color: #f48023;
     transition: ease 0.2s;
     box-sizing: border-box;
-    justify-content: space-between;
-}
-.SearchPopover {
-    position: absolute;
-    top: 0;
-    left: 3.9rem;
-    min-width: calc(100vw - 4rem);
-}
-.IconFooter {
-    margin-top: 0.5rem;
-    margin-bottom: 7rem;
+    // justify-content: space-between;
     i {
-        font-size: 1.5rem;
-        color: #f48023;
-        padding: 0.5rem 1rem 0.5rem;
+      color: #fff;
     }
-}
-.SearchButton {
-    transition: ease 0.2s;
+  }
+  .IconFooter {
+    i {
+      font-size: 1.5rem;
+      color: #fff;
+      padding: 0.5rem 1rem 0.5rem;
+    }
+  }
+
+  .ButtonShowSideBar {
+    position: absolute;
     cursor: pointer;
-    &:hover {
-        background-color: #fcf4ec;
+    border-radius: 50%;
+    font-size: 2rem;
+    right: -12px;
+    background-color: #f48023;
+    box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.3);
+    transition: all linear 0.2s;
+    &:hover{
+      transform: translateY(-2px);
     }
-}
-@media only screen and (max-width: 768px) {
-}
+  }

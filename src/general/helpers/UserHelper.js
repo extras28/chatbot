@@ -14,11 +14,12 @@ const UserHelper = {
     // Check access token valid
     checkAccessTokenValid: () => {
         const accessToken = localStorage.getItem(PreferenceKeys.accessToken);
-        const accessTokenExpired = localStorage.getItem(PreferenceKeys.accessTokenExpired);
-        if (accessToken && accessTokenExpired) {
-            const momentExpired = moment.utc(accessTokenExpired);
-            const momentNow = moment.utc();
-            return momentExpired.isAfter(momentNow);
+        // const accessTokenExpired = localStorage.getItem(PreferenceKeys.accessTokenExpired);
+        if (accessToken ) {
+            // const momentExpired = moment.utc(accessTokenExpired);
+            // const momentNow = moment.utc();
+            // return momentExpired.isAfter(momentNow);
+            return true;
         }
 
         return false;

@@ -1,3 +1,16 @@
+.HeaderLandingPageNav {
+    .HeaderLandingPageNavItem {
+        cursor: pointer;
+        color: #000;
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin-right: 1.3rem;
+        &:hover {
+            color: #f48023;
+        }
+    }
+}
+
 .bell {
     position: relative;
     font-size: 1.7rem;
@@ -37,6 +50,8 @@
 }
 
 .show-option {
+    height: fit-content;
+    margin: auto 0;
     background-color: #fff;
     border: none;
     border-radius: 50%;
@@ -153,7 +168,6 @@ input[type="checkbox"] {
                 text-decoration: none;
                 font-size: 12px;
                 font-weight: 600;
-               
             }
             &:hover {
                 background-color: #f3f6f9;
@@ -162,10 +176,85 @@ input[type="checkbox"] {
     }
 }
 
-.notificationNumber{
+.notificationNumber {
     padding: 0.1rem 0.5rem;
     text-align: center;
     font-size: 0.8rem;
     background-color: #db342e;
     font-weight: 600;
+}
+
+.dropdownMenuLandingPage {
+    float: left;
+    overflow: hidden;
+    .btn_dropdown {
+        border: none;
+        border-radius: 0.5rem;
+        outline: none;
+        color: #b5b5c3;
+        background-color: inherit;
+        margin: 0 1rem;
+        padding: 0.3rem 1rem 0.5rem;
+        i {
+            font-size: 1.5rem;
+        }
+    }
+    .dropdownMenuDetail {
+        display: none;
+        position: absolute;
+        right: 0;
+        background-color: #ffffff;
+        min-width: 200px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        a {
+            float: none;
+            display: block;
+            padding: 1rem 2rem;
+            color: #8e8d91;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            &:hover {
+                background-color: #f3f6f9;
+                color: #f48023;
+            }
+        }
+    }
+}
+
+.dropdownMenuLandingPage:hover {
+    .btn_dropdown {
+        background-color: #ededed;
+        i {
+            color: #f48023;
+        }
+    }
+    .dropdownMenuDetail {
+        display: block;
+    }
+}
+
+.SearchButton {
+    button {
+        border: none;
+        outline: none;
+        color: #b5b5c3;
+        background-color: inherit;
+        padding: 0.3rem 1rem 0.3rem;
+        i {
+            font-size: 1.5rem;
+        }
+    }
+    :hover{
+            i {
+                color: #f48023;
+            }
+        }
+}
+.SearchPopover {
+    position: absolute;
+    top: 4.8rem;
+    left: 0.1rem;
+    min-width: calc(100vw - 6.5rem);
 }

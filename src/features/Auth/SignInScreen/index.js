@@ -62,7 +62,7 @@ function SignInScreen(props) {
     return (
         <div className='SignInScreen min-vh-100 bg-light'>
             {/* Header */}
-            <HeaderLandingPage />
+            <HeaderLandingPage logo={true} searchBar={false} menu={true} buttonSign={false} buttonAddQuestion={false}/>
             <AuthContent 
                 leftTitle="CodeHelper"
                 leftDescription="Hơn 15000 câu hỏi đang chờ đợi sự trợ giúp của bạn"

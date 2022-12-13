@@ -1,29 +1,128 @@
 import React from "react";
 import PropTypes from "prop-types";
-import HeaderLandingPage from "general/components/HeaderLandingPage";
-import SideBar from "general/components/SideBar";
-import Argument from "general/components/Argument";
+import SummaryQuestion from "general/components/SummaryQuestion";
 import "./style.scss";
 import MiniProfile from "general/components/MiniProfile";
+import BaseLayout from "general/components/BaseLayout";
 
 Dashboard.propTypes = {};
 
 function Dashboard(props) {
     return (
-        <div className='Dashboard'>
-            <HeaderLandingPage loggedIn={false} />
-            <div className=''>
-                <SideBar loggedIn={false} />
-                <div className='Dashboard_Content pt-10 row m-0 flex-row-reverse px-0'>
-                    <div className='col-3'>
-                        <MiniProfile />
-                    </div>
-                    <div className='col-7'>
-                        <Argument />
-                    </div>
-                </div>
+        <BaseLayout>
+            <div>
+                <SummaryQuestion 
+                    avatar="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
+                    userName= "Golanginya" 
+                    createAt= "12 November 2020 19:35" 
+                    titleQuestion= "How to patch KDE on FreeBSD?" 
+                    tags = {["C", "PHP", "Javascript"]}
+                    comments= "15" 
+                    likes= "100" 
+                    dislikes= "4" 
+                />
+                <SummaryQuestion 
+                    avatar="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
+                    userName= "Golanginya" 
+                    createAt= "12 November 2020 19:35" 
+                    titleQuestion= "How to patch KDE on FreeBSD?" 
+                    tags = {["C", "PHP", "Javascript"]}
+                    comments= "15" 
+                    likes= "100" 
+                    dislikes= "4" 
+                />
+                <SummaryQuestion 
+                    avatar="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
+                    userName= "Golanginya" 
+                    createAt= "12 November 2020 19:35" 
+                    titleQuestion= "How to patch KDE on FreeBSD?" 
+                    tags = {["C", "PHP", "Javascript"]}
+                    comments= "15" 
+                    likes= "100" 
+                    dislikes= "4" 
+                />
+                <SummaryQuestion 
+                    avatar="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
+                    userName= "Golanginya" 
+                    createAt= "12 November 2020 19:35" 
+                    titleQuestion= "How to patch KDE on FreeBSD?" 
+                    tags = {["C", "PHP", "Javascript"]}
+                    comments= "15" 
+                    likes= "100" 
+                    dislikes= "4" 
+                />
+                <SummaryQuestion 
+                    avatar="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
+                    userName= "Golanginya" 
+                    createAt= "12 November 2020 19:35" 
+                    titleQuestion= "How to patch KDE on FreeBSD?" 
+                    tags = {["C", "PHP", "Javascript"]}
+                    comments= "15" 
+                    likes= "100" 
+                    dislikes= "4" 
+                />
+                <SummaryQuestion 
+                    avatar="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
+                    userName= "Golanginya" 
+                    createAt= "12 November 2020 19:35" 
+                    titleQuestion= "How to patch KDE on FreeBSD?" 
+                    tags = {["C", "PHP", "Javascript"]}
+                    comments= "15" 
+                    likes= "100" 
+                    dislikes= "4" 
+                />
+                <SummaryQuestion 
+                    avatar="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
+                    userName= "Golanginya" 
+                    createAt= "12 November 2020 19:35" 
+                    titleQuestion= "How to patch KDE on FreeBSD?" 
+                    tags = {["C", "PHP", "Javascript"]}
+                    comments= "15" 
+                    likes= "100" 
+                    dislikes= "4" 
+                />
+                <SummaryQuestion 
+                    avatar="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
+                    userName= "Golanginya" 
+                    createAt= "12 November 2020 19:35" 
+                    titleQuestion= "How to patch KDE on FreeBSD?" 
+                    tags = {["C", "PHP", "Javascript"]}
+                    comments= "15" 
+                    likes= "100" 
+                    dislikes= "4" 
+                />
+                <SummaryQuestion 
+                    avatar="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
+                    userName= "Golanginya" 
+                    createAt= "12 November 2020 19:35" 
+                    titleQuestion= "How to patch KDE on FreeBSD?" 
+                    tags = {["C", "PHP", "Javascript"]}
+                    comments= "15" 
+                    likes= "100" 
+                    dislikes= "4" 
+                />
+                <SummaryQuestion 
+                    avatar="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
+                    userName= "Golanginya" 
+                    createAt= "12 November 2020 19:35" 
+                    titleQuestion= "How to patch KDE on FreeBSD?" 
+                    tags = {["C", "PHP", "Javascript"]}
+                    comments= "15" 
+                    likes= "100" 
+                    dislikes= "4" 
+                />
+                <SummaryQuestion 
+                    avatar="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
+                    userName= "Golanginya" 
+                    createAt= "12 November 2020 19:35" 
+                    titleQuestion= "How to patch KDE on FreeBSD?" 
+                    tags = {["C", "PHP", "Javascript"]}
+                    comments= "15" 
+                    likes= "100" 
+                    dislikes= "4" 
+                />
             </div>
-        </div>
+        </BaseLayout>
     );
 }
 
