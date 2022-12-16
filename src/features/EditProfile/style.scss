@@ -1,0 +1,161 @@
+img {
+    min-width: 80px;
+    min-height: 80px;
+    max-width: 120px;
+    max-height: 120px;
+}
+
+.bg-light-important {
+    background-color: white!important;
+    font-weight: 400;
+    font-size: 12px;
+    border-radius: 4px;
+    box-shadow: 1px #545151;
+}
+
+.view-header-img {
+    width: 100%;
+}
+
+.view-header-link {
+    display: block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background-color: #ececec;
+    margin-right: 8px;
+    margin-top: 8px;
+    border-radius: 4px;
+}
+
+.view-header-link i {
+    font-size: 18px;
+    color: #545151;
+    line-height: 30px;
+    font-weight: 600;
+}
+
+.view-header-link:hover {
+    background-color: rgb(204, 224, 247);
+}
+
+.view-header-link:hover i{
+    color: rgb(11, 120, 246);
+}
+
+
+.view-contact-link {
+    font-weight: 500;
+    color: #B5B5C3;
+}
+
+.view-contact-icon {
+    display: block;
+    width: 18px;
+    text-align: center;
+    margin-bottom: 6px;
+    margin-right: 8px;
+}
+
+.avatar-file-input {
+    display: none;
+    position: absolute;
+    top: 0;
+}
+
+.avatar-file {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.avatar-file-input--icon {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    display: block;
+    text-align: center;
+    border-radius: 50%;
+    background-color: rgb(243, 240, 240);
+    top: -10px;
+    right: -2px;
+    cursor: pointer;
+}
+
+.avatar-file-input--icon i {
+    line-height: 24px;
+    color: black;
+    font-size: 12px;
+}
+
+.avatar-delete {
+    position: relative;
+}
+.avatar-delete-btn {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    display: block;
+    text-align: center;
+    border-radius: 50%;
+    background-color: rgb(243, 240, 240);
+    top: -16px;
+    right: -15px;
+    border: none;
+}
+.avatar-delete-btn i {
+    color: black;
+    line-height: 24px;
+
+}
+
+.edit-input {
+    background-color: #F3F6F9;
+    color: #3F4254;
+    padding: 10px 17px;
+    border: none;
+    border-radius: 4px;
+}
+
+.label-input {
+    display: flex;
+    justify-content: end;
+    line-height: 38px;
+}
+
+.edit-input:focus {
+    outline: none;
+    background-color: #EBEDF3;
+}
+
+.edit-input-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.far.fa-at.edit-input-icon {
+    top: 27%;
+    width: auto;
+}
+
+@media (max-width: 576px) {
+    .col-sm-0 {
+        display: none;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
+    .col-sm-0 {
+        display: none;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    .col-md-0 {
+        display: none;
+    }
+}
+ 
+
