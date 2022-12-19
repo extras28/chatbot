@@ -36,6 +36,23 @@ function SummaryQuestion(props) {
         likes,
         dislikes,
     } = props;
+    const convertTime = (time) => {
+        const timeArray = time.split(/\D/);
+        const month =
+            (timeArray[1] === "01" && "January") ||
+            (timeArray[1] === "02" && "February") ||
+            (timeArray[1] === "03" && "March") ||
+            (timeArray[1] === "04" && "April") ||
+            (timeArray[1] === "05" && "May") ||
+            (timeArray[1] === "06" && "June") ||
+            (timeArray[1] === "07" && "July") ||
+            (timeArray[1] === "08" && "August") ||
+            (timeArray[1] === "09" && "September") ||
+            (timeArray[1] === "10" && "October") ||
+            (timeArray[1] === "11" && "November") ||
+            (timeArray[1] === "12" && "December");
+        return `${timeArray[2]} ${month} ${timeArray[0]} ${timeArray[3]}:${timeArray[4]}`;
+    };
     return (
         <div className="my-5">
             <div className="comment p-5 container-sm bg-body shadow-sm rounded">
@@ -44,8 +61,10 @@ function SummaryQuestion(props) {
                         <img className="header-avatar" src={avatar} alt="" />
                     </div>
                     <div className="flex-grow-1 mx-2">
-                        <p className="fw-bold fs-5 my-0">@{userName}</p>
-                        <p className="fw-normal fs-6">{createAt}</p>
+                        <p className="fw-bold fs-5 my-0">{userName}</p>
+                        <p className="fw-normal fs-6">
+                            {convertTime(createAt)}
+                        </p>
                     </div>
                 </div>
                 <div className="content">

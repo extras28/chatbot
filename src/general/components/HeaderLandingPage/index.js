@@ -5,6 +5,9 @@ import BaseSearchBar from "../Form/BaseSearchBar";
 import avatar from "../../../assets/images/avatar.png";
 import "./style.scss";
 import UserHelper from "general/helpers/UserHelper";
+import { thunkSignOut } from "app/authSlice";
+import { useDispatch } from "react-redux";
+
 HeaderLandingPage.propTypes = {
     loggedIn: PropTypes.bool,
     searchBar: PropTypes.bool,
@@ -25,11 +28,24 @@ HeaderLandingPage.defaultProps = {
 
 function HeaderLandingPage(props) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const loggedIn = UserHelper.checkAccessTokenValid();
     const { searchBar, logo, menu, buttonAddQuestion, buttonSign } = props;
     let [showSearchBar, setShowSearchBar] = useState(false);
+    let [showPopupLogOut, setShowPopupLogOut] = useState(false);
+
+    //Logout
+    const handleLogOut = async () => {
+        const result = await dispatch(thunkSignOut());
+        setShowPopupLogOut(!showPopupLogOut);
+        navigate("/");
+    };
+
     const handleShowSearchBar = () => {
         setShowSearchBar(!showSearchBar);
+    };
+    const handleShowPopupLogOut = () => {
+        setShowPopupLogOut(!showPopupLogOut);
     };
 
     function handleNavigate(url) {
@@ -39,7 +55,7 @@ function HeaderLandingPage(props) {
     return (
         <div
             className="HeaderLandingPage d-flex sticky-top justify-content-between align-items-center shadow-sm px-5 py-4 ps-5 bg-body"
-            style={{ zIndex: "1000" }}
+            style={{ zIndex: showPopupLogOut ? "1002" : "1000" }}
         >
             {logo && (
                 <NavLink
@@ -56,29 +72,20 @@ function HeaderLandingPage(props) {
                 </NavLink>
             )}
             {searchBar && (
-                <div className="d-flex flex-fill justify-content-end">
+                <div className="d-flex flex-fill pe-3">
                     <div
-                        className="d-none d-sm-block w-100 mx-5 ml-md-10"
+                        className="d-none d-sm-block mx-auto w-100"
                         style={{ maxWidth: "50rem" }}
                     >
                         <BaseSearchBar placeholder="Search..." />
                     </div>
-                    <div className="SearchButton d-block d-sm-none mx-5">
-                        <button
-                            onClick={handleShowSearchBar}
-                        >
-                            <i
-                                className="fas fa-search"
-                            />
+                    <div className="SearchButton d-block d-sm-none ms-auto">
+                        <button onClick={handleShowSearchBar}>
+                            <i className="fas fa-search" />
                         </button>
                         {showSearchBar && (
-                            <div
-                                className="SearchPopover"
-                                
-                            >
-                                <BaseSearchBar
-                                    placeholder="Search..."
-                                />
+                            <div className="SearchPopover">
+                                <BaseSearchBar placeholder="Search..." />
                             </div>
                         )}
                     </div>
@@ -111,11 +118,26 @@ function HeaderLandingPage(props) {
                     </a>
                 </div>
             )}
+            {buttonAddQuestion && (
+                <button
+                    type="button"
+                    className="ButtonPrimary d-none d-md-flex me-3"
+                    title="Thêm câu hỏi"
+                    onClick={() =>
+                        loggedIn
+                            ? handleNavigate("/add-question")
+                            : handleNavigate("/sign-in")
+                    }
+                >
+                    <i className="far fa-plus-circle text-white"></i>
+                    <div className="d-none d-lg-flex ms-3">Thêm câu hỏi</div>
+                </button>
+            )}
             {!loggedIn && (
                 <div>
-                    {/* Screen >= 576px */}
+                    {/* Screen >= 768px */}
                     {buttonSign && (
-                        <div className="d-none d-md-block">
+                        <div className="d-none d-lg-block">
                             <NavLink to="/sign-up">
                                 <button type="button" className="ButtonPrimary">
                                     <i className="far fa-user-plus me-2 text-white"></i>
@@ -132,8 +154,8 @@ function HeaderLandingPage(props) {
                             </NavLink>
                         </div>
                     )}
-                    {/* Screen < 576px */}
-                    <div className="d-flex d-md-none">
+                    {/* Screen < 768px */}
+                    <div className="d-flex d-lg-none">
                         <input type="checkbox" id="dropdownMenu-notLoggedIn" />
                         <label
                             htmlFor="dropdownMenu-notLoggedIn"
@@ -144,7 +166,7 @@ function HeaderLandingPage(props) {
                         <div id="overlay">
                             <ul className="d-flex flex-column justify-content-center align-items-center ps-0 m-0">
                                 {menu && (
-                                    <li>
+                                    <li className="d-block d-md-none">
                                         <a
                                             className="dropdownMenuItem"
                                             href="#home"
@@ -154,7 +176,7 @@ function HeaderLandingPage(props) {
                                     </li>
                                 )}
                                 {menu && (
-                                    <li>
+                                    <li className="d-block d-md-none">
                                         <a
                                             className="dropdownMenuItem"
                                             href="#introduction"
@@ -164,7 +186,7 @@ function HeaderLandingPage(props) {
                                     </li>
                                 )}
                                 {menu && (
-                                    <li>
+                                    <li className="d-block d-md-none">
                                         <a
                                             className="dropdownMenuItem"
                                             href="#contact"
@@ -174,12 +196,22 @@ function HeaderLandingPage(props) {
                                     </li>
                                 )}
                                 {menu && (
-                                    <li>
+                                    <li className="d-block d-md-none">
                                         <NavLink
                                             className="dropdownMenuItem"
                                             to="/dashboard"
                                         >
                                             Trang câu hỏi
+                                        </NavLink>
+                                    </li>
+                                )}
+                                {buttonAddQuestion && (
+                                    <li className="d-block d-md-none">
+                                        <NavLink
+                                            className="dropdownMenuItem"
+                                            to="/sign-in"
+                                        >
+                                            Thêm câu hỏi
                                         </NavLink>
                                     </li>
                                 )}
@@ -208,24 +240,11 @@ function HeaderLandingPage(props) {
                     </div>
                 </div>
             )}
+
             {loggedIn && (
                 <div className="d-flex justify-content-center align-items-center">
                     {/* Screen >= 768px */}
                     <div className="d-none d-md-flex align-items-center">
-                        {buttonAddQuestion && (
-                            <NavLink to="">
-                                <button
-                                    type="button"
-                                    className="ButtonPrimary d-flex"
-                                    title="Thêm câu hỏi"
-                                >
-                                    <i className="far fa-plus-circle text-white"></i>
-                                    <div className="d-flex ms-3">
-                                        Thêm câu hỏi
-                                    </div>
-                                </button>
-                            </NavLink>
-                        )}
                         <div className="bell mx-5">
                             <i className="far fa-bell"></i>
                             <div></div>
@@ -263,9 +282,12 @@ function HeaderLandingPage(props) {
                                     </a>
                                 </li>
                                 <li>
-                                    <a className="dropdown-item" href="#">
+                                    <div
+                                        className="dropdown-item cursor-pointer"
+                                        onClick={handleShowPopupLogOut}
+                                    >
                                         Đăng xuất
-                                    </a>
+                                    </div>
                                 </li>
                             </ul>
                         </label>
@@ -320,7 +342,7 @@ function HeaderLandingPage(props) {
                                     <li>
                                         <NavLink
                                             className="dropdownMenuItem"
-                                            to="#"
+                                            to="/add-question"
                                         >
                                             <i className="far fa-plus-circle mr-4"></i>
                                             Thêm câu hỏi
@@ -349,15 +371,41 @@ function HeaderLandingPage(props) {
                                     </NavLink>
                                 </li>
                                 <li className="border-bottom-0">
-                                    <NavLink
+                                    <div
                                         className="dropdownMenuItem"
-                                        to="#"
+                                        onClick={handleShowPopupLogOut}
                                     >
                                         <i className="far fa-sign-out mr-4"></i>
                                         Đăng xuất
-                                    </NavLink>
+                                    </div>
                                 </li>
                             </ul>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {showPopupLogOut && (
+                <div
+                    className="d-flex justify-content-center align-items-center position-fixed top-0 left-0 min-vh-100 min-vw-100"
+                    style={{ backgroundColor: "rgba(0,0,0,.4)", zIndex:"1000" }}
+                >
+                    <div className="d-flex flex-column justify-content-center align-items-center bg-white rounded">
+                        <h6 className="py-4 m-0 px-auto">Đăng xuất</h6>
+                        <div className="d-flex flex-column align-items-center pt-4 w-100 bg-secondary">
+                            <div>
+                                <i className="fas fa-sign-out-alt fa-4x"
+                                    style={{ color: "#F48023" }}
+                                    ></i>
+                            </div>
+                            <p className="fs-7" style={{fontSize: "12px",fontWeight: "500"}}>Bạn có chắc chắn muốn đăng xuất?</p>
+                        </div>
+                        <div className="d-flex justify-content-center p-3 w-100">
+                            <button type="button" className="ButtonPrimary px-10" onClick={handleLogOut}>
+                                Xác nhận
+                            </button>
+                            <button type="button" className="ButtonCancel px-15 ms-3" onClick={handleShowPopupLogOut}>
+                                Hủy
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -43,7 +43,7 @@ LandingPage.propTypes = {};
 function LandingPage(props) {
     return (
         <div className="min-vh-100 min-vw-90">
-            <HeaderLandingPage logo={true} searchBar={false} menu={true} buttonAddQuestion={false}/>
+            <HeaderLandingPage logo={true} searchBar={false} menu={true} buttonAddQuestion={true}/>
             <div className="bg-white">
                 {/* Screen 1 */}
                 <div className="Screen1" id="home">

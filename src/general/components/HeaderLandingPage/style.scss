@@ -81,7 +81,6 @@
 #overlay-button {
     padding: 1rem 0.5rem;
     margin-bottom: 0.4rem;
-    z-index: 5;
     cursor: pointer;
     user-select: none;
     span {
@@ -147,7 +146,6 @@ input[type="checkbox"] {
     right: 0;
     width: 22rem;
     background: #fff;
-    z-index: 2;
     visibility: hidden;
     &.active {
         visibility: visible;
@@ -162,6 +160,7 @@ input[type="checkbox"] {
             width: 90%;
             .dropdownMenuItem {
                 display: flex;
+                cursor: pointer;
                 align-items: center;
                 padding: 1rem 2rem;
                 color: #8e8d91;
@@ -256,5 +255,5 @@ input[type="checkbox"] {
     position: absolute;
     top: 4.8rem;
     left: 0.1rem;
-    min-width: calc(100vw - 6.5rem);
+    min-width: calc(100vw - 0.2rem);
 }
