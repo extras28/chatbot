@@ -5,6 +5,10 @@ import BaseSearchBar from "../Form/BaseSearchBar";
 import avatar from "../../../assets/images/avatar.png";
 import "./style.scss";
 import UserHelper from "general/helpers/UserHelper";
+import DialogModal from "../DialogModal";
+import { useDispatch, useSelector } from "react-redux";
+import { thunkSignOut } from "app/authSlice";
+import Utils from "general/utils/Utils";
 HeaderLandingPage.propTypes = {
     loggedIn: PropTypes.bool,
     searchBar: PropTypes.bool,
@@ -25,7 +29,8 @@ HeaderLandingPage.defaultProps = {
 
 function HeaderLandingPage(props) {
     const navigate = useNavigate();
-    const loggedIn = UserHelper.checkAccessTokenValid();
+    const {loggedIn, currentAccount} = useSelector(state => state?.auth); 
+
     const { searchBar, logo, menu, buttonAddQuestion, buttonSign } = props;
     let [showSearchBar, setShowSearchBar] = useState(false);
     const handleShowSearchBar = () => {
@@ -35,6 +40,10 @@ function HeaderLandingPage(props) {
     function handleNavigate(url) {
         navigate(url);
     }
+
+    const [showLogOutModal, setShowLogOutModal] = useState(false);
+
+    const dispatch = useDispatch();
 
     return (
         <div
@@ -234,11 +243,21 @@ function HeaderLandingPage(props) {
                             className="d-flex"
                             htmlhtmlFor="dropdownMenuButton"
                         >
-                            <img
-                                className="header-avatar"
-                                src={avatar}
-                                alt=""
-                            />
+                            <div className="HeaderLandingPage_Avatar">
+                                <img
+                                    src = {
+                                        Utils.getFullUrl(currentAccount?.avatar) ||
+                                        UserHelper.getRandomAvatarUrl()
+                                    }
+                                    onError = {
+                                        (e) => {
+                                            e.target.onerror = null;
+                                            e.target.src = UserHelper.getRandomAvatarUrl();
+                                        }
+                                    }
+                                    alt="avatar"
+                                />
+                            </div>
                             <button
                                 className="show-option"
                                 id="dropdownMenuButton"
@@ -263,7 +282,7 @@ function HeaderLandingPage(props) {
                                     </a>
                                 </li>
                                 <li>
-                                    <a className="dropdown-item" href="#">
+                                    <a className="dropdown-item" href="#" onClick={()=>setShowLogOutModal(true)}>
                                         Đăng xuất
                                     </a>
                                 </li>
@@ -352,6 +371,7 @@ function HeaderLandingPage(props) {
                                     <NavLink
                                         className="dropdownMenuItem"
                                         to="#"
+                                        onClick={()=>setShowLogOutModal(true)}
                                     >
                                         <i className="far fa-sign-out mr-4"></i>
                                         Đăng xuất
@@ -362,6 +382,18 @@ function HeaderLandingPage(props) {
                     </div>
                 </div>
             )}
+            <DialogModal 
+                show={showLogOutModal}
+                onClose={()=>setShowLogOutModal(false)}
+                title="Đăng xuất"
+                onExecute = {
+                    () => {
+                        dispatch(thunkSignOut()).then(() => {
+                            UserHelper.signOut();
+                        });
+                    }
+                }
+            />
         </div>
     );
 }

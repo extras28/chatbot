@@ -13,6 +13,8 @@ import Utils from "general/utils/Utils";
 import { useNavigate } from "react-router-dom";
 import authApi from "api/authApi";
 import PreferenceKeys from "general/constants/PreferenceKey";
+import BaseDropdown from "general/components/Form/BaseDropdown";
+import AppData from "general/constants/AppData";
 SignUpScreen.propTypes = {};
 
 const sTag = '[SignUpScreen]'
@@ -71,6 +73,7 @@ function SignUpScreen(props) {
                         <div>
                             <div>
                                 <BaseTextField 
+                                    require={true}
                                     name='fullname'
                                     placeholder='Nhập Họ tên...'
                                     label='Họ tên'
@@ -81,6 +84,7 @@ function SignUpScreen(props) {
                             </div>
                             <div>
                                 <BaseTextField 
+                                    require={true}
                                     name='email'
                                     placeholder='hi@example.com'
                                     label='Email'
@@ -89,8 +93,37 @@ function SignUpScreen(props) {
                                     fieldMeta={formik.getFieldMeta('email')}
                                 />
                             </div>
+                            <div className="row m-0">
+                                <div className="col-6 pl-0">
+                                    <BaseDropdown
+                                        labelClassName="pt-0 pb-2"
+                                        dropdownInitialValue="chọn"
+                                        name={"job"}
+                                        fieldProps={formik.getFieldProps("job")}
+                                        fieldMeta={formik.getFieldMeta("job")}
+                                        fieldHelpers={formik.getFieldHelpers("job")}
+                                        label="Vai trò"
+                                        options={AppData.jobs}
+                                        onValueChanged={(value) => {
+                                        formik.getFieldHelpers("job").setValue(value);
+                                        }}
+                                    />
+                                </div>
+                                <div className="col-6 pr-0">
+                                    <BaseTextField 
+                                        name='dob'
+                                        // placeholder='hi@example.com'
+                                        type="date"
+                                        label='Ngày sinh'
+                                        fieldHelper={formik.getFieldHelpers('dob')}
+                                        fieldProps={formik.getFieldProps('dob')}
+                                        fieldMeta={formik.getFieldMeta('dob')}
+                                    />
+                                </div>
+                            </div>
                             <div>
                                 <BaseTextField 
+                                    require={true}
                                     type="password"
                                     name='password'
                                     placeholder='Nhập mật khẩu...'
@@ -102,6 +135,7 @@ function SignUpScreen(props) {
                             </div>
                             <div>
                                 <BaseTextField 
+                                    require={true}
                                     type="password"
                                     name='confirmPassword'
                                     placeholder='Nhập lại mật khẩu...'
