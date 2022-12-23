@@ -57,31 +57,31 @@ function EditProfile(props) {
                                 <div className="">{jobName}</div>
                                 <div className="d-flex flex-row">
                                     <a href="/test" className="view-header-link">
-                                        <i class="fas fa-user-plus"></i>
+                                        <i className="fas fa-user-plus"></i>
                                     </a>
                                     <a href="/test" className="view-header-link">
-                                        <i class="fal fa-envelope"></i>
+                                        <i className="fal fa-envelope"></i>
                                     </a>
                                     <a href="/test" className="view-header-link">
-                                        <i class="far fa-hexagon"></i>
+                                        <i className="far fa-hexagon"></i>
                                     </a>                             
                                 </div>
                             </div>
                         </div>
                         <div className="row pt-8">
                             <div className="col-12 p-0 view-contact-link">
-                                <i class="view-contact-icon fas fa-phone"></i>
+                                <i className="view-contact-icon fas fa-phone"></i>
                                 {phoneContact}
                             </div>
                             <div className="col-12 p-0">
                                 <a href="/test" className="view-contact-link">
-                                    <i class="view-contact-icon fas fa-envelope"></i>
+                                    <i className="view-contact-icon fas fa-envelope"></i>
                                     {emailAddr}
                                 </a>
                             </div>
                             <div className="col-12 p-0">
                                 <a href="/test" className="view-contact-link">
-                                    <i class="view-contact-icon fas fa-map-marker-alt"></i>
+                                    <i className="view-contact-icon fas fa-map-marker-alt"></i>
                                     {addressInfo}
                                 </a>
 
@@ -130,14 +130,14 @@ function EditProfile(props) {
 
                                             <label for="avatar-input">
                                                 <div className="avatar-file-input--icon">
-                                                    <i class="fas fa-pen"></i>
+                                                    <i className="fas fa-pen"></i>
                                                 </div>
                                             </label>
                                             <input className="avatar-file-input" id="avatar-input" type="file" />
                                             
                                             <div className="avatar-delete">
                                                 <button className="avatar-delete-btn">
-                                                    <i class="fas fa-times"></i>
+                                                    <i className="fas fa-times"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -177,14 +177,14 @@ function EditProfile(props) {
                                 <div className="col-xl-4 col-lg-4 col-md-3 col-sm-3 fs-6 label-input">Điện thoại</div>
                                 <div className="d-flex justify-content-start col-xl-8 col-lg-8 col-md-9 col-sm-9 mb-6 position-relative">
                                     <input className="edit-input col-xl-10 col-lg-10 col-md-12 col-sm-12 ps-5" id="phone-input" type="text" />
-                                    <i class="far fa-phone-alt edit-input-icon"></i>
+                                    <i className="far fa-phone-alt edit-input-icon"></i>
                                 </div>
 
                                 <div className="col-xl-4 col-lg-4 col-md-3 col-sm-3 fs-6 label-input">Email</div>
                                 <div className="d-flex justify-content-start col-xl-8 col-lg-8 col-md-9 col-sm-9 mb-6 position-relative">
                                     <div className="row ps-3 pe-3">
                                         <input className="edit-input col-xl-10 col-lg-10 col-md-12 col-sm-12 ps-5" id="email-input" type="email" />
-                                        <i class="far fa-at p-0 m-0 edit-input-icon"></i>
+                                        <i className="far fa-at p-0 m-0 edit-input-icon"></i>
                                         <div className="col-8 p-0 text-muted">Chúng tôi sẽ không bao giờ chia sẻ email của bạn với bất kỳ ai khác.</div>
                                     </div>
                                 </div>

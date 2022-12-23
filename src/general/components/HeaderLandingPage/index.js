@@ -66,12 +66,12 @@ function HeaderLandingPage(props) {
             )}
             {searchBar && (
                 <div className="d-flex flex-fill justify-content-end">
-                    <div
+                    {/* <div
                         className="d-none d-sm-block w-100 mx-5 ml-md-10"
                         style={{ maxWidth: "50rem" }}
                     >
                         <BaseSearchBar placeholder="Search..." />
-                    </div>
+                    </div> */}
                     <div className="SearchButton d-block d-sm-none mx-5">
                         <button
                             onClick={handleShowSearchBar}
@@ -241,7 +241,7 @@ function HeaderLandingPage(props) {
                         </div>
                         <label
                             className="d-flex"
-                            htmlhtmlFor="dropdownMenuButton"
+                            htmlFor="dropdownMenuButton"
                         >
                             <div className="HeaderLandingPage_Avatar">
                                 <img
@@ -292,11 +292,11 @@ function HeaderLandingPage(props) {
 
                     {/* Screen < 768px */}
                     {menu && (
-                        <div class="dropdownMenuLandingPage d-block d-md-none">
-                            <button class="btn_dropdown">
-                                <i class="fas fa-sort-down "></i>
+                        <div className="dropdownMenuLandingPage d-block d-md-none">
+                            <button className="btn_dropdown">
+                                <i className="fas fa-sort-down "></i>
                             </button>
-                            <div class="dropdownMenuDetail">
+                            <div className="dropdownMenuDetail">
                                 <a href="#home">Trang chủ</a>
                                 <a href="#introduction">Giới thiệu</a>
                                 <a href="#contact">Liên hệ</a>

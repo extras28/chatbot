@@ -44,7 +44,7 @@ function CreateQuestionScreen(props) {
                 </div>
                 <div className='question-button'>
                     <label for="question-add-image" className='add-image-label'>
-                        <i class="button-icon fas fa-image"></i>
+                        <i className="button-icon fas fa-image"></i>
                         Add image
                     </label>
                     <input type="file" name="photo" id="question-add-image" />
@@ -60,7 +60,7 @@ function CreateQuestionScreen(props) {
                             type='file' 
                             className='ButtonPrimary py-2 px-7'
                         >
-                            <i class="button-icon far fa-paper-plane"></i>
+                            <i className="button-icon far fa-paper-plane"></i>
                             Publish
                         </AppButton>
                     </div>

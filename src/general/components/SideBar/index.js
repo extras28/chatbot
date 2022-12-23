@@ -72,7 +72,7 @@ function SideBar(props) {
         
         <div className="MenuSideBar w-100 mt-5">
           <MenuItem
-            className={selected === "questions" && "MenuItem_active"}
+            className={selected === "questions" ? "MenuItem_active" : ""}
             linkTo=""
             text={showSideBar ? "Câu hỏi" : ""}
             title="Câu hỏi"
@@ -80,7 +80,7 @@ function SideBar(props) {
             onClick={() => setSelected("questions")}
           />
           <MenuItem
-            className={selected === "users" && "MenuItem_active"}
+            className={selected === "users" ? "MenuItem_active" : ""}
             linkTo=""
             text={showSideBar ? "Người dùng" : ""}
             title="Người dùng"
@@ -88,7 +88,7 @@ function SideBar(props) {
             onClick={() => setSelected("users")}
           />
           <MenuItem
-            className={selected === "tags" && "MenuItem_active"}
+            className={selected === "tags" ? "MenuItem_active" : ""}
             linkTo=""
             text={showSideBar ? "Thẻ" : ""}
             title="Thẻ"
@@ -96,7 +96,7 @@ function SideBar(props) {
             onClick={() => setSelected("tags")}
           />
           <MenuItem
-            className={selected === "ranking" && "MenuItem_active"}
+            className={selected === "ranking" ? "MenuItem_active" : ""}
             linkTo=""
             text={showSideBar ? "Xếp hạng" : ""}
             title="Xếp hạng"
@@ -117,7 +117,7 @@ function SideBar(props) {
             )}
             <div className="MenuSideBar w-100">
               <MenuItem
-                className={selected === "my-questions" && "MenuItem_active"}
+                className={selected === "my-questions" ? "MenuItem_active" : ""}
                 linkTo=""
                 text={showSideBar ? "Câu hỏi của bạn" : ""}
                 title="Câu hỏi của bạn"
@@ -125,7 +125,7 @@ function SideBar(props) {
                 onClick={() => setSelected("my-questions")}
               />
               <MenuItem
-                className={selected === "my-answers" && "MenuItem_active"}
+                className={selected === "my-answers" ? "MenuItem_active" : ""}
                 linkTo=""
                 text={showSideBar ? "Câu trả lời của bạn" : ""}
                 title="Câu trả lời của bạn"
@@ -133,7 +133,7 @@ function SideBar(props) {
                 onClick={() => setSelected("my-answers")}
               />
               <MenuItem
-                className={selected === "my-likes" && "MenuItem_active"}
+                className={selected === "my-likes" ? "MenuItem_active" : ""}
                 linkTo=""
                 text={showSideBar ? "Yêu thích" : ""}
                 title="Yêu thích"
