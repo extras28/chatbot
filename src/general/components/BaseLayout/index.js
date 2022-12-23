@@ -45,7 +45,7 @@ function BaseLayout(props) {
                     </div>
 
                 {/* mini profile */}
-                {isAuth && <MiniProfile />}
+                {/* {isAuth && <MiniProfile />} */}
                 </div>
 
             </div>

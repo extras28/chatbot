@@ -53,21 +53,21 @@ function SummaryQuestion(props) {
                 </div>
                 <div className="d-flex justify-content-between align-items-center">
                     <div className="d-flex flex-fill">
-                        {tags.map((tag) => (
-                            <Tag tagName={tag} />
+                        {tags.map((tag, index) => (
+                            <Tag key={index} tagName={tag} />
                         ))}
                     </div>
                     <div className="d-flex">
                         <button className="btn">
-                            <i class="far fa-comment"></i>
+                            <i className="far fa-comment"></i>
                             {comments}
                         </button>
                         <button className="btn">
-                            <i class="far fa-thumbs-up"></i>
+                            <i className="far fa-thumbs-up"></i>
                             {likes}
                         </button>
                         <button className="btn">
-                            <i class="far fa-thumbs-down"></i>
+                            <i className="far fa-thumbs-down"></i>
                             {dislikes}
                         </button>
                     </div>

@@ -5,6 +5,10 @@ import BaseSearchBar from "../Form/BaseSearchBar";
 import avatar from "../../../assets/images/avatar.png";
 import "./style.scss";
 import UserHelper from "general/helpers/UserHelper";
+import DialogModal from "../DialogModal";
+import { useDispatch, useSelector } from "react-redux";
+import { thunkSignOut } from "app/authSlice";
+import Utils from "general/utils/Utils";
 HeaderLandingPage.propTypes = {
     loggedIn: PropTypes.bool,
     searchBar: PropTypes.bool,
@@ -25,7 +29,8 @@ HeaderLandingPage.defaultProps = {
 
 function HeaderLandingPage(props) {
     const navigate = useNavigate();
-    const loggedIn = UserHelper.checkAccessTokenValid();
+    const {loggedIn, currentAccount} = useSelector(state => state?.auth); 
+
     const { searchBar, logo, menu, buttonAddQuestion, buttonSign } = props;
     let [showSearchBar, setShowSearchBar] = useState(false);
     const handleShowSearchBar = () => {
@@ -35,6 +40,10 @@ function HeaderLandingPage(props) {
     function handleNavigate(url) {
         navigate(url);
     }
+
+    const [showLogOutModal, setShowLogOutModal] = useState(false);
+
+    const dispatch = useDispatch();
 
     return (
         <div
@@ -57,12 +66,12 @@ function HeaderLandingPage(props) {
             )}
             {searchBar && (
                 <div className="d-flex flex-fill justify-content-end">
-                    <div
+                    {/* <div
                         className="d-none d-sm-block w-100 mx-5 ml-md-10"
                         style={{ maxWidth: "50rem" }}
                     >
                         <BaseSearchBar placeholder="Search..." />
-                    </div>
+                    </div> */}
                     <div className="SearchButton d-block d-sm-none mx-5">
                         <button
                             onClick={handleShowSearchBar}
@@ -232,13 +241,23 @@ function HeaderLandingPage(props) {
                         </div>
                         <label
                             className="d-flex"
-                            htmlhtmlFor="dropdownMenuButton"
+                            htmlFor="dropdownMenuButton"
                         >
-                            <img
-                                className="header-avatar"
-                                src={avatar}
-                                alt=""
-                            />
+                            <div className="HeaderLandingPage_Avatar">
+                                <img
+                                    src = {
+                                        Utils.getFullUrl(currentAccount?.avatar) ||
+                                        UserHelper.getRandomAvatarUrl()
+                                    }
+                                    onError = {
+                                        (e) => {
+                                            e.target.onerror = null;
+                                            e.target.src = UserHelper.getRandomAvatarUrl();
+                                        }
+                                    }
+                                    alt="avatar"
+                                />
+                            </div>
                             <button
                                 className="show-option"
                                 id="dropdownMenuButton"
@@ -263,7 +282,7 @@ function HeaderLandingPage(props) {
                                     </a>
                                 </li>
                                 <li>
-                                    <a className="dropdown-item" href="#">
+                                    <a className="dropdown-item" href="#" onClick={()=>setShowLogOutModal(true)}>
                                         Đăng xuất
                                     </a>
                                 </li>
@@ -273,11 +292,11 @@ function HeaderLandingPage(props) {
 
                     {/* Screen < 768px */}
                     {menu && (
-                        <div class="dropdownMenuLandingPage d-block d-md-none">
-                            <button class="btn_dropdown">
-                                <i class="fas fa-sort-down "></i>
+                        <div className="dropdownMenuLandingPage d-block d-md-none">
+                            <button className="btn_dropdown">
+                                <i className="fas fa-sort-down "></i>
                             </button>
-                            <div class="dropdownMenuDetail">
+                            <div className="dropdownMenuDetail">
                                 <a href="#home">Trang chủ</a>
                                 <a href="#introduction">Giới thiệu</a>
                                 <a href="#contact">Liên hệ</a>
@@ -352,6 +371,7 @@ function HeaderLandingPage(props) {
                                     <NavLink
                                         className="dropdownMenuItem"
                                         to="#"
+                                        onClick={()=>setShowLogOutModal(true)}
                                     >
                                         <i className="far fa-sign-out mr-4"></i>
                                         Đăng xuất
@@ -362,6 +382,18 @@ function HeaderLandingPage(props) {
                     </div>
                 </div>
             )}
+            <DialogModal 
+                show={showLogOutModal}
+                onClose={()=>setShowLogOutModal(false)}
+                title="Đăng xuất"
+                onExecute = {
+                    () => {
+                        dispatch(thunkSignOut()).then(() => {
+                            UserHelper.signOut();
+                        });
+                    }
+                }
+            />
         </div>
     );
 }

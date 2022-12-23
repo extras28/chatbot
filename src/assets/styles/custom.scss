@@ -284,3 +284,6 @@ body {
     color: #a635ff !important;
   }
 }
+.dropdown-toggle::after {
+  display: none !important;
+}

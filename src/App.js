@@ -18,6 +18,7 @@ import Dashboard from "features/Dashboard";
 import CreateQuestionScreen from "features/CreateQuestionScreen";
 import GuestRoute from "general/components/AppRoutes/GuestRoute";
 import PrivateRoute from "general/components/AppRoutes/PrivateRoute";
+import AccountListener from "features/Account/AccountListener";
 // import Admin from "Admin";
 
 
@@ -156,7 +157,7 @@ function App() {
       {/* Listener */}
       {/* <DataCommonListener /> */}
       {/* Account Listener */}
-      {/* <AccountListener /> */}
+      <AccountListener />
       {/* <DashboardListener /> */}
       {/* Firebase Listener */}
       {/* <FirebaseListener /> */}

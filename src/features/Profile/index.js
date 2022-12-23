@@ -15,60 +15,60 @@ function Profile() {
       <BaseLayout>
         <div className="container bg-white p-8">
           <div className="row d-flex flex-wrap">
-            <div class="col-1">
+            <div className="col-1">
               <img className="" src={avatar} alt="" />
             </div>
-            <div class="col-8 ms-4 d-flex align-content-center flex-wrap">
+            <div className="col-8 ms-4 d-flex align-content-center flex-wrap">
               <div className="flex-grow-1 flex-wrap mx-2">
                 <p className="fs-1 fw-bolder mb-2">Golanginya</p>
                 <div className="fw-normal fs-6">
                   <div className="row">
                     <div className="col-sm-auto row">
-                      <i class="fas fa-birthday-cake col-1"></i>
+                      <i className="fas fa-birthday-cake col-1"></i>
                       <p className="col">Member for 8 days</p>
                     </div>
                     <div className="col-sm-auto row">
-                      <i class="fal fa-clock col-1"></i>
+                      <i className="fal fa-clock col-1"></i>
                       <p className="col">Last seen this week</p>
                     </div>
                     <div className="col-sm-auto row">
-                      <i class="fas fa-birthday-cake col-1"></i>
+                      <i className="fas fa-birthday-cake col-1"></i>
                       <p className="col">Visited 4 days, 3 consecutive</p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col fw-light d-flex align-items-start justify-content-end">
+            <div className="col fw-light d-flex align-items-start justify-content-end">
               <button className="d-inline-flex p-2 rounded border-1 bg-white">
-                <i class="fas fa-pencil me-2"></i>
+                <i className="fas fa-pencil me-2"></i>
                 Edit profile
               </button>
             </div>
           </div>
           <div className="mt-5 ">
-            <ul class="nav nav-pills">
-              <li class="nav-item nav-tab">
+            <ul className="nav nav-pills">
+              <li className="nav-item nav-tab">
                 <a
-                  class="nav-link rounded-pill active"
+                  className="nav-link rounded-pill active"
                   aria-current="page"
                   href="#"
                 >
                   Profile
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link rounded-pill" href="#">
+              <li className="nav-item">
+                <a className="nav-link rounded-pill" href="#">
                   Activity
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link rounded-pill" href="#">
+              <li className="nav-item">
+                <a className="nav-link rounded-pill" href="#">
                   Saves
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link rounded-pill" href="#" aria-disabled="true">
+              <li className="nav-item">
+                <a className="nav-link rounded-pill" href="#" aria-disabled="true">
                   Settings
                 </a>
               </li>
