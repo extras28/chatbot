@@ -246,7 +246,7 @@ function HeaderLandingPage(props) {
                             <div className="HeaderLandingPage_Avatar">
                                 <img
                                     src = {
-                                        Utils.getFullUrl(currentAccount?.avatar) ||
+                                        Utils.getFullUrl(currentAccount?.avatar?.path) ||
                                         UserHelper.getRandomAvatarUrl()
                                     }
                                     onError = {
