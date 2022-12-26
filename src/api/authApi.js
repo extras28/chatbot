@@ -13,6 +13,12 @@ const authApi = {
         return axiosClient.post(url, params);
     },
 
+    //getAccountList
+    getAccountList: (params) => {
+        const url = '/account/find';
+        return axiosClient.get(url, {params});
+    },
+
     //getAccountInfor
     getAccountInfor: () => {
         const url = '/account/detail';

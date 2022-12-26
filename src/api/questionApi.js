@@ -2,9 +2,9 @@ import axiosClient from "./axiosClient";
 
 const questionApi = {
     // get questions list
-    getQuestionsList: () => {
+    getQuestionsList: (params) => {
         const url = '/question/find';
-        return axiosClient.get(url);
+        return axiosClient.get(url, {params});
     },
 };
 

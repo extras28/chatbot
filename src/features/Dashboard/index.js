@@ -1,231 +1,54 @@
-<<<<<<< HEAD
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import SummaryQuestion from "general/components/SummaryQuestion";
 import "./style.scss";
 import MiniProfile from "general/components/MiniProfile";
 import BaseLayout from "general/components/BaseLayout";
-import Tag from "general/components/Tag";
-import { useDispatch } from "react-redux";
-import { thunkGetQuestionsList } from "app/questionSlice";
-import { unwrapResult } from "@reduxjs/toolkit";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { useState } from "react";
+import { thunkGetQuestionsList } from "./dashboardSlice";
 import { useEffect } from "react";
+import Utils from "general/utils/Utils";
 import BaseSearchBar from "general/components/Form/BaseSearchBar";
+import { useState } from "react";
 
 Dashboard.propTypes = {};
 
 function Dashboard(props) {
+    const [filter, setFilter] = useState({
+        q: "",
+        page: 1,
+        limit: 20
+    })
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const [questionsList, setQuestionsList] = useState([]);
-    // const [search, setSearch] = useSearchParams();
-    // const searchTag = search.get('tag') || '';
-    // const searchTab = search.get('tab') || '';
-    // console.log("Tag: " + searchTag);
-    // console.log("Tab: " + searchTab);
-    useEffect(async () => {
-        try {
-            const res = unwrapResult(await dispatch(thunkGetQuestionsList()));
-            setQuestionsList(res);
-        } catch (error) {
-            console.log(`error: ${error.message}`);
-        }
-    }, []);
-
+    const {isGettingQuestionsList, questionsList} = useSelector(state => state?.question); 
+    // console.log(questionsList);
+    useEffect(() => {
+        dispatch(thunkGetQuestionsList(filter));
+    }, [filter]);
     return (
-        <BaseLayout selected="Câu hỏi">
+        <BaseLayout selected="questions">
+            <BaseSearchBar value={filter.q} name="questionFilter" onSubmit={(value) => {
+                setFilter({...filter, q:value})
+            }}/>
             <div>
-                <h1>Câu hỏi</h1>
-                {/* <div className="d-flex align-items-center">
-                    Được gắn với thẻ
-                    <Tag tagName="javascript" className="bg-white shadow-sm" />
-                </div> */}
-                <div className="d-flex justify-content-between align-items-center">
-                    <div>{questionsList.length} câu hỏi</div>
-                    {/* <button className="FilterButton p-2 rounded ">
-                        <i className="fas fa-filter ms-2"></i>
-                        Filter
-                    </button> */}
-                </div>
-                {/* <form className="FilterWrapper row">
-                    <div className="col-4">
-                        <div>Lọc theo</div>
-                        <div>Chưa có câu trả lời</div>
-                    </div>
-                    <div className="col-4">
-                        <div>Sắp xếp theo</div>
-                        <ul>
-                            <li>Mới nhất</li>
-                            <li>Đánh giá</li>
-                        </ul>
-                    </div>
-                    <div className="col-4">
-                        <div>Gắn với thẻ</div>
-                        <BaseSearchBar placeholder="VD: javascript" />
-                    </div>
-                </form> */}
-            </div>
-            <div>
-                <SummaryQuestion
-                    avatar="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
-                    userName="Golanginya"
-                    createAt="12 November 2020 19:35"
-                    titleQuestion="How to patch KDE on FreeBSD?"
-                    tags={["java", "php", "javascript"]}
-                    comments="15"
-                    likes="100"
-                    dislikes="4"
-                />
-                {questionsList.map((question) => (
-                    <div key={question._id}>
+                {questionsList?.questions?.map((item, index) =>{
+                    return (
                         <SummaryQuestion
-                            avatar={question.account.avatar}
-                            userName={question.account.fullname}
-                            createAt={question.updatedAt}
-                            titleQuestion={question.title}
-                            tags={["java", "php", "javascript"]}
-                            comments="15"
-                            likes="100"
-                            dislikes="4"
-                        />
-                    </div>
-                ))}
+                        key={index}
+                        avatar={item.account.avatar.path}
+                        userName={item.account.fullname}
+                        createAt={Utils.formatDateTime("2022-12-16T12:53:37.484Z")}
+                        titleQuestion={item.title}
+                        tags={["C", "PHP", "Javascript"]}
+                        comments="15"
+                        likes={item.like}
+                        dislikes={item.dislike}
+                />
+                    )
+                })}
             </div>
         </BaseLayout>
     );
 }
 
 export default Dashboard;
-=======
-import React from "react";
-import PropTypes from "prop-types";
-import SummaryQuestion from "general/components/SummaryQuestion";
-import "./style.scss";
-import MiniProfile from "general/components/MiniProfile";
-import BaseLayout from "general/components/BaseLayout";
-
-Dashboard.propTypes = {};
-
-function Dashboard(props) {
-    return (
-        <BaseLayout>
-            <div>
-                <SummaryQuestion 
-                    avatar="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
-                    userName= "Golanginya" 
-                    createAt= "12 November 2020 19:35" 
-                    titleQuestion= "How to patch KDE on FreeBSD?" 
-                    tags = {["C", "PHP", "Javascript"]}
-                    comments= "15" 
-                    likes= "100" 
-                    dislikes= "4" 
-                />
-                <SummaryQuestion 
-                    avatar="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
-                    userName= "Golanginya" 
-                    createAt= "12 November 2020 19:35" 
-                    titleQuestion= "How to patch KDE on FreeBSD?" 
-                    tags = {["C", "PHP", "Javascript"]}
-                    comments= "15" 
-                    likes= "100" 
-                    dislikes= "4" 
-                />
-                <SummaryQuestion 
-                    avatar="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
-                    userName= "Golanginya" 
-                    createAt= "12 November 2020 19:35" 
-                    titleQuestion= "How to patch KDE on FreeBSD?" 
-                    tags = {["C", "PHP", "Javascript"]}
-                    comments= "15" 
-                    likes= "100" 
-                    dislikes= "4" 
-                />
-                <SummaryQuestion 
-                    avatar="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
-                    userName= "Golanginya" 
-                    createAt= "12 November 2020 19:35" 
-                    titleQuestion= "How to patch KDE on FreeBSD?" 
-                    tags = {["C", "PHP", "Javascript"]}
-                    comments= "15" 
-                    likes= "100" 
-                    dislikes= "4" 
-                />
-                <SummaryQuestion 
-                    avatar="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
-                    userName= "Golanginya" 
-                    createAt= "12 November 2020 19:35" 
-                    titleQuestion= "How to patch KDE on FreeBSD?" 
-                    tags = {["C", "PHP", "Javascript"]}
-                    comments= "15" 
-                    likes= "100" 
-                    dislikes= "4" 
-                />
-                <SummaryQuestion 
-                    avatar="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
-                    userName= "Golanginya" 
-                    createAt= "12 November 2020 19:35" 
-                    titleQuestion= "How to patch KDE on FreeBSD?" 
-                    tags = {["C", "PHP", "Javascript"]}
-                    comments= "15" 
-                    likes= "100" 
-                    dislikes= "4" 
-                />
-                <SummaryQuestion 
-                    avatar="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
-                    userName= "Golanginya" 
-                    createAt= "12 November 2020 19:35" 
-                    titleQuestion= "How to patch KDE on FreeBSD?" 
-                    tags = {["C", "PHP", "Javascript"]}
-                    comments= "15" 
-                    likes= "100" 
-                    dislikes= "4" 
-                />
-                <SummaryQuestion 
-                    avatar="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
-                    userName= "Golanginya" 
-                    createAt= "12 November 2020 19:35" 
-                    titleQuestion= "How to patch KDE on FreeBSD?" 
-                    tags = {["C", "PHP", "Javascript"]}
-                    comments= "15" 
-                    likes= "100" 
-                    dislikes= "4" 
-                />
-                <SummaryQuestion 
-                    avatar="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
-                    userName= "Golanginya" 
-                    createAt= "12 November 2020 19:35" 
-                    titleQuestion= "How to patch KDE on FreeBSD?" 
-                    tags = {["C", "PHP", "Javascript"]}
-                    comments= "15" 
-                    likes= "100" 
-                    dislikes= "4" 
-                />
-                <SummaryQuestion 
-                    avatar="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
-                    userName= "Golanginya" 
-                    createAt= "12 November 2020 19:35" 
-                    titleQuestion= "How to patch KDE on FreeBSD?" 
-                    tags = {["C", "PHP", "Javascript"]}
-                    comments= "15" 
-                    likes= "100" 
-                    dislikes= "4" 
-                />
-                <SummaryQuestion 
-                    avatar="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
-                    userName= "Golanginya" 
-                    createAt= "12 November 2020 19:35" 
-                    titleQuestion= "How to patch KDE on FreeBSD?" 
-                    tags = {["C", "PHP", "Javascript"]}
-                    comments= "15" 
-                    likes= "100" 
-                    dislikes= "4" 
-                />
-            </div>
-        </BaseLayout>
-    );
-}
-
-export default Dashboard;
->>>>>>> 4adf6ed6bd8b59ece71bd03f9375acc71a1d4b23
