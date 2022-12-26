@@ -198,7 +198,7 @@ function SideBar(props) {
                             className={
                                 selected === "questions" ? "MenuItem_active" : ""
                             }
-                            url=""
+                            url="/dashboard"
                             text="Câu hỏi"
                             title="Câu hỏi"
                             icon="fas fa-list-ul text-white"
@@ -207,7 +207,7 @@ function SideBar(props) {
                             className={
                                 selected === "users" ? "MenuItem_active" : ""
                             }
-                            url=""
+                            url="/users"
                             text="Người dùng"
                             title="Người dùng"
                             icon="far fa-users text-white"
