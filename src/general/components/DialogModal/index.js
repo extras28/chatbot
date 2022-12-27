@@ -69,7 +69,7 @@ function DialogModal(props) {
                     </Button>
                     <Button
                         className={`font-weight-bold flex-grow-1 col ml-3`}
-                        variant='success'
+                        variant='danger'
                         onClick={() => {
                             handleClose();
                             handleExecute();
