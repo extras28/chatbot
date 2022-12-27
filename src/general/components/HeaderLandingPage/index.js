@@ -393,7 +393,7 @@ function HeaderLandingPage(props) {
             <DialogModal 
                 show={showLogOutModal}
                 onClose={()=>setShowLogOutModal(false)}
-                icon="fas fa-sign-out-alt"
+                icon="fad fa-user text-danger"
                 title="Đăng xuất"
                 description="Bạn có chắc chắn muốn đăng xuất?"
                 onExecute = {
