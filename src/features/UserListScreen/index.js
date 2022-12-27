@@ -36,14 +36,16 @@ function UserListScreen(props) {
             <div className="row mt-8 g-0">
                 {usersList?.accounts?.map((item, index) => {
                     return (
-                        <SummaryUser
-                            key={index}
-                            // avatar={item.avatar || item.avatar.path}
-                            userName={item.fullname}
-                            job={item.job}
-                            email={item.email}
-                            address={item.address}
-                        />
+                        <div key={index} className="col-12 col-md-6 col-lg-4 col-xl-3 mb-7">
+                            <SummaryUser
+                                avatar={item?.avatar?.path}
+                                userName={item.fullname}
+                                job={item.job}
+                                email={item.email}
+                                address={item.address}
+                                phone={item.phone}
+                            />
+                        </div>
                     );
                 })}
             </div>
