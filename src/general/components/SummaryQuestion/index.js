@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Tag from "general/components/Tag";
 import "./style.scss";
+import UserHelper from "general/helpers/UserHelper";
 
 SummaryQuestion.propTypes = {
     avatar: PropTypes.string,
@@ -10,8 +11,8 @@ SummaryQuestion.propTypes = {
     titleQuestion: PropTypes.string,
     Tags: PropTypes.array,
     comments: PropTypes.string,
-    likes: PropTypes.string,
-    dislikes: PropTypes.string,
+    likes: PropTypes.number,
+    dislikes: PropTypes.number,
 };
 
 SummaryQuestion.defaultProps = {
@@ -21,8 +22,8 @@ SummaryQuestion.defaultProps = {
     titleQuestion: "",
     tags: [],
     comments: "",
-    likes: "",
-    dislikes: "",
+    likes: null,
+    dislikes: null,
 };
 
 function SummaryQuestion(props) {
@@ -38,13 +39,21 @@ function SummaryQuestion(props) {
     } = props;
     return (
         <div className="my-5">
-            <div className="comment p-5 container-sm bg-body shadow-sm rounded">
+            <div className="comment p-5 bg-body shadow-sm rounded">
                 <div className="d-flex">
                     <div className="flex-shrink-0">
-                        <img className="header-avatar" src={avatar} alt="" />
+                        <img
+                            className="header-avatar rounded-circle"
+                            src={avatar || UserHelper.getRandomAvatarUrl()}
+                            onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = UserHelper.getRandomAvatarUrl();
+                            }}
+                            alt="avatar"
+                        />
                     </div>
                     <div className="flex-grow-1 mx-2">
-                        <p className="fw-bold fs-5 my-0">@{userName}</p>
+                        <p className="fw-bold fs-5 my-0">{userName}</p>
                         <p className="fw-normal fs-6">{createAt}</p>
                     </div>
                 </div>

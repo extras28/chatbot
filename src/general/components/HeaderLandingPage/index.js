@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import BaseSearchBar from "../Form/BaseSearchBar";
-import avatar from "../../../assets/images/avatar.png";
 import "./style.scss";
 import UserHelper from "general/helpers/UserHelper";
 import DialogModal from "../DialogModal";
@@ -246,7 +245,7 @@ function HeaderLandingPage(props) {
                             <div className="HeaderLandingPage_Avatar">
                                 <img
                                     src = {
-                                        Utils.getFullUrl(currentAccount?.avatar?.path) ||
+                                        Utils.getFullUrl(currentAccount?.avatar) ||
                                         UserHelper.getRandomAvatarUrl()
                                     }
                                     onError = {
@@ -318,11 +317,20 @@ function HeaderLandingPage(props) {
                                     <div className="d-flex flex-column align-items-center py-4">
                                         <img
                                             className="header-sm-avatar"
-                                            src={avatar}
-                                            alt=""
+                                            src = {
+                                                Utils.getFullUrl(currentAccount?.avatar) ||
+                                                UserHelper.getRandomAvatarUrl()
+                                            }
+                                            onError = {
+                                                (e) => {
+                                                    e.target.onerror = null;
+                                                    e.target.src = UserHelper.getRandomAvatarUrl();
+                                                }
+                                            }
+                                            alt="avatar"
                                         />
                                         <div className="fs-6 fw-bold pt-2">
-                                            Nguyễn Quang Dũng
+                                            {currentAccount?.fullname}
                                         </div>
                                     </div>
                                 </li>
@@ -385,7 +393,9 @@ function HeaderLandingPage(props) {
             <DialogModal 
                 show={showLogOutModal}
                 onClose={()=>setShowLogOutModal(false)}
+                icon="fas fa-sign-out-alt"
                 title="Đăng xuất"
+                description="Bạn có chắc chắn muốn đăng xuất?"
                 onExecute = {
                     () => {
                         dispatch(thunkSignOut()).then(() => {

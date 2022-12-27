@@ -1,5 +1,7 @@
 // Import reducers
 import authReducer from "./authSlice";
+import questionReducer from "../features/Dashboard/dashboardSlice";
+import usersListReducer from "../features/UserListScreen/UsersListSlice";
 
 const {
   configureStore
@@ -8,6 +10,8 @@ const {
 // root reducer
 const rootReducer = {
   auth: authReducer,
+  question: questionReducer,
+  user: usersListReducer,
 
 };
 

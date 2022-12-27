@@ -515,7 +515,7 @@ function LandingPage(props) {
                                         <label
                                             className="mt-10"
                                             id="LabelDrop1"
-                                            for="touch1"
+                                            htmlFor="touch1"
                                         >
                                             <i className="fas fa-chevron-down ArrowDown1"></i>
                                             <i className="fas fa-chevron-up ArrowUp1"></i>
@@ -536,7 +536,7 @@ function LandingPage(props) {
                                         <label
                                             className="mt-6"
                                             id="LabelDrop2"
-                                            for="touch2"
+                                            htmlFor="touch2"
                                         >
                                             <i className="fas fa-chevron-down ArrowDown2"></i>
                                             <i className="fas fa-chevron-up ArrowUp2"></i>

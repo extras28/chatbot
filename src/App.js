@@ -18,9 +18,8 @@ import Dashboard from "features/Dashboard";
 import CreateQuestionScreen from "features/CreateQuestionScreen";
 import GuestRoute from "general/components/AppRoutes/GuestRoute";
 import PrivateRoute from "general/components/AppRoutes/PrivateRoute";
-import AccountListener from "features/Account/AccountListener";
+import UserListScreen from "features/UserListScreen";
 // import Admin from "Admin";
-
 
 // Load BS
 
@@ -35,7 +34,7 @@ require("bootstrap/dist/js/bootstrap.min");
 // require("assets/plugins/aside/aside");
 // require("assets/plugins/aside/aside-menu");
 // require("assets/plugins/aside/aside-toggle");
-// // header 
+// // header
 // require("assets/plugins/header/ktheader-mobile");
 // require("assets/plugins/header/ktheader-topbar");
 
@@ -44,59 +43,61 @@ require("bootstrap/dist/js/bootstrap.min");
 const sTag = "[App]";
 
 function App() {
-  // MARK: --- Hooks ---
-  useEffect(() => {
-    console.log(`${sTag} did load`);
-    // injectStore(store);
+    // MARK: --- Hooks ---
+    useEffect(() => {
+        console.log(`${sTag} did load`);
+        // injectStore(store);
 
-    return () => {
-      console.log(`${sTag} will dismiss`);
-    };
-  }, []);
-  // const auth = useSelector((state) => state?.auth?.loggedIn);
+        return () => {
+            console.log(`${sTag} will dismiss`);
+        };
+    }, []);
+    // const auth = useSelector((state) => state?.auth?.loggedIn);
 
-  return (
-    <>
-      {/* Router */}
-      {/* <BrowserRouter> */}
-      <BrowserRouter>
-        {/* Suspense */}
-        <Suspense fallback={<div>Loading...</div>}>
-          <Routes>
-            {/* Admin */}
-            {/* <Route path="/admin/*" element={<Admin />} /> */}
+    return (
+        <>
+            {/* Router */}
+            {/* <BrowserRouter> */}
+            <BrowserRouter>
+                {/* Suspense */}
+                <Suspense fallback={<div>Loading...</div>}>
+                    <Routes>
+                        {/* Admin */}
+                        {/* <Route path="/admin/*" element={<Admin />} /> */}
 
-            {/* Landing Page */}
-            <Route path="" element={<LandingPage />} />
+                        {/* Landing Page */}
+                        <Route path="" element={<LandingPage />} />
 
-            {/* Dashboard */}
-            <Route
-              path="dashboard/*"
-              element={
-                // auth ? (
-                //   <PrivateRoute>
-                    // <PrivateRoute>
-                      <Dashboard />
-                    // </PrivateRoute>
-                //   {/* </PrivateRoute>
-                // ) : (
-                //   <HomeScreen />
-                // ) */}
-              }
-            />
+                        {/* Dashboard */}
+                        <Route
+                            path="dashboard/*"
+                            element={
+                                // auth ? (
+                                //   <PrivateRoute>
+                                // <PrivateRoute>
+                                <Dashboard />
+                                // </PrivateRoute>
+                                //   {/* </PrivateRoute>
+                                // ) : (
+                                //   <HomeScreen />
+                                // ) */}
+                            }
+                        />
 
-            {/* Profle */}
-            <Route
-              path="Profile/*"
-              element={
-                // <PrivateRoute>
-                  <Profile />
-                // </PrivateRou>
-              }
-            />
+                        <Route path="users/*" element={<UserListScreen />} />
 
-            {/* Account */}
-            {/* <Route
+                        {/* Profle */}
+                        <Route
+                            path="Profile/*"
+                            element={
+                                // <PrivateRoute>
+                                <Profile />
+                                // </PrivateRou>
+                            }
+                        />
+
+                        {/* Account */}
+                        {/* <Route
               path="account/*"
               element={
                 <PrivateRoute>
@@ -104,29 +105,32 @@ function App() {
                 </PrivateRoute>
               }
             /> */}
-            {/* Sign in */}
-            <Route
-              path="/sign-in"
-              element={
-                <GuestRoute>
-                  <SignInScreen />
-                </GuestRoute>
-              }
-            />
-            {/* Sign up */}
-            <Route
-              path="/sign-up"
-              element={
-                <GuestRoute>
-                  <SignUpScreen />
-                </GuestRoute>
-              }
-            />
+                        {/* Sign in */}
+                        <Route
+                            path="/sign-in"
+                            element={
+                                <GuestRoute>
+                                    <SignInScreen />
+                                </GuestRoute>
+                            }
+                        />
+                        {/* Sign up */}
+                        <Route
+                            path="/sign-up"
+                            element={
+                                <GuestRoute>
+                                    <SignUpScreen />
+                                </GuestRoute>
+                            }
+                        />
 
-            {/* Create quétion */}
-            <Route path="/create-question" element={<CreateQuestionScreen />}/>
-            {/* forgot pass */}
-            {/* <Route
+                        {/* Create quétion */}
+                        <Route
+                            path="/create-question"
+                            element={<CreateQuestionScreen />}
+                        />
+                        {/* forgot pass */}
+                        {/* <Route
               path="/forgot-pass"
               element={
                 <GuestRoute>
@@ -134,8 +138,8 @@ function App() {
                 </GuestRoute>
               }
             /> */}
-            {/* reset pass */}
-            {/* <Route
+                        {/* reset pass */}
+                        {/* <Route
               path="/reset-pass"
               element={
                 <GuestRoute>
@@ -143,26 +147,26 @@ function App() {
                 </GuestRoute>
               }
             /> */}
-            {/* Not Found */}
-            <Route path="*" element={<AppNotFound />} />
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
-      {/* </BrowserRouter> */}
+                        {/* Not Found */}
+                        <Route path="*" element={<AppNotFound />} />
+                    </Routes>
+                </Suspense>
+            </BrowserRouter>
+            {/* </BrowserRouter> */}
 
-      {/* App Dialog */}
-      <AppDialog />
-      {/* Toast */}
-      <AppToast />
-      {/* Listener */}
-      {/* <DataCommonListener /> */}
-      {/* Account Listener */}
-      <AccountListener />
-      {/* <DashboardListener /> */}
-      {/* Firebase Listener */}
-      {/* <FirebaseListener /> */}
-    </>
-  );
+            {/* App Dialog */}
+            <AppDialog />
+            {/* Toast */}
+            <AppToast />
+            {/* Listener */}
+            {/* <DataCommonListener /> */}
+            {/* Account Listener */}
+            {/* <AccountListener /> */}
+            {/* <DashboardListener /> */}
+            {/* Firebase Listener */}
+            {/* <FirebaseListener /> */}
+        </>
+    );
 }
 
 export default App;

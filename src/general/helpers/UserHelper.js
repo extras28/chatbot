@@ -4,11 +4,14 @@ import PreferenceKeys from "general/constants/PreferenceKey";
 import Utils from "general/utils/Utils";
 import _ from "lodash";
 import moment from 'moment';
+import { AvatarGenerator } from 'random-avatar-generator';
 
 const UserHelper = {
     // Get random avatar url
     getRandomAvatarUrl: () => {
-        return 'https://blenderartists.org/uploads/default/original/4X/6/a/d/6adcaac6f7378fbf998f5ea0490724cea82eb01f.jpeg';
+        const generator = new AvatarGenerator();
+        // return 'https://blenderartists.org/uploads/default/original/4X/6/a/d/6adcaac6f7378fbf998f5ea0490724cea82eb01f.jpeg';
+        return generator.generateRandomAvatar();
     },
 
     // Check access token valid

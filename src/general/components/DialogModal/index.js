@@ -6,7 +6,7 @@ import AppResource from "general/constants/AppResource";
 DialogModal.propTypes = {
     show: PropTypes.bool,
     onClose: PropTypes.func,
-    icon: PropTypes.element,
+    icon: PropTypes.string,
     description: PropTypes.string,
     onExecute: PropTypes.func,
     title: PropTypes.string,
@@ -15,7 +15,7 @@ DialogModal.propTypes = {
 DialogModal.defaultProps = {
     show: null,
     onClose: null,
-    icon: null,
+    icon: "",
     description: "",
     onExecute: null,
     title: "",
@@ -48,7 +48,7 @@ function DialogModal(props) {
             {/* modal content */}
             <Modal.Body className='d-flex flex-column align-items-center justify-content-center bg-light py-0'>
                 {icon ? (
-                    icon
+                    <i className={`${icon} fa-6x py-5 my-2`} style={{color:AppResource.colors.featureColor}}></i>
                 ) : (
                     <img
                         className='py-5 my-2'

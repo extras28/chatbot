@@ -293,6 +293,7 @@
         min-width: calc(100vw - 6.5rem);
     }
     &_Avatar{
+        cursor:pointer;
         overflow: hidden;
         position: relative;
         border-radius: 50%;
