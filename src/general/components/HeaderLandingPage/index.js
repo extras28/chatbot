@@ -28,8 +28,8 @@ HeaderLandingPage.defaultProps = {
 
 function HeaderLandingPage(props) {
     const navigate = useNavigate();
-    const {loggedIn, currentAccount} = useSelector(state => state?.auth); 
-
+    const { currentAccount} = useSelector(state => state?.auth); 
+    const loggedIn = UserHelper.checkAccessTokenValid();
     const { searchBar, logo, menu, buttonAddQuestion, buttonSign } = props;
     let [showSearchBar, setShowSearchBar] = useState(false);
     const handleShowSearchBar = () => {
@@ -245,7 +245,7 @@ function HeaderLandingPage(props) {
                             <div className="HeaderLandingPage_Avatar">
                                 <img
                                     src = {
-                                        Utils.getFullUrl(currentAccount?.avatar) ||
+                                        currentAccount?.avatar?.path ||
                                         UserHelper.getRandomAvatarUrl()
                                     }
                                     onError = {
@@ -318,7 +318,7 @@ function HeaderLandingPage(props) {
                                         <img
                                             className="header-sm-avatar"
                                             src = {
-                                                Utils.getFullUrl(currentAccount?.avatar) ||
+                                                currentAccount?.avatar?.path ||
                                                 UserHelper.getRandomAvatarUrl()
                                             }
                                             onError = {
