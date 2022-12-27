@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import BaseSearchBar from "general/components/Form/BaseSearchBar";
+import Loading from "general/components/Loading";
 
 UserListScreen.propTypes = {};
 function UserListScreen(props) {
@@ -26,15 +27,25 @@ function UserListScreen(props) {
     }, [filter]);
     return (
         <BaseLayout selected="users">
-            <BaseSearchBar
-                value={filter.q}
-                name="userFilter"
-                onSubmit={(value) => {
-                    setFilter({ ...filter, q: value });
-                }}
-            />
-            <div className="row mt-8 g-0">
-                {usersList?.accounts?.map((item, index) => {
+            <div className="mx-3">
+                <BaseSearchBar
+                    value={filter.q}
+                    name="userFilter"
+                    onSubmit={(value) => {
+                        setFilter({ ...filter, q: value });
+                    }}
+                />
+            </div>
+            <div className="row mt-8 mx-0">
+                {isGettingUsersList 
+                ? 
+                <div className="d-flex align-items-center justify-content-center">
+                    <Loading 
+                        showBackground={false}
+                        message="Đang lấy dữ liệu"
+                    />
+                </div>
+                :usersList?.accounts?.map((item, index) => {
                     return (
                         <div key={index} className="col-12 col-md-6 col-lg-4 col-xl-3 mb-7">
                             <SummaryUser
