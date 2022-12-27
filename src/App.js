@@ -19,6 +19,7 @@ import CreateQuestionScreen from "features/CreateQuestionScreen";
 import GuestRoute from "general/components/AppRoutes/GuestRoute";
 import PrivateRoute from "general/components/AppRoutes/PrivateRoute";
 import UserListScreen from "features/UserListScreen";
+import RequestToResetPass from "features/Auth/RequestToResetPass";
 // import Admin from "Admin";
 
 // Load BS
@@ -120,6 +121,15 @@ function App() {
                             element={
                                 <GuestRoute>
                                     <SignUpScreen />
+                                </GuestRoute>
+                            }
+                        />
+                        {/* Request to reset pass */}
+                        <Route
+                            path="/request-to-reset-pass"
+                            element={
+                                <GuestRoute>
+                                    <RequestToResetPass />
                                 </GuestRoute>
                             }
                         />
