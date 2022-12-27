@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import Utils from "general/utils/Utils";
 import BaseSearchBar from "general/components/Form/BaseSearchBar";
 import { useState } from "react";
+import Loading from "general/components/Loading";
 
 Dashboard.propTypes = {};
 
@@ -31,7 +32,14 @@ function Dashboard(props) {
                 setFilter({...filter, q:value})
             }}/>
             <div>
-                {questionsList?.questions?.map((item, index) =>{
+                {isGettingQuestionsList 
+                ? <div className="d-flex align-items-center justify-content-center">
+                    <Loading 
+                        showBackground={false}
+                        message="Đang lấy dữ liệu"
+                    />
+                </div> 
+                :questionsList?.questions?.map((item, index) =>{
                     return (
                         <SummaryQuestion
                         key={index}
