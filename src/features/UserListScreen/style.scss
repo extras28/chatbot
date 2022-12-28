@@ -1,0 +1,9 @@
+.UserListScreen {
+    &_Cell {
+        transition: all 0.2s ease-in-out;
+        &:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 0.75rem rgb(131, 129, 129));
+        }
+    }
+}
