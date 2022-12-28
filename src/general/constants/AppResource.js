@@ -7,6 +7,7 @@ const AppResource = {
         imgNoData: require("assets/images/img_no_data.png"),
         imgSignIn: require("assets/images/ImageLogin.png"),
         imgSignUp: require("assets/images/ImageRegister.png"),
+        imgForgotPassword: require("assets/images/ImageForgotPassword.png"),
         imgDefaultAvatar: require("assets/images/img_default_avatar.jpg"),
         imgPageNotFound: require("assets/images/Page-not-found.png"),
         Logo: require("assets/images/icon.png"),
