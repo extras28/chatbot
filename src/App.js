@@ -21,6 +21,7 @@ import PrivateRoute from "general/components/AppRoutes/PrivateRoute";
 import UserListScreen from "features/UserListScreen";
 import RequestToResetPass from "features/Auth/RequestToResetPass";
 import AccountListener from "features/Account/AccountListener";
+import Question from "features/Question";
 // import Admin from "Admin";
 
 // Load BS
@@ -68,11 +69,11 @@ function App() {
                         {/* <Route path="/admin/*" element={<Admin />} /> */}
 
                         {/* Landing Page */}
-                        <Route path="" element={<LandingPage />} />
+                        <Route path='' element={<LandingPage />} />
 
                         {/* Dashboard */}
                         <Route
-                            path="dashboard/*"
+                            path='dashboard/*'
                             element={
                                 // auth ? (
                                 //   <PrivateRoute>
@@ -86,11 +87,11 @@ function App() {
                             }
                         />
 
-                        <Route path="users/*" element={<UserListScreen />} />
+                        <Route path='users/*' element={<UserListScreen />} />
 
                         {/* Profle */}
                         <Route
-                            path="Profile/*"
+                            path='Profile/*'
                             element={
                                 // <PrivateRoute>
                                 <Profile />
@@ -109,7 +110,7 @@ function App() {
             /> */}
                         {/* Sign in */}
                         <Route
-                            path="/sign-in"
+                            path='/sign-in'
                             element={
                                 <GuestRoute>
                                     <SignInScreen />
@@ -118,7 +119,7 @@ function App() {
                         />
                         {/* Sign up */}
                         <Route
-                            path="/sign-up"
+                            path='/sign-up'
                             element={
                                 <GuestRoute>
                                     <SignUpScreen />
@@ -127,7 +128,7 @@ function App() {
                         />
                         {/* Request to reset pass */}
                         <Route
-                            path="/request-to-reset-pass"
+                            path='/request-to-reset-pass'
                             element={
                                 <GuestRoute>
                                     <RequestToResetPass />
@@ -137,7 +138,7 @@ function App() {
 
                         {/* Create quétion */}
                         <Route
-                            path="/create-question"
+                            path='/create-question'
                             element={<CreateQuestionScreen />}
                         />
                         {/* forgot pass */}
@@ -158,8 +159,10 @@ function App() {
                 </GuestRoute>
               }
             /> */}
+                        {/* Question */}
+                        <Route path='question/*' element={<Question />} />
                         {/* Not Found */}
-                        <Route path="*" element={<AppNotFound />} />
+                        <Route path='*' element={<AppNotFound />} />
                     </Routes>
                 </Suspense>
             </BrowserRouter>

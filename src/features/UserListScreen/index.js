@@ -51,7 +51,7 @@ function UserListScreen(props) {
                         return (
                             <div
                                 key={index}
-                                className='col-12 col-md-6 col-lg-4 col-xl-3 mb-7'>
+                                className='UserListScreen_Cell col-12 col-md-6 col-lg-4 col-xl-3 mb-7 cursor-pointer'>
                                 <SummaryUser
                                     avatar={item?.avatar?.path}
                                     userName={item.fullname}
