@@ -23,7 +23,7 @@ function UserListScreen(props) {
     const { isGettingUsersList, usersList } = useSelector(
         (state) => state?.user
     );
-    console.log(usersList);
+    // console.log(usersList);
     useEffect(() => {
         dispatch(thunkGetUsersList(filter));
     }, [filter]);
@@ -33,6 +33,7 @@ function UserListScreen(props) {
                 <BaseSearchBar
                     value={filter.q}
                     name='userFilter'
+                    placeholder="Tìm kiếm người dùng"
                     onSubmit={(value) => {
                         setFilter({ ...filter, q: value });
                     }}
@@ -48,20 +49,22 @@ function UserListScreen(props) {
                     </div>
                 ) : usersList?.accounts?.length > 0 ? (
                     usersList?.accounts?.map((item, index) => {
-                        return (
-                            <div
-                                key={index}
-                                className='UserListScreen_Cell col-12 col-md-6 col-lg-4 col-xl-3 mb-7 cursor-pointer'>
-                                <SummaryUser
-                                    avatar={item?.avatar?.path}
-                                    userName={item.fullname}
-                                    job={item.job}
-                                    email={item.email}
-                                    address={item.address}
-                                    phone={item.phone}
-                                />
-                            </div>
-                        );
+                        if (item?.accountLevel !== "ADMIN") {
+                            return (
+                                <div
+                                    key={index}
+                                    className='UserListScreen_Cell col-12 col-md-6 col-lg-4 col-xl-3 mb-7 cursor-pointer'>
+                                    <SummaryUser
+                                        avatar={item?.avatar?.path}
+                                        userName={item.fullname}
+                                        job={item.job}
+                                        email={item.email}
+                                        address={item.address}
+                                        phone={item.phone}
+                                    />
+                                </div>
+                            );
+                        }
                     })
                 ) : (
                     <div>

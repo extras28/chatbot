@@ -94,7 +94,7 @@ function SignInScreen(props) {
                                 />
                             </div>
 
-                            <div onClick={()=>handleNavigate('/request-to-reset-pass')} className="text-center font-weight-bolder cursor-pointer text-center" style={{color: AppResource.colors.featureColor}} >Quên mật khẩu ?</div>
+                            <div className="text-center font-weight-bolder cursor-pointer text-center" onClick={() => handleNavigate("/request-to-reset-pass")} style={{color: AppResource.colors.featureColor}} >Quên mật khẩu ?</div>
     
                             {/* sign in button */}
                             <AppButton 

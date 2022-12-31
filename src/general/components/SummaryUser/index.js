@@ -38,7 +38,7 @@ function SummaryUser(props) {
                     />
                 </div>
                 <div className="flex-grow-1 mx-2">
-                    <p className="fw-bold fs-5 my-0 q-max-line-1">{userName}</p>
+                    <p className="fw-bold font-size-h6 my-0 q-max-line-1">{userName}</p>
                     <p className="SummaryUser_Infor q-max-line-1">{job}</p>
                 </div>
             </div>

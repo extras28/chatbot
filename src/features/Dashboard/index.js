@@ -52,16 +52,16 @@ function Dashboard(props) {
                         return (
                             <SummaryQuestion
                                 key={index}
-                                avatar={item.account.avatar.path}
-                                userName={item.account.fullname}
+                                avatar={item?.account?.avatar?.path}
+                                userName={item?.account?.fullname}
                                 createAt={Utils.formatDateTime(
-                                    "2022-12-16T12:53:37.484Z"
+                                    item?.createdAt, "DD-MM-YYYY"
                                 )}
-                                titleQuestion={item.title}
+                                titleQuestion={item?.title}
                                 tags={["C", "PHP", "Javascript"]}
                                 comments='15'
-                                likes={item.like}
-                                dislikes={item.dislike}
+                                likes={item?.like}
+                                dislikes={item?.dislike}
                             />
                         );
                     })
