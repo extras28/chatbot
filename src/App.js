@@ -22,6 +22,8 @@ import UserListScreen from "features/UserListScreen";
 import RequestToResetPass from "features/Auth/RequestToResetPass";
 import AccountListener from "features/Account/AccountListener";
 import Question from "features/Question";
+import PersonalInformation from "features/EditProfile/PersonalInformation"
+import ChangePassword from "features/EditProfile/ChangePassword";
 // import Admin from "Admin";
 
 // Load BS
@@ -99,6 +101,24 @@ function App() {
                             }
                         />
 
+                        {/* Update Profle */}
+                        <Route
+                            path='updateProfile/personalInfo*'
+                            element={
+                                // <PrivateRoute>
+                                <PersonalInformation />
+                                // </PrivateRou>
+                            }
+                        />
+    
+                        <Route
+                            path='updateProfile/changePassword*'
+                            element={
+                                // <PrivateRoute>
+                                <ChangePassword />
+                                // </PrivateRou>
+                            }
+                        />
                         {/* Account */}
                         {/* <Route
               path="account/*"

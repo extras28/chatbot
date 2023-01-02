@@ -33,13 +33,13 @@ export const thunkRequestToResetPassword = createAsyncThunk(
     }
 );
 
-// export const thunkEditProfile = createAsyncThunk(
-//   "account/edit-profile",
-//   async (params) => {
-//     const res = await authApi.updateProfile(params);
-//     return res;
-//   }
-// );
+export const thunkEditProfile = createAsyncThunk(
+  "account/edit-profile",
+  async (params) => {
+    const res = await authApi.updateProfile(params);
+    return res;
+  }
+);
 
 export const thunkSignOut = createAsyncThunk(
     "auth/sign-out",
