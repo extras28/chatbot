@@ -100,7 +100,7 @@ function HeaderLandingPage(props) {
                         </span>
                     </a>
                     <a className='HeaderLandingPageNavItem'>
-                        <span onClick={() => handleNavigate("/dashboard")}>
+                        <span onClick={() => handleNavigate("/question")}>
                             Câu hỏi
                         </span>
                     </a>
@@ -167,7 +167,7 @@ function HeaderLandingPage(props) {
                                     <li>
                                         <NavLink
                                             className='dropdownMenuItem'
-                                            to='/dashboard'>
+                                            to='/question'>
                                             Câu hỏi
                                         </NavLink>
                                     </li>
@@ -200,7 +200,7 @@ function HeaderLandingPage(props) {
                     {/* Screen >= 768px */}
                     <div className='d-none d-md-flex align-items-center'>
                         {buttonAddQuestion && (
-                            <NavLink to=''>
+                            <NavLink to='/question/create'>
                                 <button
                                     type='button'
                                     className='ButtonPrimary d-flex'

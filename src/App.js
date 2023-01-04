@@ -14,7 +14,6 @@ import SignInScreen from "features/Auth/SignInScreen";
 import SignUpScreen from "features/Auth/SignUpScreen";
 import Profile from "features/Profile";
 import LandingPage from "features/LandingPage";
-import Dashboard from "features/Dashboard";
 import CreateQuestionScreen from "features/CreateQuestionScreen";
 import GuestRoute from "general/components/AppRoutes/GuestRoute";
 import PrivateRoute from "general/components/AppRoutes/PrivateRoute";
@@ -71,21 +70,6 @@ function App() {
                         {/* Landing Page */}
                         <Route path='' element={<LandingPage />} />
 
-                        {/* Dashboard */}
-                        <Route
-                            path='dashboard/*'
-                            element={
-                                // auth ? (
-                                //   <PrivateRoute>
-                                // <PrivateRoute>
-                                <Dashboard />
-                                // </PrivateRoute>
-                                //   {/* </PrivateRoute>
-                                // ) : (
-                                //   <HomeScreen />
-                                // ) */}
-                            }
-                        />
 
                         <Route path='users/*' element={<UserListScreen />} />
 

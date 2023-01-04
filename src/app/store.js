@@ -1,6 +1,6 @@
 // Import reducers
 import authReducer from "./authSlice";
-import questionReducer from "../features/Dashboard/dashboardSlice";
+import questionReducer from "../features/Question/questionSlice";
 import usersListReducer from "../features/UserListScreen/UsersListSlice";
 
 const {
