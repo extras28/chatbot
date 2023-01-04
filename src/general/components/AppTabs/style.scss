@@ -1,0 +1,89 @@
+$darkBlue : #23262F;
+$grayBorder : #DBE3EF;
+$lightGray : #A4A9C5;
+
+.Tabs_Container {
+    overflow-x:auto;
+    overflow-y: hidden;
+    .tabbed {
+        border-bottom: 1px solid $grayBorder;
+    }
+    
+}
+
+.Tabs_Container::-webkit-scrollbar {
+    display: none !important;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.Tabs_Container {
+-ms-overflow-style: none !important;  /* IE and Edge */
+scrollbar-width: none !important;  /* Firefox */
+}
+
+.tabbed .tab {
+    background: #FCFCFC;
+    padding: 0.7rem 2.4rem 0.7rem 2.4rem;
+    position: relative;
+    cursor: pointer;
+    color: $lightGray;
+    border-top: 1px solid #DBE3EF;
+    border-left: 1px solid #DBE3EF;
+
+    font-family: IBM Plex Sans;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 25px;
+
+    white-space: nowrap;
+    margin-right: 0.7rem;
+
+    transition: all 250ms ease;
+    max-height: 45px;
+}
+
+.tabbed .tab:before {
+    display: block;
+    content: " ";
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 2.3rem;  
+    background: #FCFCFC;
+
+
+    right: -1rem;
+    transform: skew(35deg, 0deg);
+    border-right: 1px solid #DBE3EF;
+    transition: all 250ms ease;
+}
+
+.tabbed .tab:hover, .tabbed .tab:hover:before{
+    color: #444;
+}
+
+.tabbed .tab.active, .tabbed .active:before{
+    background-color: #fff;
+    color: $darkBlue;
+    z-index: 2;
+    border-bottom: 0;
+}
+
+.tabbed .active:after{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: calc(100% + 18px + 0.7rem);
+    height: 2px;
+    background: white;
+}
+
+
+/*----- Round Tabs -----*/
+.tabbed.round .tab {
+    border-radius: 6px 6px 0 0;
+}
+.tabbed.round .tab:before {
+    border-radius: 0 6px 0 0;
+}
