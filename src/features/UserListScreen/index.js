@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "./style.scss";
 import BaseLayout from "general/components/BaseLayout";
 import SummaryUser from "general/components/SummaryUser";
-import { thunkGetUsersList } from "./UsersListSlice";
+import { setPaginationUserPerPage, thunkGetUsersList } from "./UsersListSlice";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -11,31 +11,32 @@ import BaseSearchBar from "general/components/Form/BaseSearchBar";
 import Loading from "general/components/Loading";
 import Empty from "general/components/Empty";
 import AppResource from "general/constants/AppResource";
+import Pagination from "general/components/Pagination";
+import Global from "general/utils/Global";
 
 UserListScreen.propTypes = {};
 function UserListScreen(props) {
-    const [filter, setFilter] = useState({
+    const [filters, setFilters] = useState({
         q: "",
         page: 1,
-        limit: 12,
+        limit: Global.gDefaultPagination,
     });
     const dispatch = useDispatch();
-    const { isGettingUsersList, usersList } = useSelector(
+    const { isGettingUsersList, usersList, paginationListUser } = useSelector(
         (state) => state?.user
     );
-    // console.log(usersList);
     useEffect(() => {
-        dispatch(thunkGetUsersList(filter));
-    }, [filter]);
+        dispatch(thunkGetUsersList(filters));
+    }, [filters]);
     return (
         <BaseLayout selected='users'>
             <div className='mx-3'>
                 <BaseSearchBar
-                    value={filter.q}
+                    value={filters.q}
                     name='userFilter'
-                    placeholder="Tìm kiếm người dùng"
+                    placeholder='Tìm kiếm người dùng'
                     onSubmit={(value) => {
-                        setFilter({ ...filter, q: value });
+                        setFilters({ ...filters, q: value });
                     }}
                 />
             </div>
@@ -47,8 +48,8 @@ function UserListScreen(props) {
                             message='Đang lấy dữ liệu'
                         />
                     </div>
-                ) : usersList?.accounts?.length > 0 ? (
-                    usersList?.accounts?.map((item, index) => {
+                ) : usersList?.length > 0 ? (
+                    usersList?.map((item, index) => {
                         if (item?.accountLevel !== "ADMIN") {
                             return (
                                 <div
@@ -78,6 +79,35 @@ function UserListScreen(props) {
                         />
                     </div>
                 )}
+                <div>
+                    <div className='d-flex align-items-center justify-content-center mt-0 px-6'>
+                        <Pagination
+                            rowsPerPage={paginationListUser.perPage}
+                            rowCount={
+                                paginationListUser.count ?? usersList?.length
+                            }
+                            currentPage={paginationListUser.currentPage ?? 1}
+                            onChangePage={(newPage) => {
+                                let iNewPage = parseInt(newPage);
+                                Global.g_needToRefreshUsers = true;
+                                setFilters({
+                                    ...filters,
+                                    page: iNewPage,
+                                });
+                            }}
+                            onChangeRowsPerPage={(newPerPage) => {
+                                const iNewPerPage = parseInt(newPerPage);
+                                dispatch(setPaginationUserPerPage(iNewPerPage));
+                                Global.g_needToRefreshUsers = true;
+                                setFilters({
+                                    ...filters,
+                                    page: 1,
+                                    limit: iNewPerPage,
+                                });
+                            }}
+                        />
+                    </div>
+                </div>
             </div>
         </BaseLayout>
     );

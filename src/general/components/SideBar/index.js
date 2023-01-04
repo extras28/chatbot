@@ -96,7 +96,7 @@ function SideBar(props) {
                     <MenuItem
                         className={selected === "tag" ? "MenuItem_active" : ""}
                         classNameTitle="d-none d-lg-block"
-                        url=""
+                        url="/tag"
                         text={showSideBar ? "Thẻ" : ""}
                         title="Thẻ"
                         icon="far fa-tags"
