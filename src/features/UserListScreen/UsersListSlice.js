@@ -1,4 +1,6 @@
 import authApi from "api/authApi";
+import Global from "general/utils/Global";
+import _ from "lodash";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
@@ -15,8 +17,19 @@ const usersListSlice = createSlice({
     initialState: {
         isGettingUsersList: false,
         usersList: [],
+        paginationListUser: { perPage: Global.gDefaultPagination },
     },
-    reducers: {},
+    reducers: {
+        setPaginationUserPerPage: (state, action) => {
+            return {
+                ...state,
+                paginationListUser: {
+                    ...state.paginationListUser,
+                    perPage: action.payload,
+                },
+            };
+        },
+    },
     extraReducers: {
         //get users list
         [thunkGetUsersList.pending]: (state, action) => {
@@ -27,12 +40,22 @@ const usersListSlice = createSlice({
         },
         [thunkGetUsersList.fulfilled]: (state, action) => {
             state.isGettingUsersList = false;
-            const list = action.payload;
-            state.usersList = list;
+            const { total, limit, page, accounts, count } = action.payload;
+            state.usersList = accounts;
+            if (!_.isNull(total) && !_.isNull(page)) {
+                state.paginationListUser = {
+                    ...state.paginationListUser,
+                    total: total,
+                    currentPage: page,
+                    perPage: limit,
+                    count: count,
+                };
+            }
+            Global.g_needToRefreshUsers = false;
         },
     },
 });
 
 const { reducer, actions } = usersListSlice;
-export const {} = actions;
+export const { setPaginationUserPerPage } = actions;
 export default reducer;

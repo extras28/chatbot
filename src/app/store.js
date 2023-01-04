@@ -2,27 +2,26 @@
 import authReducer from "./authSlice";
 import questionReducer from "../features/Question/questionSlice";
 import usersListReducer from "../features/UserListScreen/UsersListSlice";
+import tagReducer from "../features/TagScreen/tagSlice";
 
-const {
-  configureStore
-} = require("@reduxjs/toolkit");
+const { configureStore } = require("@reduxjs/toolkit");
 
 // root reducer
 const rootReducer = {
-  auth: authReducer,
-  question: questionReducer,
-  user: usersListReducer,
-
+    auth: authReducer,
+    question: questionReducer,
+    user: usersListReducer,
+    tag: tagReducer,
 };
 
 // app store
 const store = configureStore({
-  reducer: rootReducer,
-  devTools: process.env.REACT_APP_DEV_TOOLS == 1 ? true : false,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }),
+    reducer: rootReducer,
+    devTools: process.env.REACT_APP_DEV_TOOLS == 1 ? true : false,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: false,
+        }),
 });
 
 export default store;

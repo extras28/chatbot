@@ -21,6 +21,7 @@ import UserListScreen from "features/UserListScreen";
 import RequestToResetPass from "features/Auth/RequestToResetPass";
 import AccountListener from "features/Account/AccountListener";
 import Question from "features/Question";
+import Tag from "features/TagScreen";
 // import Admin from "Admin";
 
 // Load BS
@@ -125,26 +126,12 @@ function App() {
                             path='/create-question'
                             element={<CreateQuestionScreen />}
                         />
-                        {/* forgot pass */}
-                        {/* <Route
-              path="/forgot-pass"
-              element={
-                <GuestRoute>
-                  <ForgotPasswordScreen />
-                </GuestRoute>
-              }
-            /> */}
-                        {/* reset pass */}
-                        {/* <Route
-              path="/reset-pass"
-              element={
-                <GuestRoute>
-                  <ResetPasswordScreen />
-                </GuestRoute>
-              }
-            /> */}
+
                         {/* Question */}
                         <Route path='question/*' element={<Question />} />
+
+                        {/* tag */}
+                        <Route path='tag/*' element={<Tag />} />
                         {/* Not Found */}
                         <Route path='*' element={<AppNotFound />} />
                     </Routes>
