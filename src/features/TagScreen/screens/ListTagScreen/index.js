@@ -90,23 +90,19 @@ function ListTagScreen(props) {
                     </div>
                 ) : tags?.length > 0 ? (
                     tags?.map((item, index) => {
-                        if (item?.accountLevel !== "ADMIN") {
-                            return (
-                                <div
-                                    key={index}
-                                    className='col-12 col-md-6 col-lg-4 col-xl-3 mb-7 cursor-pointer'>
-                                    <CellTag
-                                        name={item?.name}
-                                        description={item?.description}
-                                        numberOfQuestion={
-                                            item?.numberOfQuestion
-                                        }
-                                        questionPerWeek={item?.questionPerWeek}
-                                        questionThisDay={item?.questionThisDay}
-                                    />
-                                </div>
-                            );
-                        }
+                        return (
+                            <div
+                                key={index}
+                                className='col-12 col-md-4 col-lg-3 col-xl-2 mb-7 cursor-pointer'>
+                                <CellTag
+                                    name={item?.name}
+                                    description={item?.description}
+                                    numberOfQuestion={item?.numberOfQuestion}
+                                    questionPerWeek={item?.questionPerWeek}
+                                    questionThisDay={item?.questionThisDay}
+                                />
+                            </div>
+                        );
                     })
                 ) : (
                     <div>

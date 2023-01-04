@@ -42,7 +42,7 @@ function SignInScreen(props) {
                 if (res) {
                     const displayName = UserHelper.getDisplayName(res.account);
                     ToastHelper.showSuccess(`Xin chào, ${displayName}`);
-                    navigate('/dashboard');
+                    navigate('/question');
                 }
             } catch (error) {
                 console.log(`${sTag} loggin error: ${error.message}`);
