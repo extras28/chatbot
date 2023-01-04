@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./style.scss";
 import UserHelper from "general/helpers/UserHelper";
+import AppTabs from "general/components/AppTabs";
+import { useState } from "react";
+import Utils from "general/utils/Utils";
 
 AccountLayout.propTypes = {
     children: PropTypes.element,
@@ -17,9 +19,18 @@ AccountLayout.defaultProps = {
     avatar: "",
 };
 
+const tabs = ["Thông tin cá nhân", "Câu hỏi", "Tag", "Câu trả lời"];
+
 function AccountLayout(props) {
-    // MARK --- Params ---
+    // MARK: --- Params ---
     const { children, fullname, email, avatar } = props;
+    const [selectedTab, setSelectedTab] = useState(tabs[0]);
+
+    // MARK: --- Functions ---
+    function handleSelectedTab(newTab) {
+        setSelectedTab(newTab);
+    }
+
     return (
         <div className='AccountLayout flex-column-fluid'>
             <div className='container-xxl'>
@@ -29,8 +40,10 @@ function AccountLayout(props) {
                         class='card-header rounded-top bgi-size-cover h-200px AccountLayout_CoverImage'
                         style={{
                             backgroundPosition: "100% 50%",
-                            backgroundImage:
-                                "url('https://preview.keenthemes.com/keen/demo1/assets/media/misc/profile-head-bg.jpg')",
+                            backgroundImage: `url(${Utils.getRandomImageLink(
+                                2600,
+                                900
+                            )})`,
                         }}></div>
                     <div className='card-body mt-n19'>
                         <div className='m-0'>
@@ -48,15 +61,46 @@ function AccountLayout(props) {
                                         }}
                                         alt='avatar'
                                         className='border border-white border-4'
-                                        style={{ borderRadius: "20px", objectFit: "cover" }}
+                                        style={{
+                                            borderRadius: "20px",
+                                            objectFit: "cover",
+                                        }}
                                     />
                                 </div>
                             </div>
                             <div>
-                                <p className="font-weight-bolder font-size-h3 text-remaining">{fullname}</p>
-                                <p className="text-muted">{email}</p>
+                                <p className='font-weight-bolder font-size-h3 text-remaining'>
+                                    {fullname}
+                                </p>
+                                <p className='text-muted'>{email}</p>
                             </div>
                         </div>
+                    </div>
+                </div>
+                {/* tab */}
+                <div>
+                    <AppTabs
+                        tabs={tabs}
+                        activeTab={selectedTab}
+                        handleClick={handleSelectedTab}
+                        className='flex-grow-1'
+                    />
+                    <div>
+                        {/* {
+                            selectedTab === 'Nhật ký hoạt động' ? (
+                                <CompanyDiaryActivity />
+                            ) : selectedTab === 'Thành viên' ? (
+                                <CompanyMember />
+                            ) : selectedTab === 'Nhóm vị trí' ? (
+                                <CompanyGroupPosition />
+                            ) : selectedTab === 'Vị trí công việc' ? (
+                                <CompanyPosition />
+                            ) : selectedTab === 'Cơ cấu tổ chức' ? (
+                                <CompanyOrganizationStructure />
+                            ) : selectedTab === 'Thông tin công ty' ? (
+                                <CompanyInfo />
+                            ) : (<></>)
+                        } */}
                     </div>
                 </div>
                 <div>{children}</div>
