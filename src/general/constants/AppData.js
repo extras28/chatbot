@@ -66,6 +66,13 @@ const AppData = {
         { value: -1, text: "Tiêu đề" },
         { value: -1, text: "Tính phổ biến" },
     ],
+
+    //gender
+    genderOptions: [
+        { value: "MALE", text: "Nam" },
+        { value: "FEMALE", text: "Nữ" },
+        { value: "UNKNOWN", text: "Không xác định" },
+    ],
 };
 
 export default AppData;

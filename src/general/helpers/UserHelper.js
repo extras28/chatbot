@@ -72,7 +72,18 @@ const UserHelper = {
         }
     },
 
-
+    renderGender: (gender) => {
+        switch (gender) {
+            case "MALE":
+                return "Nam";
+            case "FEMALE":
+                return "Nữ";
+            case "UNKNOWN":
+                return "Không xác định";
+            default:
+                break;
+        }
+    },
 };
 
 export default UserHelper;
