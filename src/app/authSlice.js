@@ -33,6 +33,13 @@ export const thunkRequestToResetPassword = createAsyncThunk(
     }
 );
 
+export const thunkChangePassword = createAsyncThunk(
+    "account/change-password",
+    async (params, thunkApi) => {
+        const res = await authApi.changePassword(params);
+        return res;
+    }
+);
 // export const thunkEditProfile = createAsyncThunk(
 //   "account/edit-profile",
 //   async (params) => {
@@ -54,6 +61,7 @@ const authSlice = createSlice({
     initialState: {
         loggedIn: false,
         isSigningIn: false,
+        isChangingPassword: false,
         currentAccount: {},
         isOnlineStatus: false,
     },
@@ -157,6 +165,22 @@ const authSlice = createSlice({
             const { result } = action.payload;
             if (result === "success") {
                 ToastHelper.showSuccess("Mật khẩu mới đã được gửi tới email của bạn. Vui lòng kiểm tra hòm thư (bao gồm cả hòm thư rác).")
+            }
+        },
+
+        //Change password
+        [thunkChangePassword.pending]: (state, action) => {
+            state.isChangingPassword = true;
+        },
+
+        [thunkChangePassword.rejected]: (state, action) => {
+            state.isChangingPassword = false;
+        },
+        [thunkChangePassword.fulfilled]: (state, action) => {
+            state.isChangingPassword = false;
+            const { result } = action.payload;
+            if (result === "success") {
+                ToastHelper.showSuccess("Đổi mật khẩu thành công")
             }
         },
 
