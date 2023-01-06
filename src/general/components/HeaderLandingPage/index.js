@@ -243,7 +243,10 @@ function HeaderLandingPage(props) {
                                 className='dropdown-menu my-4'
                                 aria-labelledby='dropdownMenuButton'>
                                 <li>
-                                    <a className='dropdown-item pe-5' href='#'>
+                                    <a
+                                        className='dropdown-item pe-5'
+                                        href='#'
+                                        onClick={() => navigate("/account")}>
                                         Thông tin cá nhân
                                     </a>
                                 </li>
@@ -312,7 +315,7 @@ function HeaderLandingPage(props) {
                                 <li>
                                     <NavLink
                                         className='dropdownMenuItem'
-                                        to='#'>
+                                        to='/account'>
                                         <i className='far fa-user-circle mr-4'></i>
                                         Thông tin cá nhân
                                     </NavLink>

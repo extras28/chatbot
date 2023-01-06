@@ -1,10 +1,11 @@
 import { removeAxiosAccessToken } from "api/axiosClient";
+import axios from "axios";
 import AppResource from "general/constants/AppResource";
 import PreferenceKeys from "general/constants/PreferenceKey";
 import Utils from "general/utils/Utils";
 import _ from "lodash";
-import moment from 'moment';
-import { AvatarGenerator } from 'random-avatar-generator';
+import moment from "moment";
+import { AvatarGenerator } from "random-avatar-generator";
 
 const UserHelper = {
     // Get random avatar url
@@ -18,7 +19,7 @@ const UserHelper = {
     checkAccessTokenValid: () => {
         const accessToken = localStorage.getItem(PreferenceKeys.accessToken);
         // const accessTokenExpired = localStorage.getItem(PreferenceKeys.accessTokenExpired);
-        if (accessToken ) {
+        if (accessToken) {
             // const momentExpired = moment.utc(accessTokenExpired);
             // const momentNow = moment.utc();
             // return momentExpired.isAfter(momentNow);
@@ -31,9 +32,9 @@ const UserHelper = {
     // Get display name
     getDisplayName: (account) => {
         if (account) {
-            return account.fullname ?? account.email ?? 'Unknown';
+            return account.fullname ?? account.email ?? "Unknown";
         }
-        return '';
+        return "";
     },
 
     // Get avatar
@@ -52,7 +53,9 @@ const UserHelper = {
     },
 
     isHSMAuthen: (account) => {
-        const isAuthen = !_.isEmpty(account?.hsmAgreementUUID) && !_.isEmpty(account?.hsmPasscode);
+        const isAuthen =
+            !_.isEmpty(account?.hsmAgreementUUID) &&
+            !_.isEmpty(account?.hsmPasscode);
         return isAuthen;
     },
 
@@ -66,6 +69,19 @@ const UserHelper = {
             return Utils.getFullUrl(avatar);
         } else {
             return AppResource.images.imgDefaultAvatar;
+        }
+    },
+
+    renderGender: (gender) => {
+        switch (gender) {
+            case "MALE":
+                return "Nam";
+            case "FEMALE":
+                return "Nữ";
+            case "UNKNOWN":
+                return "Không xác định";
+            default:
+                break;
         }
     },
 };
