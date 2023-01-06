@@ -65,7 +65,7 @@ function AccountProfile(props) {
             formik.getFieldHelpers("gender").setValue(currentAccount?.gender);
             formik.getFieldHelpers("address").setValue(currentAccount?.address);
         }
-    }, [currentAccount]);
+    }, [currentAccount, isEditMode]);
     return (
         <div className='card mb-5 mb-xl-10 position-relative'>
             {loading && (
@@ -103,7 +103,7 @@ function AccountProfile(props) {
                     </div>
                 </div>
                 <div class='row mb-7'>
-                    <label class='col-lg-4 fw-semibold text-muted'>Họ tên</label>
+                    <label class='col-lg-4 fw-semibold text-muted'>Họ tên <span className={`${isEditMode ? "text-danger" : "d-none"}`}>*</span></label>
                     <div class='col-lg-8'>
                         {!isEditMode ? (
                             <span class='fw-bold fs-6 text-gray-800'>{currentAccount?.fullname}</span>
