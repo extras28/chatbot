@@ -146,6 +146,7 @@ function CreateQuestionScreen(props) {
                             Chi tiết vấn đề của bạn là gì?
                         </div>
                         <MDEditor
+                        
                             height={300}
                             preview="edit"
                             //extraCommands={[]}
