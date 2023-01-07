@@ -38,7 +38,7 @@ function SummaryQuestion(props) {
         dislikes,
     } = props;
     return (
-        <div className="my-5">
+        <div className="my-5 SummaryQuestion">
             <div className="comment p-5 bg-body shadow-sm rounded">
                 <div className="d-flex">
                     <div className="flex-shrink-0">
