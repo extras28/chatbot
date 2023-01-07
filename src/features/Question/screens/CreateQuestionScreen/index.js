@@ -9,93 +9,71 @@ import UserHelper from "general/helpers/UserHelper";
 import { useSelector } from "react-redux";
 import "./style.scss";
 import DialogModal from "general/components/DialogModal";
+import { useRef } from "react";
+import axios from "axios";
+import { useFormik } from "formik";
 
 CreateQuestionScreen.propTypes = {};
-const image1 = {
-    name: "image",
-    keyCommand: "image",
-    buttonProps: { "aria-label": "Insert image" },
-    icon: <ImageMDIcon />,
-    execute: async (state, api) => {
-        // const [contentImageProblem, setContentImageProblem] = useState('');
-
-        let imageProblemUrl =
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBF0O5cZra6tQslwXgRl9ZwMoeDX0rInpbcQ&usqp=CAU";
-        //   let imageProblemUrl = await upload_image(contentImageProblem);
-
-        let modifyText = `![](${imageProblemUrl})\n`;
-        api.replaceSelection(modifyText);
-    },
-};
-const image2 = {
-    name: "image",
-    keyCommand: "image",
-    buttonProps: { "aria-label": "Insert image" },
-    icon: <ImageMDIcon />,
-    execute: async (state, api) => {
-        // OPEN my component.
-
-        // const [contentImageExpect, setContentImageExpect] = useState('');
-
-        let imageExpectUrl =
-            "https://topdev.vn/blog/wp-content/uploads/2019/04/huong-dan-doc-code-1024x556.png";
-        //   let imageExpectUrl = await upload_image(contentImageExpect);
-        let modifyText = `![](${imageExpectUrl})\n`;
-        api.replaceSelection(modifyText);
-    },
-};
-const mkdStr = `
-**Hello world!!!**
-
-\`\`\`jsx
-import React from "react";
-import ReactDOM from "react-dom";
-import MEDitor from '@uiw/react-md-editor';
-
-export default function App() {
-  const [value, setValue] = React.useState("**Hello world!!!**");
-  return (
-    <div className="container">
-      <MEDitor
-        value={value}
-        onChange={setValue}
-      />
-      <MDEditor.Markdown source={value} />
-    </div>
-  );
-}
-\`\`\`
-`;
 
 function CreateQuestionScreen(props) {
     const { isSigningIn, currentAccount } = useSelector((state) => state?.auth);
     const [titleQuestion, setTitleQuestion] = useState("");
+    const [imgQuestion1, setImgQuestion1] = useState(null);
     const [tags, setTags] = useState([]);
-    const [contentTextProblem, setContentTextProblem] = useState(mkdStr);
-    const [contentTextExpect, setContentTextExpect] = useState(mkdStr);
     const [showPreviewQuestion, setShowPreviewQuestion] = useState(false);
     const [showResetQuestionModal, setShowResetQuestionModal] = useState(false);
-    const [contentImageProblem, setContentImageProblem] = useState('');
-    function handleChange(e) {
-        console.log(e.target.files);
-        setContentImageProblem(URL.createObjectURL(e.target.files[0]));
-    }
+
+    // const Clickkk = useRef(null);
+
     const handleShowPreviewQuestion = () => {
         setShowPreviewQuestion(!showPreviewQuestion);
         document.documentElement.scrollTop = 0;
     };
 
-    const handleResetQuestion = () => {
-        setTitleQuestion("");
-        setTags("");
-        setContentTextProblem("");
-        setContentTextExpect("");
-        document.documentElement.scrollTop = 0;
+    const uploadPhotoHandler = async (e) => {
+        const file = e.target.files[0];
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", "WebTechnology");
+
+        try {
+            //   setPictureProfile("./assets/img/giphy.gif");
+            const res = await axios.post(
+                "https://api.cloudinary.com/v1_1/dc7pxknio/upload",
+                formData
+            );
+            if (res) {
+                console.log(res);
+                setImgQuestion1(res.data.secure_url);
+            } //   console.log(imgQuestion1);
+            //   setPictureProfile(res.data.url);
+        } catch (error) {}
     };
-    // validationSchema: Yup.object({
-    //     title: Yup.string().trim().required("Bạn chưa nhập tiêu đề"),
-    // });
-    
+
+    // const handleResetQuestion = () => {
+    //     setTitleQuestion("");
+    //     setTags("");
+    //     setContentTextProblem("");
+    //     setContentTextExpect("");
+    //     document.documentElement.scrollTop = 0;
+    // };
+
+    const formik = useFormik({
+        initialValues: {
+            title: "",
+            contentTextProblem: "",
+            contentTextExpect: "",
+        },
+        onSubmit: async (values) => {
+            const params = { ...values };
+            console.log(params);
+        },
+        // validationSchema: Yup.object({
+        //     email: Yup.string().trim().required('Bạn chưa nhập email').email('Email không hợp lệ'),
+        //     password: Yup.string().trim().required('Bạn chưa nhập mật khẩu'),
+        // }),
+    });
+
     return (
         <div className="position-relative">
             <BaseLayout selected="questions">
@@ -140,6 +118,7 @@ function CreateQuestionScreen(props) {
                         </div>
                     </div>
                 </div>
+                {/* <input type="file" className="d-none" ref={Clickkk} onChange={(e) => uploadPhotoHandler(e)}/> */}
                 <div className="container">
                     <div className="d-flex flex-column mt-5 p-7 p-lg-10 border-1 bg-white shadow-sm rounded">
                         <div className="fs-5 fw-bold mb-3">
@@ -150,8 +129,14 @@ function CreateQuestionScreen(props) {
                             height={300}
                             preview="edit"
                             //extraCommands={[]}
-                            value={contentTextProblem}
-                            onChange={setContentTextProblem}
+                            value={
+                                formik.getFieldProps("contentTextProblem").value
+                            }
+                            onChange={(e) =>
+                                formik
+                                    .getFieldHelpers("contentTextProblem")
+                                    .setValue(e)
+                            }
                             commands={[
                                 commands.bold,
                                 commands.italic,
@@ -160,6 +145,7 @@ function CreateQuestionScreen(props) {
                                 commands.link,
                                 commands.code,
                                 commands.codeBlock,
+                                commands.image,
                                 // image1,
                                 commands.group([], {
                                     name: "image",
@@ -179,9 +165,12 @@ function CreateQuestionScreen(props) {
                                                         </label>
                                                         <input
                                                             type="file"
-                                                            className="form-control-file"
-                                                             id="exampleFormControlFile1"
-                                                            onChange={handleChange}
+                                                            // ref={Clickkk}
+                                                            onChange={(e) => {
+                                                                uploadPhotoHandler(
+                                                                    e
+                                                                );
+                                                            }}
                                                         />
                                                     </div>
                                                 </form>
@@ -204,11 +193,12 @@ function CreateQuestionScreen(props) {
                                             </div>
                                         );
                                     },
+
                                     execute: (state, api) => {
-                                        // let imageProblemUrl =
-                                        //     "https://topdev.vn/blog/wp-content/uploads/2019/04/huong-dan-doc-code-1024x556.png";
+                                        // Clickkk.current.click();
+                                        console.log("onExe:", state);
                                         //   let imageProblemUrl = await upload_image(contentImageExpect);
-                                        let modifyText = `![](${contentImageProblem})\n`;
+                                        let modifyText = `![](${state.text})\n`;
                                         api.replaceSelection(modifyText);
                                     },
                                     buttonProps: {
@@ -222,6 +212,7 @@ function CreateQuestionScreen(props) {
                         />
                     </div>
                 </div>
+
                 <div className="container">
                     <div className="d-flex flex-column mt-5 p-7 p-lg-10 border-1 bg-white shadow-sm rounded">
                         <div className="fs-5 fw-bold mb-3">
@@ -231,8 +222,6 @@ function CreateQuestionScreen(props) {
                             height={300}
                             preview="edit"
                             //extraCommands={[]}
-                            value={contentTextExpect}
-                            onChange={setContentTextExpect}
                             commands={[
                                 commands.bold,
                                 commands.italic,
@@ -241,7 +230,6 @@ function CreateQuestionScreen(props) {
                                 commands.link,
                                 commands.code,
                                 commands.codeBlock,
-                                image2,
                                 commands.divider,
                                 commands.unorderedListCommand,
                                 commands.orderedListCommand,
@@ -320,18 +308,18 @@ function CreateQuestionScreen(props) {
                             <div className="fw-bold fs-3">{titleQuestion}</div>
                         </div>
                         <MDEditor.Markdown
-                            source={contentTextProblem}
+                            source={
+                                formik.getFieldProps("contentTextProblem").value
+                            }
                             style={{ padding: 15 }}
                         />
-                        <MDEditor.Markdown
-                            source={contentTextExpect}
-                            style={{ padding: 15 }}
-                        />
+                        <MDEditor.Markdown style={{ padding: 15 }} />
                         <div className="container">
                             <div className="d-flex justify-content-center mt-5">
                                 <AppButton
                                     className="ButtonPrimary me-5"
                                     width="10rem"
+                                    onClick={() => formik.handleSubmit()}
                                 >
                                     Đăng câu hỏi
                                 </AppButton>
@@ -353,7 +341,7 @@ function CreateQuestionScreen(props) {
                 icon="fas fa-trash-alt text-danger"
                 title="Hủy bản nháp"
                 description="Bạn có chắc chắn hủy bản nháp?"
-                onExecute={handleResetQuestion}
+                // onExecute={handleResetQuestion}
             />
         </div>
     );
