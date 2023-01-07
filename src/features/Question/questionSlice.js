@@ -1,4 +1,6 @@
 import questionApi from "api/questionApi";
+import Global from "general/utils/Global";
+import _ from "lodash";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
@@ -22,8 +24,19 @@ const questionSlice = createSlice({
     initialState: {
         isGettingQuestionsList: false,
         questionsList: [],
+        paginationListQuestion: { perPage: Global.gDefaultPagination },
     },
-    reducers: {},
+    reducers: {
+        setPaginationQuestionPerPage: (state, action) => {
+            return {
+                ...state,
+                paginationListQuestion: {
+                    ...state.paginationListQuestion,
+                    perPage: action.payload,
+                },
+            };
+        },
+    },
     extraReducers: {
         //get questions list
         [thunkGetQuestionsList.pending]: (state, action) => {
@@ -34,12 +47,22 @@ const questionSlice = createSlice({
         },
         [thunkGetQuestionsList.fulfilled]: (state, action) => {
             state.isGettingQuestionsList = false;
-            const list = action.payload;
-            state.questionsList = list;
+            const { total, limit, page, questions, count } = action.payload;
+            state.questionsList = questions;
+            if (!_.isNull(total) && !_.isNull(page)) {
+                state.paginationListQuestion = {
+                    ...state.paginationListQuestion,
+                    total: total,
+                    currentPage: page,
+                    perPage: limit,
+                    count: count,
+                };
+                Global.g_needToRefreshQuestions = false;
+            }
         },
     },
 });
 
 const { reducer, actions } = questionSlice;
-export const {} = actions;
+export const { setPaginationQuestionPerPage } = actions;
 export default reducer;

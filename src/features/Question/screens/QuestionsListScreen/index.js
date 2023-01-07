@@ -11,57 +11,60 @@ import { useState } from "react";
 import Loading from "general/components/Loading";
 import Empty from "general/components/Empty";
 import AppResource from "general/constants/AppResource";
-import { thunkGetQuestionsList } from "features/Question/questionSlice";
+import {
+    setPaginationQuestionPerPage,
+    thunkGetQuestionsList,
+} from "features/Question/questionSlice";
 import SummaryQuestion from "features/Question/SummaryQuestion";
+import Global from "general/utils/Global";
+import Pagination from "general/components/Pagination";
 
-QuestionsListScreen.propTypes = {
-    
-};
+QuestionsListScreen.propTypes = {};
 
 function QuestionsListScreen(props) {
-    const [filter, setFilter] = useState({
+    const [filters, setFilters] = useState({
         q: "",
         page: 1,
-        limit: 20,
+        limit: Global.gDefaultPagination,
     });
     const dispatch = useDispatch();
-    const { isGettingQuestionsList, questionsList } = useSelector(
-        (state) => state?.question
-    );
+    const { isGettingQuestionsList, questionsList, paginationListQuestion } =
+        useSelector((state) => state?.question);
     // console.log(questionsList);
     useEffect(() => {
-        dispatch(thunkGetQuestionsList(filter));
-    }, [filter]);
+        dispatch(thunkGetQuestionsList(filters));
+    }, [filters]);
     return (
-        <BaseLayout selected='questions'>
+        <BaseLayout selected="questions">
             <BaseSearchBar
-                value={filter.q}
-                name='questionFilter'
+                value={filters.q}
+                name="questionFilter"
                 onSubmit={(value) => {
-                    setFilter({ ...filter, q: value });
+                    setFilters({ ...filters, q: value });
                 }}
             />
             <div>
                 {isGettingQuestionsList ? (
-                    <div className='d-flex align-items-center justify-content-center mt-8'>
+                    <div className="d-flex align-items-center justify-content-center mt-8">
                         <Loading
                             showBackground={false}
-                            message='Đang lấy dữ liệu'
+                            message="Đang lấy dữ liệu"
                         />
                     </div>
-                ) : questionsList?.questions?.length > 0 ? (
-                    questionsList?.questions?.map((item, index) => {
+                ) : questionsList?.length > 0 ? (
+                    questionsList?.map((item, index) => {
                         return (
                             <SummaryQuestion
                                 key={index}
                                 avatar={item?.account?.avatar?.path}
                                 userName={item?.account?.fullname}
                                 createAt={Utils.formatDateTime(
-                                    item?.createdAt, "DD-MM-YYYY"
+                                    item?.createdAt,
+                                    "DD-MM-YYYY"
                                 )}
                                 titleQuestion={item?.title}
                                 tags={["C", "PHP", "Javascript"]}
-                                comments='15'
+                                comments="15"
                                 likes={item?.like}
                                 dislikes={item?.dislike}
                             />
@@ -70,8 +73,8 @@ function QuestionsListScreen(props) {
                 ) : (
                     <div className="mt-8">
                         <Empty
-                            text='Không có kết quả phù hợp'
-                            buttonText='Làm mới'
+                            text="Không có kết quả phù hợp"
+                            buttonText="Làm mới"
                             visible={false}
                             imageEmpty={
                                 AppResource.images.errorStates.noMatchFound
@@ -79,6 +82,40 @@ function QuestionsListScreen(props) {
                         />
                     </div>
                 )}
+                <div>
+                    <div className="d-flex align-items-center justify-content-center mt-0 px-6">
+                        <Pagination
+                            rowsPerPage={paginationListQuestion.perPage}
+                            rowCount={
+                                paginationListQuestion.count ??
+                                questionsList?.length
+                            }
+                            currentPage={
+                                paginationListQuestion.currentPage ?? 1
+                            }
+                            onChangePage={(newPage) => {
+                                let iNewPage = parseInt(newPage);
+                                Global.g_needToRefreshQuestions = true;
+                                setFilters({
+                                    ...filters,
+                                    page: iNewPage,
+                                });
+                            }}
+                            onChangeRowsPerPage={(newPerPage) => {
+                                const iNewPerPage = parseInt(newPerPage);
+                                dispatch(
+                                    setPaginationQuestionPerPage(iNewPerPage)
+                                );
+                                Global.g_needToRefreshQuestions = true;
+                                setFilters({
+                                    ...filters,
+                                    page: 1,
+                                    limit: iNewPerPage,
+                                });
+                            }}
+                        />
+                    </div>
+                </div>
             </div>
         </BaseLayout>
     );
