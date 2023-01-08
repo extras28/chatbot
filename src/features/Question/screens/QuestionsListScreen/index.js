@@ -1,11 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import SummaryQuestion from "general/components/SummaryQuestion";
 import "./style.scss";
 import MiniProfile from "general/components/MiniProfile";
 import BaseLayout from "general/components/BaseLayout";
-import { thunkGetQuestionsList } from "./dashboardSlice";
 import { useEffect } from "react";
 import Utils from "general/utils/Utils";
 import BaseSearchBar from "general/components/Form/BaseSearchBar";
@@ -13,10 +11,14 @@ import { useState } from "react";
 import Loading from "general/components/Loading";
 import Empty from "general/components/Empty";
 import AppResource from "general/constants/AppResource";
+import { thunkGetQuestionsList } from "features/Question/questionSlice";
+import SummaryQuestion from "features/Question/SummaryQuestion";
 
-Dashboard.propTypes = {};
+QuestionsListScreen.propTypes = {
+    
+};
 
-function Dashboard(props) {
+function QuestionsListScreen(props) {
     const [filter, setFilter] = useState({
         q: "",
         page: 1,
@@ -82,4 +84,4 @@ function Dashboard(props) {
     );
 }
 
-export default Dashboard;
+export default QuestionsListScreen;

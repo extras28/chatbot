@@ -80,7 +80,7 @@ function SideBar(props) {
                             selected === "questions" ? "MenuItem_active" : ""
                         }
                         classNameTitle="d-none d-lg-block"
-                        url="/dashboard"
+                        url="/question"
                         text={showSideBar ? "Câu hỏi" : ""}
                         title="Câu hỏi"
                         icon="fas fa-list-ul"
@@ -96,7 +96,7 @@ function SideBar(props) {
                     <MenuItem
                         className={selected === "tag" ? "MenuItem_active" : ""}
                         classNameTitle="d-none d-lg-block"
-                        url=""
+                        url="/tag"
                         text={showSideBar ? "Thẻ" : ""}
                         title="Thẻ"
                         icon="far fa-tags"

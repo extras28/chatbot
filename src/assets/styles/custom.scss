@@ -287,3 +287,14 @@ body {
 .dropdown-toggle::after {
   display: none !important;
 }
+.text-remaining{
+  color: #313C59 !important;
+}
+.custom-cell {
+  transition: all 0.3s ease 0s;
+
+  &:hover {
+    transform: scale(1.03, 1.03);
+    filter: drop-shadow(0 0 0.75rem rgb(131, 129, 129));
+  }
+}
