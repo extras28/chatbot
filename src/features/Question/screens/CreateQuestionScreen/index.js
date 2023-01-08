@@ -14,15 +14,16 @@ import axios from "axios";
 import { useFormik } from "formik";
 import Utils from "general/utils/Utils";
 import "react-markdown-editor-lite/lib/index.css";
-import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
+import ReactMarkdown from "react-markdown";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 CreateQuestionScreen.propTypes = {};
 
 function CreateQuestionScreen(props) {
     const { isSigningIn, currentAccount } = useSelector((state) => state?.auth);
     const [titleQuestion, setTitleQuestion] = useState("");
-    const [imgQuestion1, setImgQuestion1] = useState(null);
     const [tags, setTags] = useState([]);
     const [showPreviewQuestion, setShowPreviewQuestion] = useState(false);
     const [showResetQuestionModal, setShowResetQuestionModal] = useState(false);
@@ -33,31 +34,6 @@ function CreateQuestionScreen(props) {
         setShowPreviewQuestion(!showPreviewQuestion);
         document.documentElement.scrollTop = 0;
     };
-
-    // const uploadPhotoHandler = async (file) => {
-    //     const formData = new FormData();
-    //     formData.append("file", file);
-    //     formData.append("upload_preset", "WebTechnology");
-
-    //     try {
-    //         //   setPictureProfile("./assets/img/giphy.gif");
-    //         const res = await axios.post("https://api.cloudinary.com/v1_1/dc7pxknio/upload", formData);
-    //         if (res) {
-    //             console.log(res);
-    //             return res;
-    //         }
-    //     } catch (error) {
-    //         console.log(error.message);
-    //     }
-    // };
-
-    // const handleResetQuestion = () => {
-    //     setTitleQuestion("");
-    //     setTags("");
-    //     setContentTextProblem("");
-    //     setContentTextExpect("");
-    //     document.documentElement.scrollTop = 0;
-    // };
 
     const formik = useFormik({
         initialValues: {
@@ -76,28 +52,18 @@ function CreateQuestionScreen(props) {
     });
 
     // MARK --- Functions: ---
-    // function handleImageContentInputChange(e) {
-    //     const file = e.target.files[0];
-    //     if (file) {
-    //         setImgQuestion1(file);
-    //     }
-    // }
     // Register plugins if required
     // MdEditor.use(YOUR_PLUGINS_HERE);
 
-    // Initialize a markdown parser
-    const mdParser = new MarkdownIt(/* Markdown-it options */);
-
     // Finish!
-    function handleEditorChange({ html, text }) {
-        // console.log("handleEditorChange", html, text);
+    function handleEditorProblemChange({ html, text }) {
         formik.getFieldHelpers("contentTextProblem").setValue(text);
-        // console.log("text: ", text);
-        // console.log("html: ", html);
+    }
+    function handleEditorExpectChange({ html, text }) {
+        formik.getFieldHelpers("contentTextExpect").setValue(text);
     }
     async function onImageUpload(file) {
         const image = await Utils.uploadCloudinary(file);
-        console.log(image);
         return image.data.secure_url;
     }
 
@@ -143,9 +109,9 @@ function CreateQuestionScreen(props) {
                         <MdEditor
                             onImageUpload={onImageUpload}
                             allowPasteImage={true}
-                            style={{ height: "500px" }}
-                            renderHTML={(text) => mdParser.render(text)}
-                            onChange={handleEditorChange}
+                            style={{ minHeight: "300px" }}
+                            renderHTML={(text) => <ReactMarkdown children={text} />}
+                            onChange={handleEditorProblemChange}
                         />
                     </div>
                 </div>
@@ -156,9 +122,9 @@ function CreateQuestionScreen(props) {
                         <MdEditor
                             onImageUpload={onImageUpload}
                             allowPasteImage={true}
-                            style={{ height: "500px" }}
-                            renderHTML={(text) => mdParser.render(text)}
-                            onChange={handleEditorChange}
+                            style={{ minHeight: "300px" }}
+                            renderHTML={(text) => <ReactMarkdown children={text} />}
+                            onChange={handleEditorExpectChange}
                         />
                     </div>
                 </div>
@@ -216,13 +182,71 @@ function CreateQuestionScreen(props) {
                             </div>
                         </div>
                         <div className='content'>
-                            <div className='fw-bold fs-3'>{titleQuestion}</div>
+                            <div className='fw-bold fs-3'>{formik.getFieldProps("title").value}</div>
                         </div>
-                        <MDEditor.Markdown
+                        {/* <MDEditor.Markdown
                             source={formik.getFieldProps("contentTextProblem").value}
                             style={{ padding: 15 }}
+                        /> */}
+                        <ReactMarkdown
+                            children={formik.getFieldProps("contentTextProblem").value}
+                            components={{
+                                img: ({ alt, src, title }) => (
+                                    <img
+                                        alt={alt}
+                                        src={src}
+                                        title={title}
+                                        style={{ maxWidth: "-webkit-fill-available", padding: "18px 0px" }}
+                                    />
+                                ),
+                                code({ node, inline, className, children, ...props }) {
+                                    const match = /language-(\w+)/.exec(className || "");
+                                    return !inline && match ? (
+                                        <SyntaxHighlighter
+                                            children={String(children).replace(/\n$/, "")}
+                                            style={dracula}
+                                            language={match[1]}
+                                            PreTag='div'
+                                            {...props}
+                                        />
+                                    ) : (
+                                        <code className={className} {...props}>
+                                            {children}
+                                        </code>
+                                    );
+                                },
+                            }}
                         />
-                        <MDEditor.Markdown style={{ padding: 15 }} />
+                        <ReactMarkdown
+                            children={formik.getFieldProps("contentTextExpect").value}
+                            components={{
+                                img: ({ alt, src, title }) => (
+                                    <img
+                                        alt={alt}
+                                        src={src}
+                                        title={title}
+                                        style={{ maxWidth: "-webkit-fill-available", padding: "18px 0px" }}
+                                    />
+                                ),
+                                code({ node, inline, className, children, ...props }) {
+                                    const match = /language-(\w+)/.exec(className || "");
+                                    return !inline && match ? (
+                                        <SyntaxHighlighter
+                                            children={String(children).replace(/\n$/, "")}
+                                            style={dracula}
+                                            language={match[1]}
+                                            PreTag='div'
+                                            {...props}
+                                        />
+                                    ) : (
+                                        <code className={className} {...props}>
+                                            {children}
+                                        </code>
+                                    );
+                                },
+                            }}
+                        />
+                        {/* <MDEditor.Markdown style={{ padding: 15 }} /> */}
                         <div className='container'>
                             <div className='d-flex justify-content-center mt-5'>
                                 <AppButton
