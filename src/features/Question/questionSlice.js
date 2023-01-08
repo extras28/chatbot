@@ -1,4 +1,5 @@
 import questionApi from "api/questionApi";
+import ToastHelper from "general/helpers/ToastHelper";
 import Global from "general/utils/Global";
 import _ from "lodash";
 
@@ -58,6 +59,12 @@ const questionSlice = createSlice({
                     count: count,
                 };
                 Global.g_needToRefreshQuestions = false;
+            }
+        },
+        [thunkCreateQuestion.fulfilled]: (state, action) => {
+            const { result } = action.payload;
+            if (result === "success") {
+                ToastHelper.showSuccess("Thêm câu hỏi thành công.")
             }
         },
     },

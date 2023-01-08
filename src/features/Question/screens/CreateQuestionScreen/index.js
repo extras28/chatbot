@@ -2,62 +2,34 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import BaseLayout from "general/components/BaseLayout";
 import AppButton from "general/components/AppButton";
-import MDEditor, { commands } from "@uiw/react-md-editor";
-import { ImageMDIcon } from "assets/icons/Icons";
 import * as Yup from "yup";
 import UserHelper from "general/helpers/UserHelper";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./style.scss";
 import DialogModal from "general/components/DialogModal";
-import { useRef } from "react";
-import axios from "axios";
 import { useFormik } from "formik";
 import Utils from "general/utils/Utils";
 import "react-markdown-editor-lite/lib/index.css";
-import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
+// import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import MDEditor from "@uiw/react-md-editor";
+import { thunkCreateQuestion } from "features/Question/questionSlice";
+import { useNavigate } from "react-router-dom";
 
 CreateQuestionScreen.propTypes = {};
 
 function CreateQuestionScreen(props) {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { isSigningIn, currentAccount } = useSelector((state) => state?.auth);
-    const [titleQuestion, setTitleQuestion] = useState("");
-    const [imgQuestion1, setImgQuestion1] = useState(null);
     const [tags, setTags] = useState([]);
     const [showPreviewQuestion, setShowPreviewQuestion] = useState(false);
     const [showResetQuestionModal, setShowResetQuestionModal] = useState(false);
-
-    const Clickkk = useRef(null);
 
     const handleShowPreviewQuestion = () => {
         setShowPreviewQuestion(!showPreviewQuestion);
         document.documentElement.scrollTop = 0;
     };
-
-    // const uploadPhotoHandler = async (file) => {
-    //     const formData = new FormData();
-    //     formData.append("file", file);
-    //     formData.append("upload_preset", "WebTechnology");
-
-    //     try {
-    //         //   setPictureProfile("./assets/img/giphy.gif");
-    //         const res = await axios.post("https://api.cloudinary.com/v1_1/dc7pxknio/upload", formData);
-    //         if (res) {
-    //             console.log(res);
-    //             return res;
-    //         }
-    //     } catch (error) {
-    //         console.log(error.message);
-    //     }
-    // };
-
-    // const handleResetQuestion = () => {
-    //     setTitleQuestion("");
-    //     setTags("");
-    //     setContentTextProblem("");
-    //     setContentTextExpect("");
-    //     document.documentElement.scrollTop = 0;
-    // };
 
     const formik = useFormik({
         initialValues: {
@@ -68,32 +40,27 @@ function CreateQuestionScreen(props) {
         onSubmit: async (values) => {
             const params = { ...values };
             console.log(params);
+            try {
+                const res = await dispatch(thunkCreateQuestion(params));
+                if(res){
+                    navigate("/question/list")
+                }
+            } catch (err) {
+                console.log(`${err.message}`);
+            }
         },
-        // validationSchema: Yup.object({
-        //     email: Yup.string().trim().required('Bạn chưa nhập email').email('Email không hợp lệ'),
-        //     password: Yup.string().trim().required('Bạn chưa nhập mật khẩu'),
-        // }),
+        validationSchema: Yup.object({
+            title: Yup.string().trim().required('Bạn chưa nhập tiêu đề câu hỏi'),
+            contentTextProblem: Yup.string().trim().required('Bạn chưa nhập chi tiết vấn đề'),
+            contentTextExpect: Yup.string().trim().required('Bạn chưa nhập kết quả bạn mong đợi'),
+        }),
     });
 
-    // MARK --- Functions: ---
-    // function handleImageContentInputChange(e) {
-    //     const file = e.target.files[0];
-    //     if (file) {
-    //         setImgQuestion1(file);
-    //     }
-    // }
-    // Register plugins if required
-    // MdEditor.use(YOUR_PLUGINS_HERE);
-
-    // Initialize a markdown parser
-    const mdParser = new MarkdownIt(/* Markdown-it options */);
-
-    // Finish!
-    function handleEditorChange({ html, text }) {
-        // console.log("handleEditorChange", html, text);
+    function handleEditTextProblemChange({ html, text }) {
         formik.getFieldHelpers("contentTextProblem").setValue(text);
-        // console.log("text: ", text);
-        // console.log("html: ", html);
+    }
+    function handleEditTextExpectChange({ html, text }) {
+        formik.getFieldHelpers("contentTextExpect").setValue(text);
     }
     async function onImageUpload(file) {
         const image = await Utils.uploadCloudinary(file);
@@ -102,73 +69,104 @@ function CreateQuestionScreen(props) {
     }
 
     return (
-        <div className='position-relative'>
-            <BaseLayout selected='questions'>
-                <div className='container'>
+        <div className="position-relative">
+            <BaseLayout selected="questions">
+                <div className="container">
                     <h1>Đặt câu hỏi</h1>
-                    <div className='d-flex flex-column mt-5 p-7 p-lg-10 border-1 bg-white shadow-sm rounded'>
+                    <div className="d-flex flex-column mt-5 p-7 p-lg-10 border-1 bg-white shadow-sm rounded">
                         <h4>Hướng dẫn các bước:</h4>
                         <ul>
-                            <li className='mt-2 fs-5'>Tóm tắt vấn đề của bạn trong tiêu đề một dòng.</li>
-                            <li className='mt-2 fs-5'>Mô tả vấn đề của bạn chi tiết hơn.</li>
-                            <li className='mt-2 fs-5'>
-                                Mô tả những gì bạn đã cố gắng và những gì bạn mong đợi sẽ xảy ra.
+                            <li className="mt-2 fs-5">
+                                Tóm tắt vấn đề của bạn trong tiêu đề một dòng.
                             </li>
-                            <li className='mt-2 fs-5'>
-                                Thêm “thẻ” giúp hiển thị câu hỏi của bạn cho các thành viên của cộng đồng.
+                            <li className="mt-2 fs-5">
+                                Mô tả vấn đề của bạn chi tiết hơn.
                             </li>
-                            <li className='mt-2 fs-5'>Xem lại câu hỏi của bạn và đăng nó lên trang web.</li>
+                            <li className="mt-2 fs-5">
+                                Mô tả những gì bạn đã cố gắng và những gì bạn
+                                mong đợi sẽ xảy ra.
+                            </li>
+                            <li className="mt-2 fs-5">
+                                Thêm “thẻ” giúp hiển thị câu hỏi của bạn cho các
+                                thành viên của cộng đồng.
+                            </li>
+                            <li className="mt-2 fs-5">
+                                Xem lại câu hỏi của bạn và đăng nó lên trang
+                                web.
+                            </li>
                         </ul>
                     </div>
                 </div>
-                <div className='container'>
-                    <div className='d-flex flex-column mt-5 p-7 p-lg-10 border-1 bg-white shadow-sm rounded'>
-                        <div className='fs-5 fw-bold mb-3'>Tiêu đề</div>
+                <div className="container">
+                    <div className="d-flex flex-column mt-5 p-7 p-lg-10 border-1 bg-white shadow-sm rounded">
+                        <div className="fs-5 fw-bold mb-3">Tiêu đề</div>
                         <div>
                             <input
-                                type='text'
-                                className='InputTitle'
+                                type="text"
+                                className="InputTitle"
+                                placeholder="Nhập tiêu đề câu hỏi..."
                                 value={formik.getFieldProps("title").value}
                                 onChange={(e) => {
-                                    formik.getFieldHelpers("title").setValue(e.target.value);
+                                    formik
+                                        .getFieldHelpers("title")
+                                        .setValue(e.target.value);
                                 }}
                             />
                         </div>
                     </div>
                 </div>
 
-                <div className='container'>
-                    <div className='d-flex flex-column mt-5 p-7 p-lg-10 border-1 bg-white shadow-sm rounded'>
-                        <div className='fs-5 fw-bold mb-3'>Chi tiết vấn đề của bạn là gì?</div>
-                        <MdEditor
+                <div className="container">
+                    <div className="d-flex flex-column mt-5 p-7 p-lg-10 border-1 bg-white shadow-sm rounded">
+                        <div className="fs-5 fw-bold mb-3">
+                            Chi tiết vấn đề của bạn là gì?
+                        </div>
+                        <div>
+                            <MdEditor
+                            view={{html: false}}
+                            canView={{fullScreen: false}}
                             onImageUpload={onImageUpload}
                             allowPasteImage={true}
-                            style={{ height: "500px" }}
-                            renderHTML={(text) => mdParser.render(text)}
-                            onChange={handleEditorChange}
+                            placeholder="Nhập chi tiết vấn đề của bạn tại đây..."
+                            style={{ minHeight: "300px", maxHeight: "600px" }}
+                            renderHTML={(text) => (
+                                <MDEditor.Markdown source={text} />
+                            )}
+                            value={formik.getFieldProps("contentTextProblem").value}
+                            onChange={handleEditTextProblemChange}
                         />
+                        </div>
                     </div>
                 </div>
 
-                <div className='container'>
-                    <div className='d-flex flex-column mt-5 p-7 p-lg-10 border-1 bg-white shadow-sm rounded'>
-                        <div className='fs-5 fw-bold mb-3'>Bạn đã thử những gì và bạn đang mong đợi điều gì?</div>
+                <div className="container">
+                    <div className="d-flex flex-column mt-5 p-7 p-lg-10 border-1 bg-white shadow-sm rounded">
+                        <div className="fs-5 fw-bold mb-3">
+                            Bạn đã thử những gì và bạn đang mong đợi điều gì?
+                        </div>
                         <MdEditor
+                            view={{html: false}}
+                            canView={{fullScreen: false}}
                             onImageUpload={onImageUpload}
                             allowPasteImage={true}
-                            style={{ height: "500px" }}
-                            renderHTML={(text) => mdParser.render(text)}
-                            onChange={handleEditorChange}
+                            placeholder="Nhập những cách bạn đã thử và mong đợi của bạn tại đây..."
+                            style={{ minHeight: "300px", maxHeight: "600px" }}
+                            renderHTML={(text) => (
+                                <MDEditor.Markdown source={text} />
+                            )}
+                            value={formik.getFieldProps("contentTextExpect").value}
+                            onChange={handleEditTextExpectChange}
                         />
                     </div>
                 </div>
-                <div className='container'>
-                    <div className='d-flex flex-column mt-5 p-7 p-lg-10 border-1 bg-white shadow-sm rounded'>
-                        <div className='fs-5 fw-bold mb-3'>Thẻ</div>
+                {/* input Tag */}
+                <div className="container">
+                    <div className="d-flex flex-column mt-5 p-7 p-lg-10 border-1 bg-white shadow-sm rounded">
+                        <div className="fs-5 fw-bold mb-3">Thẻ</div>
                         <div>
                             <input
-                                type='text'
-                                className='InputTag'
+                                type="text"
+                                className="InputTag"
                                 value={tags}
                                 onChange={(e) => {
                                     setTags(e.target.value);
@@ -177,12 +175,18 @@ function CreateQuestionScreen(props) {
                         </div>
                     </div>
                 </div>
-                <div className='container'>
-                    <div className='d-flex justify-content-center mt-5'>
-                        <AppButton className='ButtonPrimary me-5' onClick={handleShowPreviewQuestion}>
+                <div className="container">
+                    <div className="d-flex justify-content-center mt-5">
+                        <AppButton
+                            className="ButtonPrimary me-5"
+                            onClick={handleShowPreviewQuestion}
+                        >
                             Xem trước câu hỏi của bạn
                         </AppButton>
-                        <AppButton className='ButtonSecondary' onClick={() => formik.handleReset()}>
+                        <AppButton
+                            className="ButtonSecondary"
+                            onClick={() => setShowResetQuestionModal(true)}
+                        >
                             Hủy bản nháp
                         </AppButton>
                     </div>
@@ -190,51 +194,74 @@ function CreateQuestionScreen(props) {
             </BaseLayout>
             {showPreviewQuestion && (
                 <div
-                    className='position-absolute top-0 w-100 h-100'
+                    className="position-absolute top-0 w-100 h-100"
                     style={{
                         zIndex: "1002",
                         backgroundColor: " rgba(0, 0, 0, .5)",
-                    }}>
+                    }}
+                >
                     <div
-                        className='my-20 mx-5 mx-sm-10 mx-md-15 mx-lg-auto bg-white rounded p-5 p-md-10'
-                        style={{ maxWidth: "800px" }}>
-                        <div className='d-flex align-items-center'>
-                            <div className='flex-shrink-0 symbol'>
+                        className="my-20 mx-5 mx-sm-10 mx-md-15 mx-lg-auto bg-white rounded p-5 p-md-10"
+                        style={{ maxWidth: "800px", overflow: "auto" }}
+                    >
+                        <div className="d-flex align-items-center">
+                            <div className="flex-shrink-0 symbol">
                                 <img
-                                    className='header-avatar rounded-circle'
-                                    src={currentAccount?.avatar?.path || UserHelper.getRandomAvatarUrl()}
+                                    className="header-avatar rounded-circle"
+                                    src={
+                                        currentAccount?.avatar?.path ||
+                                        UserHelper.getRandomAvatarUrl()
+                                    }
                                     onError={(e) => {
                                         e.target.onerror = null;
-                                        e.target.src = UserHelper.getRandomAvatarUrl();
+                                        e.target.src =
+                                            UserHelper.getRandomAvatarUrl();
                                     }}
-                                    alt='avatar'
+                                    alt="avatar"
                                 />
                             </div>
-                            <div className='flex-grow-1 mx-2'>
-                                <div className='fw-bold fs-5 my-0'>{currentAccount.fullname}</div>
-                                <div className='fw-normal fs-6'>02-01-2023</div>
+                            <div className="flex-grow-1 mx-2">
+                                <div className="fw-bold fs-5 my-0">
+                                    {currentAccount.fullname}
+                                </div>
+                                <div className="fw-normal fs-6">01-01-2023</div>
                             </div>
                         </div>
-                        <div className='content'>
-                            <div className='fw-bold fs-3'>{titleQuestion}</div>
+                        <div className="content">
+                            <div className="fw-bold fs-3">
+                                {formik.getFieldProps("title").value}
+                            </div>
                         </div>
-                        <MDEditor.Markdown
-                            source={formik.getFieldProps("contentTextProblem").value}
-                            style={{ padding: 15 }}
-                        />
-                        <MDEditor.Markdown style={{ padding: 15 }} />
-                        <div className='container'>
-                            <div className='d-flex justify-content-center mt-5'>
+                        <div>
+                            <MDEditor.Markdown
+                                source={
+                                    formik.getFieldProps("contentTextProblem")
+                                        .value
+                                }
+                            />
+                        </div>
+                        <div className="mt-5" >
+                            <MDEditor.Markdown
+                                source={
+                                    formik.getFieldProps("contentTextExpect")
+                                        .value
+                                }
+                            />
+                        </div>
+                        <div className="container">
+                            <div className="d-flex justify-content-center mt-5">
                                 <AppButton
-                                    className='ButtonPrimary me-5'
-                                    width='10rem'
-                                    onClick={() => formik.handleSubmit()}>
+                                    className="ButtonPrimary me-5"
+                                    width="10rem"
+                                    onClick={() => formik.handleSubmit()}
+                                >
                                     Đăng câu hỏi
                                 </AppButton>
                                 <AppButton
-                                    className='ButtonSecondary'
-                                    width='10rem'
-                                    onClick={handleShowPreviewQuestion}>
+                                    className="ButtonSecondary"
+                                    width="10rem"
+                                    onClick={handleShowPreviewQuestion}
+                                >
                                     Đóng
                                 </AppButton>
                             </div>
@@ -245,12 +272,11 @@ function CreateQuestionScreen(props) {
             <DialogModal
                 show={showResetQuestionModal}
                 onClose={() => setShowResetQuestionModal(false)}
-                icon='fas fa-trash-alt text-danger'
-                title='Hủy bản nháp'
-                description='Bạn có chắc chắn hủy bản nháp?'
-                // onExecute={handleResetQuestion}
+                icon="fas fa-trash-alt text-danger"
+                title="Hủy bản nháp"
+                description="Bạn có chắc chắn hủy bản nháp?"
+                onExecute={() => formik.handleReset()}
             />
-            <input type='file' className='d-none' ref={Clickkk} onChange={(e) => handleImageContentInputChange(e)} />
         </div>
     );
 }
