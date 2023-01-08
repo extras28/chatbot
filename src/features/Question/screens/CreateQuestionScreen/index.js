@@ -202,7 +202,7 @@ function CreateQuestionScreen(props) {
                 >
                     <div
                         className="my-20 mx-5 mx-sm-10 mx-md-15 mx-lg-auto bg-white rounded p-5 p-md-10"
-                        style={{ maxWidth: "800px", overflow: "auto" }}
+                        style={{ maxWidth: "800px", maxHeight: "90%", overflow: "auto" }}
                     >
                         <div className="d-flex align-items-center">
                             <div className="flex-shrink-0 symbol">
