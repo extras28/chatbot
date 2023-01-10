@@ -52,12 +52,12 @@ function QuestionsListScreen(props) {
                         questionsList?.map((item, index) => {
                             return (
                                 <SummaryQuestion
+                                    tags={item?.tagIds}
                                     key={index}
                                     avatar={item?.account?.avatar?.path}
                                     userName={item?.account?.fullname}
                                     createAt={Utils.formatDateTime(item?.createdAt, "DD-MM-YYYY")}
                                     titleQuestion={item?.title}
-                                    tags={["C", "PHP", "Javascript"]}
                                     comments='15'
                                     likes={item?.like}
                                     dislikes={item?.dislike}
