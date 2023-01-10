@@ -2,15 +2,11 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import BaseLayout from "general/components/BaseLayout";
 import AppButton from "general/components/AppButton";
-import MDEditor, { commands } from "@uiw/react-md-editor";
-import { ImageMDIcon } from "assets/icons/Icons";
 import * as Yup from "yup";
 import UserHelper from "general/helpers/UserHelper";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./style.scss";
 import DialogModal from "general/components/DialogModal";
-import { useRef } from "react";
-import axios from "axios";
 import { useFormik } from "formik";
 import Utils from "general/utils/Utils";
 import "react-markdown-editor-lite/lib/index.css";
@@ -18,17 +14,20 @@ import MdEditor from "react-markdown-editor-lite";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
+// import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import MDEditor from "@uiw/react-md-editor";
+import { thunkCreateQuestion } from "features/Question/questionSlice";
+import { useNavigate } from "react-router-dom";
 
 CreateQuestionScreen.propTypes = {};
 
 function CreateQuestionScreen(props) {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { isSigningIn, currentAccount } = useSelector((state) => state?.auth);
-    const [titleQuestion, setTitleQuestion] = useState("");
     const [tags, setTags] = useState([]);
     const [showPreviewQuestion, setShowPreviewQuestion] = useState(false);
     const [showResetQuestionModal, setShowResetQuestionModal] = useState(false);
-
-    const Clickkk = useRef(null);
 
     const handleShowPreviewQuestion = () => {
         setShowPreviewQuestion(!showPreviewQuestion);
@@ -44,22 +43,26 @@ function CreateQuestionScreen(props) {
         onSubmit: async (values) => {
             const params = { ...values };
             console.log(params);
+            try {
+                const res = await dispatch(thunkCreateQuestion(params));
+                if (res) {
+                    navigate("/question/list");
+                }
+            } catch (err) {
+                console.log(`${err.message}`);
+            }
         },
-        // validationSchema: Yup.object({
-        //     email: Yup.string().trim().required('Bạn chưa nhập email').email('Email không hợp lệ'),
-        //     password: Yup.string().trim().required('Bạn chưa nhập mật khẩu'),
-        // }),
+        validationSchema: Yup.object({
+            title: Yup.string().trim().required("Bạn chưa nhập tiêu đề câu hỏi"),
+            contentTextProblem: Yup.string().trim().required("Bạn chưa nhập chi tiết vấn đề"),
+            // contentTextExpect: Yup.string().trim().required("Bạn chưa nhập kết quả bạn mong đợi"),
+        }),
     });
 
-    // MARK --- Functions: ---
-    // Register plugins if required
-    // MdEditor.use(YOUR_PLUGINS_HERE);
-
-    // Finish!
-    function handleEditorProblemChange({ html, text }) {
+    function handleEditTextProblemChange({ html, text }) {
         formik.getFieldHelpers("contentTextProblem").setValue(text);
     }
-    function handleEditorExpectChange({ html, text }) {
+    function handleEditTextExpectChange({ html, text }) {
         formik.getFieldHelpers("contentTextExpect").setValue(text);
     }
     async function onImageUpload(file) {
@@ -70,7 +73,7 @@ function CreateQuestionScreen(props) {
     return (
         <div className='position-relative'>
             <BaseLayout selected='questions'>
-                <div className='container'>
+                <div className='container-xxl'>
                     <h1>Đặt câu hỏi</h1>
                     <div className='d-flex flex-column mt-5 p-7 p-lg-10 border-1 bg-white shadow-sm rounded'>
                         <h4>Hướng dẫn các bước:</h4>
@@ -94,6 +97,7 @@ function CreateQuestionScreen(props) {
                             <input
                                 type='text'
                                 className='InputTitle'
+                                placeholder='Nhập tiêu đề câu hỏi...'
                                 value={formik.getFieldProps("title").value}
                                 onChange={(e) => {
                                     formik.getFieldHelpers("title").setValue(e.target.value);
@@ -106,28 +110,44 @@ function CreateQuestionScreen(props) {
                 <div className='container'>
                     <div className='d-flex flex-column mt-5 p-7 p-lg-10 border-1 bg-white shadow-sm rounded'>
                         <div className='fs-5 fw-bold mb-3'>Chi tiết vấn đề của bạn là gì?</div>
-                        <MdEditor
-                            onImageUpload={onImageUpload}
-                            allowPasteImage={true}
-                            style={{ minHeight: "300px" }}
-                            renderHTML={(text) => <ReactMarkdown children={text} />}
-                            onChange={handleEditorProblemChange}
-                        />
+                        <div data-color-mode='light'>
+                            <MdEditor
+                                // onScroll={(e) => {
+                                //     console.log(e);
+                                // }}
+                                view={{ html: false }}
+                                canView={{ fullScreen: false }}
+                                onImageUpload={onImageUpload}
+                                allowPasteImage={true}
+                                placeholder='Nhập chi tiết vấn đề của bạn tại đây...'
+                                style={{ minHeight: "300px", maxHeight: "600px" }}
+                                renderHTML={(text) => <MDEditor.Markdown source={text} />}
+                                value={formik.getFieldProps("contentTextProblem").value}
+                                onChange={handleEditTextProblemChange}
+                            />
+                        </div>
                     </div>
                 </div>
 
                 <div className='container'>
                     <div className='d-flex flex-column mt-5 p-7 p-lg-10 border-1 bg-white shadow-sm rounded'>
-                        <div className='fs-5 fw-bold mb-3'>Bạn đã thử những gì và bạn đang mong đợi điều gì?</div>
+                        <div data-color-mode='light' className='fs-5 fw-bold mb-3'>
+                            Bạn đã thử những gì và bạn đang mong đợi điều gì?
+                        </div>
                         <MdEditor
+                            view={{ html: false }}
+                            canView={{ fullScreen: false }}
                             onImageUpload={onImageUpload}
                             allowPasteImage={true}
-                            style={{ minHeight: "300px" }}
-                            renderHTML={(text) => <ReactMarkdown children={text} />}
-                            onChange={handleEditorExpectChange}
+                            placeholder='Nhập những cách bạn đã thử và mong đợi của bạn tại đây...'
+                            style={{ minHeight: "300px", maxHeight: "600px" }}
+                            renderHTML={(text) => <MDEditor.Markdown source={text} />}
+                            value={formik.getFieldProps("contentTextExpect").value}
+                            onChange={handleEditTextExpectChange}
                         />
                     </div>
                 </div>
+                {/* input Tag */}
                 <div className='container'>
                     <div className='d-flex flex-column mt-5 p-7 p-lg-10 border-1 bg-white shadow-sm rounded'>
                         <div className='fs-5 fw-bold mb-3'>Thẻ</div>
@@ -148,7 +168,7 @@ function CreateQuestionScreen(props) {
                         <AppButton className='ButtonPrimary me-5' onClick={handleShowPreviewQuestion}>
                             Xem trước câu hỏi của bạn
                         </AppButton>
-                        <AppButton className='ButtonSecondary' onClick={() => formik.handleReset()}>
+                        <AppButton className='ButtonSecondary' onClick={() => setShowResetQuestionModal(true)}>
                             Hủy bản nháp
                         </AppButton>
                     </div>
@@ -163,7 +183,7 @@ function CreateQuestionScreen(props) {
                     }}>
                     <div
                         className='my-20 mx-5 mx-sm-10 mx-md-15 mx-lg-auto bg-white rounded p-5 p-md-10'
-                        style={{ maxWidth: "800px" }}>
+                        style={{ maxWidth: "800px", maxHeight: "90%", overflow: "auto" }}>
                         <div className='d-flex align-items-center'>
                             <div className='flex-shrink-0 symbol'>
                                 <img
@@ -178,75 +198,18 @@ function CreateQuestionScreen(props) {
                             </div>
                             <div className='flex-grow-1 mx-2'>
                                 <div className='fw-bold fs-5 my-0'>{currentAccount.fullname}</div>
-                                <div className='fw-normal fs-6'>02-01-2023</div>
+                                <div className='fw-normal fs-6'>01-01-2023</div>
                             </div>
                         </div>
                         <div className='content'>
                             <div className='fw-bold fs-3'>{formik.getFieldProps("title").value}</div>
                         </div>
-                        {/* <MDEditor.Markdown
-                            source={formik.getFieldProps("contentTextProblem").value}
-                            style={{ padding: 15 }}
-                        /> */}
-                        <ReactMarkdown
-                            children={formik.getFieldProps("contentTextProblem").value}
-                            components={{
-                                img: ({ alt, src, title }) => (
-                                    <img
-                                        alt={alt}
-                                        src={src}
-                                        title={title}
-                                        style={{ maxWidth: "-webkit-fill-available", padding: "18px 0px" }}
-                                    />
-                                ),
-                                code({ node, inline, className, children, ...props }) {
-                                    const match = /language-(\w+)/.exec(className || "");
-                                    return !inline && match ? (
-                                        <SyntaxHighlighter
-                                            children={String(children).replace(/\n$/, "")}
-                                            style={dracula}
-                                            language={match[1]}
-                                            PreTag='div'
-                                            {...props}
-                                        />
-                                    ) : (
-                                        <code className={className} {...props}>
-                                            {children}
-                                        </code>
-                                    );
-                                },
-                            }}
-                        />
-                        <ReactMarkdown
-                            children={formik.getFieldProps("contentTextExpect").value}
-                            components={{
-                                img: ({ alt, src, title }) => (
-                                    <img
-                                        alt={alt}
-                                        src={src}
-                                        title={title}
-                                        style={{ maxWidth: "-webkit-fill-available", padding: "18px 0px" }}
-                                    />
-                                ),
-                                code({ node, inline, className, children, ...props }) {
-                                    const match = /language-(\w+)/.exec(className || "");
-                                    return !inline && match ? (
-                                        <SyntaxHighlighter
-                                            children={String(children).replace(/\n$/, "")}
-                                            style={dracula}
-                                            language={match[1]}
-                                            PreTag='div'
-                                            {...props}
-                                        />
-                                    ) : (
-                                        <code className={className} {...props}>
-                                            {children}
-                                        </code>
-                                    );
-                                },
-                            }}
-                        />
-                        {/* <MDEditor.Markdown style={{ padding: 15 }} /> */}
+                        <div data-color-mode='light'>
+                            <MDEditor.Markdown source={formik.getFieldProps("contentTextProblem").value} />
+                        </div>
+                        <div className='mt-5' data-color-mode='light'>
+                            <MDEditor.Markdown source={formik.getFieldProps("contentTextExpect").value} />
+                        </div>
                         <div className='container'>
                             <div className='d-flex justify-content-center mt-5'>
                                 <AppButton
@@ -272,9 +235,8 @@ function CreateQuestionScreen(props) {
                 icon='fas fa-trash-alt text-danger'
                 title='Hủy bản nháp'
                 description='Bạn có chắc chắn hủy bản nháp?'
-                // onExecute={handleResetQuestion}
+                onExecute={() => formik.handleReset()}
             />
-            <input type='file' className='d-none' ref={Clickkk} onChange={(e) => handleImageContentInputChange(e)} />
         </div>
     );
 }
