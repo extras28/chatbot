@@ -35,6 +35,7 @@ function SummaryUser(props) {
                             e.target.src = UserHelper.getRandomAvatarUrl();
                         }}
                         alt="avatar"
+                        style={{height: "45px", width: "45px"}}
                     />
                 </div>
                 <div className="flex-grow-1 mx-2">
