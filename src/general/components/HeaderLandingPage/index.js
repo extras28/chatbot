@@ -38,7 +38,7 @@ function HeaderLandingPage(props) {
         (state) => state?.auth
     );
     const loggedIn = UserHelper.checkAccessTokenValid();
-    const { searchBar, logo, menu, buttonAddQuestion, buttonSign } = props;
+    const { logo, menu, buttonAddQuestion, buttonSign } = props;
     let [showSearchBar, setShowSearchBar] = useState(false);
     const [showLogOutModal, setShowLogOutModal] = useState(false);
     const [showChangePasswordModal, setShowChangePasswordModal] =
@@ -57,7 +57,7 @@ function HeaderLandingPage(props) {
             newPassword: "",
             confirmPassword: "",
         },
-        onSubmit: async (values, {resetForm}) => {
+        onSubmit: async (values, { resetForm }) => {
             const params = { ...values };
             let inputPassword = params.password;
             params.password = Utils.sha256(inputPassword);
@@ -72,7 +72,8 @@ function HeaderLandingPage(props) {
                     ToastHelper.showError(`${res.payload.message}`);
                 } else {
                     setShowChangePasswordModal(false);
-                    resetForm({values: ''});
+                    resetForm({ values: "" });
+                    navigate("/");
                 }
             } catch (error) {
                 console.log(` error: ${error.message}`);
@@ -109,26 +110,6 @@ function HeaderLandingPage(props) {
                     </div>
                 </NavLink>
             )}
-            {searchBar && (
-                <div className="d-flex flex-fill justify-content-end">
-                    {/* <div
-                        className="d-none d-sm-block w-100 mx-5 ml-md-10"
-                        style={{ maxWidth: "50rem" }}
-                    >
-                        <BaseSearchBar placeholder="Search..." />
-                    </div> */}
-                    <div className="SearchButton d-block d-sm-none mx-5">
-                        <button onClick={handleShowSearchBar}>
-                            <i className="fas fa-search" />
-                        </button>
-                        {showSearchBar && (
-                            <div className="SearchPopover">
-                                <BaseSearchBar placeholder="Search..." />
-                            </div>
-                        )}
-                    </div>
-                </div>
-            )}
             {menu && (
                 <div className="HeaderLandingPageNav d-none d-md-flex flex-fill justify-content-end">
                     <a href="#home" className="HeaderLandingPageNavItem">
@@ -156,6 +137,26 @@ function HeaderLandingPage(props) {
                     </a>
                 </div>
             )}
+            {buttonAddQuestion && (
+                <div className="d-flex flex-fill justify-content-end">
+                    <button
+                        onClick={() => {
+                            if (UserHelper.checkAccessTokenValid()) {
+                                navigate("/question/create");
+                            } else {
+                                navigate("/sign-in");
+                            }
+                        }}
+                        type="button"
+                        className="ButtonPrimary d-flex mx-4"
+                        title="Tạo câu hỏi"
+                    >
+                        <i className="far fa-plus-circle text-white"></i>
+                        <div className="d-flex ms-3">Tạo câu hỏi</div>
+                    </button>
+                </div>
+            )}
+
             {!loggedIn && (
                 <div>
                     {/* Screen >= 576px */}
@@ -253,24 +254,11 @@ function HeaderLandingPage(props) {
                     </div>
                 </div>
             )}
+
             {loggedIn && (
                 <div className="d-flex justify-content-center align-items-center">
                     {/* Screen >= 768px */}
                     <div className="d-none d-md-flex align-items-center">
-                        {buttonAddQuestion && (
-                            <NavLink to="/question/create">
-                                <button
-                                    type="button"
-                                    className="ButtonPrimary d-flex"
-                                    title="Thêm câu hỏi"
-                                >
-                                    <i className="far fa-plus-circle text-white"></i>
-                                    <div className="d-flex ms-3">
-                                        Thêm câu hỏi
-                                    </div>
-                                </button>
-                            </NavLink>
-                        )}
                         <div className="bell mx-5">
                             <i className="far fa-bell"></i>
                             <div></div>
@@ -389,17 +377,15 @@ function HeaderLandingPage(props) {
                                         Thông tin cá nhân
                                     </NavLink>
                                 </li>
-                                {buttonAddQuestion && (
-                                    <li>
-                                        <NavLink
-                                            className="dropdownMenuItem"
-                                            to="#"
-                                        >
-                                            <i className="far fa-plus-circle mr-4"></i>
-                                            Thêm câu hỏi
-                                        </NavLink>
-                                    </li>
-                                )}
+                                <li>
+                                    <NavLink
+                                        className="dropdownMenuItem"
+                                        to="#"
+                                    >
+                                        <i className="far fa-plus-circle mr-4"></i>
+                                        Tạo câu hỏi
+                                    </NavLink>
+                                </li>
                                 <li>
                                     <NavLink
                                         className="dropdownMenuItem"
@@ -443,10 +429,11 @@ function HeaderLandingPage(props) {
                 icon="fad fa-user text-danger"
                 title="Đăng xuất"
                 description="Bạn có chắc chắn muốn đăng xuất?"
-                onExecute={() => {
-                    dispatch(thunkSignOut()).then(() => {
+                onExecute={async () => {
+                    await dispatch(thunkSignOut()).then(() => {
                         UserHelper.signOut();
                     });
+                    navigate("/");
                 }}
             />
             <DialogModal

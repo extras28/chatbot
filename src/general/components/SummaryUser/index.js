@@ -28,7 +28,7 @@ function SummaryUser(props) {
             <div className="d-flex">
                 <div className="flex-shrink-0">
                     <img
-                        className="header-avatar rounded-circle"
+                        className="SummaryUser_Avatar"
                         src={avatar || UserHelper.getRandomAvatarUrl()}
                         onError={(e) => {
                             e.target.onerror = null;

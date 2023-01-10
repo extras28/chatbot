@@ -6,6 +6,8 @@ const PreferenceKeys = {
     // login info
     savedLoginEmail: 'econtract_saved_login_email',
     savedLoginPassword: 'econtract_saved_login_password',
+
+    questionId: 'question_id'
 };
 
 export default PreferenceKeys;

@@ -13,6 +13,7 @@ SummaryQuestion.propTypes = {
     comments: PropTypes.string,
     likes: PropTypes.number,
     dislikes: PropTypes.number,
+    onClick: PropTypes.func,
 };
 
 SummaryQuestion.defaultProps = {
@@ -24,6 +25,7 @@ SummaryQuestion.defaultProps = {
     comments: "",
     likes: null,
     dislikes: null,
+    onClick: null,
 };
 
 function SummaryQuestion(props) {
@@ -36,9 +38,10 @@ function SummaryQuestion(props) {
         comments,
         likes,
         dislikes,
+        onClick
     } = props;
     return (
-        <div className="my-5 SummaryQuestion">
+        <div className="my-5 SummaryQuestion" style={{cursor: "pointer"}} onClick={onClick}>
             <div className="comment p-5 bg-body shadow-sm rounded">
                 <div className="d-flex">
                     <div className="flex-shrink-0">

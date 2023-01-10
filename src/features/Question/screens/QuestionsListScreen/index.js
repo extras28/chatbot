@@ -13,11 +13,13 @@ import Empty from "general/components/Empty";
 import AppResource from "general/constants/AppResource";
 import {
     setPaginationQuestionPerPage,
+    thunkGetDetailQuestion,
     thunkGetQuestionsList,
 } from "features/Question/questionSlice";
-import SummaryQuestion from "features/Question/SummaryQuestion";
+import SummaryQuestion from "features/Question/Component/SummaryQuestion";
 import Global from "general/utils/Global";
 import Pagination from "general/components/Pagination";
+import { useNavigate } from "react-router-dom";
 
 QuestionsListScreen.propTypes = {};
 
@@ -28,6 +30,7 @@ function QuestionsListScreen(props) {
         limit: Global.gDefaultPagination,
     });
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { isGettingQuestionsList, questionsList, paginationListQuestion } =
         useSelector((state) => state?.question);
     // console.log(questionsList);
@@ -57,6 +60,10 @@ function QuestionsListScreen(props) {
                             return (
                                 <SummaryQuestion
                                     key={index}
+                                    onClick={ async() => {
+                                        dispatch(thunkGetDetailQuestion({_id: item._id}));
+                                        navigate("/question/detail")
+                                    }}
                                     avatar={item?.account?.avatar?.path}
                                     userName={item?.account?.fullname}
                                     createAt={Utils.formatDateTime(
