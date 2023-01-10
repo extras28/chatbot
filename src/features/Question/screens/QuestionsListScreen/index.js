@@ -59,6 +59,7 @@ function QuestionsListScreen(props) {
                         questionsList?.map((item, index) => {
                             return (
                                 <SummaryQuestion
+                                    tags={item?.tagIds}
                                     key={index}
                                     onClick={ async() => {
                                         dispatch(thunkGetDetailQuestion({_id: item._id}));
@@ -68,7 +69,6 @@ function QuestionsListScreen(props) {
                                     userName={item?.account?.fullname}
                                     createAt={Utils.formatDateTime(item?.createdAt, "DD-MM-YYYY")}
                                     titleQuestion={item?.title}
-                                    tags={["C", "PHP", "Javascript"]}
                                     comments='15'
                                     likes={item?.like}
                                     dislikes={item?.dislike}

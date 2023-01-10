@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import Utils from 'general/utils/Utils';
-import './style.scss';
+import React, { useRef, useState } from "react";
+import PropTypes from "prop-types";
+import Utils from "general/utils/Utils";
+import "./style.scss";
 
 BaseSearchBar.propTypes = {
     name: PropTypes.string.isRequired,
@@ -14,33 +14,24 @@ BaseSearchBar.propTypes = {
     typingTimeout: PropTypes.number,
     onSubmit: PropTypes.func,
     noBorder: PropTypes.bool,
+    onFocus: PropTypes.func,
 };
 
 BaseSearchBar.defaultProps = {
-    type: 'text',
-    placeholder: '',
+    type: "text",
+    placeholder: "",
     disabled: false,
-    className: '',
-    value: '',
+    className: "",
+    value: "",
     typingTimeout: 500,
     onSubmit: null,
     noBorder: false,
+    onFocus: null,
 };
 
 function BaseSearchBar(props) {
     // MARK: --- Params ---
-    const {
-        name,
-        type,
-        placeholder,
-        disabled,
-        className,
-        value,
-        typingTimeout,
-        onSubmit,
-        noBorder,
-        onFocus
-    } = props;
+    const { name, type, placeholder, disabled, className, value, typingTimeout, onSubmit, noBorder, onFocus } = props;
     const [text, setText] = useState(value);
     const typingTimeoutRef = useRef(null);
 
@@ -62,19 +53,25 @@ function BaseSearchBar(props) {
         }, typingTimeout);
     }
 
+    function handleFocus(e) {
+        if (onFocus) {
+            onFocus();
+        }
+    }
+
     return (
         <div className={`BaseSearchBar input-icon ${className}`}>
             <input
                 id={name}
-                onFocus={onFocus}
+                onFocus={handleFocus}
                 type={type}
-                className={`form-control ${noBorder && 'border-0'}`}
+                className={`form-control ${noBorder && "border-0"}`}
                 placeholder={placeholder}
                 value={text}
                 onChange={handleTextChanged}
             />
             <span className=''>
-                <i className="fas fa-search" style={{color: '#4A5677'}}/>
+                <i className='fas fa-search' style={{ color: "#4A5677" }} />
             </span>
         </div>
     );
