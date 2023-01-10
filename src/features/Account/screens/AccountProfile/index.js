@@ -65,7 +65,7 @@ function AccountProfile(props) {
             formik.getFieldHelpers("gender").setValue(currentAccount?.gender);
             formik.getFieldHelpers("address").setValue(currentAccount?.address);
         }
-    }, [currentAccount]);
+    }, [currentAccount, isEditMode]);
     return (
         <div className='card mb-5 mb-xl-10 position-relative'>
             {loading && (
@@ -74,21 +74,21 @@ function AccountProfile(props) {
                 </div>
             )}
             {/* header */}
-            <div class='card-header cursor-pointer d-flex flex-wrap justify-content-between align-items-center'>
-                <div class='card-title m-0'>
-                    <h3 class='fw-bold m-0'>Thông tin cá nhân</h3>
+            <div className='card-header cursor-pointer d-flex flex-wrap justify-content-between align-items-center'>
+                <div className='card-title m-0'>
+                    <h3 className='fw-bold m-0'>Thông tin cá nhân</h3>
                 </div>
                 {isEditMode ? (
                     <div>
-                        <div class='btn btn-sm btn-danger align-self-center mr-4' onClick={() => setIsEditMode(false)}>
+                        <div className='btn btn-sm btn-danger align-self-center mr-4' onClick={() => setIsEditMode(false)}>
                             Hủy
                         </div>
-                        <div class='btn btn-sm btn-success align-self-center' onClick={formik.handleSubmit}>
+                        <div className='btn btn-sm btn-success align-self-center' onClick={formik.handleSubmit}>
                             Lưu lại
                         </div>
                     </div>
                 ) : (
-                    <div class='btn btn-sm btn-primary align-self-center' onClick={() => setIsEditMode(true)}>
+                    <div className='btn btn-sm btn-primary align-self-center' onClick={() => setIsEditMode(true)}>
                         Chỉnh sửa
                     </div>
                 )}
@@ -96,17 +96,17 @@ function AccountProfile(props) {
 
             {/* body */}
             <div className='card-body p-9'>
-                <div class='row mb-7'>
-                    <label class='col-lg-4 fw-semibold text-muted'>Email</label>
-                    <div class='col-lg-8'>
-                        <span class='fw-bold fs-6 text-gray-800'>{currentAccount?.email}</span>
+                <div className='row mb-7'>
+                    <label className='col-lg-4 fw-semibold text-muted'>Email</label>
+                    <div className='col-lg-8'>
+                        <span className='fw-bold fs-6 text-gray-800'>{currentAccount?.email}</span>
                     </div>
                 </div>
-                <div class='row mb-7'>
-                    <label class='col-lg-4 fw-semibold text-muted'>Họ tên</label>
-                    <div class='col-lg-8'>
+                <div className='row mb-7'>
+                    <label className='col-lg-4 fw-semibold text-muted'>Họ tên <span className={`${isEditMode ? "text-danger" : "d-none"}`}>*</span></label>
+                    <div className='col-lg-8'>
                         {!isEditMode ? (
-                            <span class='fw-bold fs-6 text-gray-800'>{currentAccount?.fullname}</span>
+                            <span className='fw-bold fs-6 text-gray-800'>{currentAccount?.fullname}</span>
                         ) : (
                             <div className='max-w-200px'>
                                 <BaseTextField
@@ -120,11 +120,11 @@ function AccountProfile(props) {
                         )}
                     </div>
                 </div>
-                <div class='row mb-7'>
-                    <label class='col-lg-4 fw-semibold text-muted'>Vai trò</label>
-                    <div class='col-lg-8'>
+                <div className='row mb-7'>
+                    <label className='col-lg-4 fw-semibold text-muted'>Vai trò</label>
+                    <div className='col-lg-8'>
                         {!isEditMode ? (
-                            <span class='fw-bold fs-6 text-gray-800'>{currentAccount?.job}</span>
+                            <span className='fw-bold fs-6 text-gray-800'>{currentAccount?.job}</span>
                         ) : (
                             <div className='max-w-200px'>
                                 <BaseTextField
@@ -138,11 +138,11 @@ function AccountProfile(props) {
                         )}
                     </div>
                 </div>
-                <div class='row mb-7'>
-                    <label class='col-lg-4 fw-semibold text-muted'>Ngày sinh</label>
-                    <div class='col-lg-8'>
+                <div className='row mb-7'>
+                    <label className='col-lg-4 fw-semibold text-muted'>Ngày sinh</label>
+                    <div className='col-lg-8'>
                         {!isEditMode ? (
-                            <span class='fw-bold fs-6 text-gray-800'>
+                            <span className='fw-bold fs-6 text-gray-800'>
                                 {Utils.formatDateTime(currentAccount?.dob, "DD-MM-YYYY")}
                             </span>
                         ) : (
@@ -159,11 +159,11 @@ function AccountProfile(props) {
                         )}
                     </div>
                 </div>
-                <div class='row mb-7'>
-                    <label class='col-lg-4 fw-semibold text-muted'>Số điện thoại</label>
-                    <div class='col-lg-8'>
+                <div className='row mb-7'>
+                    <label className='col-lg-4 fw-semibold text-muted'>Số điện thoại</label>
+                    <div className='col-lg-8'>
                         {!isEditMode ? (
-                            <span class='fw-bold fs-6 text-gray-800'>{currentAccount?.phone}</span>
+                            <span className='fw-bold fs-6 text-gray-800'>{currentAccount?.phone}</span>
                         ) : (
                             <div className='max-w-200px'>
                                 <BaseTextField
@@ -177,11 +177,11 @@ function AccountProfile(props) {
                         )}
                     </div>
                 </div>
-                <div class='row mb-7'>
-                    <label class='col-lg-4 fw-semibold text-muted'>Giới tính</label>
-                    <div class='col-lg-8'>
+                <div className='row mb-7'>
+                    <label className='col-lg-4 fw-semibold text-muted'>Giới tính</label>
+                    <div className='col-lg-8'>
                         {!isEditMode ? (
-                            <span class='fw-bold fs-6 text-gray-800'>
+                            <span className='fw-bold fs-6 text-gray-800'>
                                 {UserHelper.renderGender(currentAccount?.gender)}
                             </span>
                         ) : (
@@ -199,11 +199,11 @@ function AccountProfile(props) {
                         )}
                     </div>
                 </div>
-                <div class='row mb-7'>
-                    <label class='col-lg-4 fw-semibold text-muted'>Địa chỉ</label>
-                    <div class='col-lg-8'>
+                <div className='row mb-7'>
+                    <label className='col-lg-4 fw-semibold text-muted'>Địa chỉ</label>
+                    <div className='col-lg-8'>
                         {!isEditMode ? (
-                            <span class='fw-bold fs-6 text-gray-800'>{currentAccount?.address}</span>
+                            <span className='fw-bold fs-6 text-gray-800'>{currentAccount?.address}</span>
                         ) : (
                             <div className='max-w-200px'>
                                 <BaseTextField

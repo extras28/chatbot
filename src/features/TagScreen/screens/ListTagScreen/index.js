@@ -117,7 +117,7 @@ function ListTagScreen(props) {
                     </div>
                 )}
                 <div>
-                    <div className='d-flex align-items-center justify-content-center mt-0 px-6'>
+                    <div className='d-flex align-items-center justify-content-center mt-0'>
                         <Pagination
                             rowsPerPage={paginationTags.perPage}
                             rowCount={paginationTags.count ?? tags?.length}

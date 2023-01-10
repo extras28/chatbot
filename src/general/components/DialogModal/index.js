@@ -5,6 +5,7 @@ import AppResource from "general/constants/AppResource";
 
 DialogModal.propTypes = {
     show: PropTypes.bool,
+    close: PropTypes.bool,
     onClose: PropTypes.func,
     icon: PropTypes.string,
     description: PropTypes.string,
@@ -14,6 +15,7 @@ DialogModal.propTypes = {
 
 DialogModal.defaultProps = {
     show: null,
+    close: true,
     onClose: null,
     icon: "",
     description: "",
@@ -22,7 +24,7 @@ DialogModal.defaultProps = {
 };
 
 function DialogModal(props) {
-    const { show, onClose, icon, description, onExecute, title } = props;
+    const { show, close, onClose, icon, description, onExecute, title } = props;
     function handleClose() {
         if (onClose) {
             onClose();
@@ -57,6 +59,7 @@ function DialogModal(props) {
                     />
                 )}
                 <p className='text-center font-weight-bold'>{description}</p>
+                {props.children}
             </Modal.Body>
             {/* modal footer */}
             <Modal.Footer className='d-flex flex-row align-items-center justify-content-center'>
@@ -71,7 +74,7 @@ function DialogModal(props) {
                         className={`font-weight-bold flex-grow-1 col ml-3`}
                         variant='danger'
                         onClick={() => {
-                            handleClose();
+                            close && handleClose();
                             handleExecute();
                         }}>
                         Xác nhận

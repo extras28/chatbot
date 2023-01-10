@@ -3,6 +3,7 @@ import moment from "moment";
 import hmacSHA512 from "crypto-js/hmac-sha512";
 import Base64 from "crypto-js/enc-base64";
 import _ from "lodash";
+import axios from "axios";
 
 // Util functions
 const Utils = {
@@ -18,20 +19,12 @@ const Utils = {
 
     // Check object empty
     isObjectEmpty: (obj) => {
-        return (
-            Utils.isObjectNull(obj) ||
-            (Object.keys(obj).length === 0 && obj.constructor === Object)
-        );
+        return Utils.isObjectNull(obj) || (Object.keys(obj).length === 0 && obj.constructor === Object);
     },
 
     // Check object null|undefine
     isObjectNull: (obj) => {
-        return (
-            obj === null ||
-            obj === undefined ||
-            obj === "NULL" ||
-            obj === "null"
-        );
+        return obj === null || obj === undefined || obj === "NULL" || obj === "null";
     },
 
     // add date time
@@ -60,13 +53,7 @@ const Utils = {
 
     // add time to date
 
-    addTimeToDate: (
-        date = new Date(),
-        hour = 0,
-        minute = 0,
-        second = 0,
-        millisecond = 0
-    ) => {
+    addTimeToDate: (date = new Date(), hour = 0, minute = 0, second = 0, millisecond = 0) => {
         date.setHours(hour);
         date.setMinutes(minute);
         date.setSeconds(second);
@@ -150,10 +137,7 @@ const Utils = {
         }
         str.sort();
         for (key = 0; key < str.length; key++) {
-            sorted[str[key]] = encodeURIComponent(obj[str[key]]).replace(
-                /%20/g,
-                "+"
-            );
+            sorted[str[key]] = encodeURIComponent(obj[str[key]]).replace(/%20/g, "+");
         }
         return sorted;
     },
@@ -208,6 +192,24 @@ const Utils = {
         const size = width && height ? `/${width}/${height}` : null;
         const randomImageLink = `https://random.imagecdn.app${size}`;
         return randomImageLink;
+    },
+
+    uploadCloudinary: async (file) => {
+        try {
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("upload_preset", "WebTechnology");
+            const res = await axios.post("https://api.cloudinary.com/v1_1/dc7pxknio/upload", formData);
+            if (res) {
+                return res;
+            }
+        } catch (error) {
+            console.log({
+                result: "failed",
+                message: "Upload file to cloudinary failed",
+                reason: error.message,
+            });
+        }
     },
 };
 

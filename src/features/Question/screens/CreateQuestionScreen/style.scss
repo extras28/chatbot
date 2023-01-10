@@ -10,3 +10,11 @@
         border: 1px solid #F48023;
     }
 }
+.test_classname{
+    word-wrap: break-word;
+    color: #292929;
+    font-size: 1.8rem;
+    font-size: var(--font-size,1.8rem);
+    line-height: 2;
+    line-height: var(--line-height,2);
+}
