@@ -47,7 +47,7 @@ function QuestionDetailScreen(props) {
                                 detailQuestion.contentTextProblem
                             }
                             contentTextExpect={detailQuestion.contentTextExpect}
-                            tags={["C", "PHP", "Javascript"]}
+                            tags={detailQuestion?.tagIds}
                             comments="15"
                             likes={0}
                             dislikes={0}
@@ -64,7 +64,7 @@ function QuestionDetailScreen(props) {
                             />
                         </div>
                     )}
-                    <div>
+                    <div className="mt-6">
                         <h1>Câu trả lời</h1>
                     </div>
                 </div>
