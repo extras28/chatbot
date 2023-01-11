@@ -13,7 +13,6 @@ SummaryQuestion.propTypes = {
     comments: PropTypes.string,
     likes: PropTypes.number,
     dislikes: PropTypes.number,
-    onClick: PropTypes.func,
 };
 
 SummaryQuestion.defaultProps = {
@@ -25,64 +24,57 @@ SummaryQuestion.defaultProps = {
     comments: "",
     likes: null,
     dislikes: null,
-    onClick: null,
 };
 
 function SummaryQuestion(props) {
-    const {
-        avatar,
-        userName,
-        createAt,
-        titleQuestion,
-        tags,
-        comments,
-        likes,
-        dislikes,
-        onClick
-    } = props;
+    const { avatar, userName, createAt, titleQuestion, tags, comments, likes, dislikes } = props;
     return (
-        <div className="my-5 SummaryQuestion" style={{cursor: "pointer"}} onClick={onClick}>
-            <div className="comment p-5 bg-body shadow-sm rounded">
-                <div className="d-flex">
-                    <div className="flex-shrink-0">
+        <div className='my-5 SummaryQuestion'>
+            <div className='comment p-5 bg-body shadow-sm rounded'>
+                <div className='d-flex'>
+                    <div className='flex-shrink-0'>
                         <img
-                            className="header-avatar rounded-circle"
+                            className='header-avatar rounded-circle'
                             src={avatar || UserHelper.getRandomAvatarUrl()}
                             onError={(e) => {
                                 e.target.onerror = null;
                                 e.target.src = UserHelper.getRandomAvatarUrl();
                             }}
-                            alt="avatar"
+                            alt='avatar'
                         />
                     </div>
-                    <div className="flex-grow-1 mx-2">
-                        <p className="fw-bold fs-5 my-0">{userName}</p>
-                        <p className="fw-normal fs-6">{createAt}</p>
+                    <div className='flex-grow-1 mx-2'>
+                        <p className='fw-bold fs-5 my-0'>{userName}</p>
+                        <p className='fw-normal fs-6'>{createAt}</p>
                     </div>
                 </div>
-                <div className="content">
-                    <p className="fw-bold fs-3">{titleQuestion}</p>
+                <div className='content'>
+                    <p className='fw-bold fs-3'>{titleQuestion}</p>
                 </div>
-                <div className="d-flex justify-content-between align-items-center">
-                    <div className="d-flex flex-fill">
-                        {tags.map((tag, index) => (
-                            <Tag key={index} tagName={tag} />
-                        ))}
+                <div className='d-flex justify-content-between align-items-center'>
+                    <div className='d-flex flex-fill'>
+                        {tags?.map((item, index) => {
+                            return (
+                                <div key={index} className='badge badge-secondary mr-4 d-flex align-items-center'>
+                                    <span>{item?.name}</span>
+                                </div>
+                            );
+                        })}
                     </div>
-                    <div className="d-flex">
-                        <button className="btn">
-                            <i className="far fa-comment"></i>
+                    <div className='d-flex'>
+                        <button className='btn'>
+                            <i className='far fa-comment'></i>
                             {comments}
                         </button>
-                        <button className="btn">
-                            <i className="far fa-thumbs-up"></i>
+                        <button className='btn'>
+                            <i className='far fa-thumbs-up'></i>
                             {likes}
                         </button>
-                        <button className="btn">
-                            <i className="far fa-thumbs-down"></i>
+                        <button className='btn'>
+                            <i className='far fa-thumbs-down'></i>
                             {dislikes}
                         </button>
-                    </div>
+</div>
                 </div>
             </div>
         </div>

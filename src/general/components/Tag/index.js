@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 
 Tag.propTypes = {
     className: PropTypes.string,
-    tagName: PropTypes.string,
+    tagName: PropTypes.object,
 };
 
 Tag.defaultProps = {
