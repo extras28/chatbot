@@ -31,8 +31,7 @@ function QuestionsListScreen(props) {
     });
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { isGettingQuestionsList, questionsList, paginationListQuestion } =
-        useSelector((state) => state?.question);
+    const { isGettingQuestionsList, questionsList, paginationListQuestion } = useSelector((state) => state?.question);
     // console.log(questionsList);
     useEffect(() => {
         dispatch(thunkGetQuestionsList(filters));
@@ -58,21 +57,24 @@ function QuestionsListScreen(props) {
                     ) : questionsList?.length > 0 ? (
                         questionsList?.map((item, index) => {
                             return (
-                                <SummaryQuestion
-                                    tags={item?.tagIds}
+                                <div
+                                    className='cursor-pointer custom-cell'
                                     key={index}
-                                    onClick={ async() => {
-                                        dispatch(thunkGetDetailQuestion({_id: item._id}));
-                                        navigate("/question/detail")
-                                    }}
-                                    avatar={item?.account?.avatar?.path}
-                                    userName={item?.account?.fullname}
-                                    createAt={Utils.formatDateTime(item?.createdAt, "DD-MM-YYYY")}
-                                    titleQuestion={item?.title}
-                                    comments='15'
-                                    likes={item?.like}
-                                    dislikes={item?.dislike}
-                                />
+                                    onClick={async () => {
+                                        dispatch(thunkGetDetailQuestion({ _id: item._id }));
+                                        navigate("/question/detail");
+                                    }}>
+                                    <SummaryQuestion
+                                        tags={item?.tagIds}
+                                        avatar={item?.account?.avatar?.path}
+                                        userName={item?.account?.fullname}
+                                        createAt={Utils.formatDateTime(item?.createdAt, "DD-MM-YYYY")}
+                                        titleQuestion={item?.title}
+                                        comments='15'
+                                        likes={item?.like}
+                                        dislikes={item?.dislike}
+                                    />
+                                </div>
                             );
                         })
                     ) : (
