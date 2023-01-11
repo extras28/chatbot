@@ -11,10 +11,15 @@ import { useState } from "react";
 import Loading from "general/components/Loading";
 import Empty from "general/components/Empty";
 import AppResource from "general/constants/AppResource";
-import { setPaginationQuestionPerPage, thunkGetQuestionsList } from "features/Question/questionSlice";
-import SummaryQuestion from "features/Question/components/SummaryQuestion";
+import {
+    setPaginationQuestionPerPage,
+    thunkGetDetailQuestion,
+    thunkGetQuestionsList,
+} from "features/Question/questionSlice";
+import SummaryQuestion from "features/Question/Component/SummaryQuestion";
 import Global from "general/utils/Global";
 import Pagination from "general/components/Pagination";
+import { useNavigate } from "react-router-dom";
 
 QuestionsListScreen.propTypes = {};
 
@@ -25,6 +30,7 @@ function QuestionsListScreen(props) {
         limit: Global.gDefaultPagination,
     });
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { isGettingQuestionsList, questionsList, paginationListQuestion } = useSelector((state) => state?.question);
     // console.log(questionsList);
     useEffect(() => {
@@ -51,17 +57,24 @@ function QuestionsListScreen(props) {
                     ) : questionsList?.length > 0 ? (
                         questionsList?.map((item, index) => {
                             return (
-                                <SummaryQuestion
-                                    tags={item?.tagIds}
+                                <div
+                                    className='cursor-pointer custom-cell'
                                     key={index}
-                                    avatar={item?.account?.avatar?.path}
-                                    userName={item?.account?.fullname}
-                                    createAt={Utils.formatDateTime(item?.createdAt, "DD-MM-YYYY")}
-                                    titleQuestion={item?.title}
-                                    comments='15'
-                                    likes={item?.like}
-                                    dislikes={item?.dislike}
-                                />
+                                    onClick={async () => {
+                                        dispatch(thunkGetDetailQuestion({ _id: item._id }));
+                                        navigate("/question/detail");
+                                    }}>
+                                    <SummaryQuestion
+                                        tags={item?.tagIds}
+                                        avatar={item?.account?.avatar?.path}
+                                        userName={item?.account?.fullname}
+                                        createAt={Utils.formatDateTime(item?.createdAt, "DD-MM-YYYY")}
+                                        titleQuestion={item?.title}
+                                        comments='15'
+                                        likes={item?.like}
+                                        dislikes={item?.dislike}
+                                    />
+                                </div>
                             );
                         })
                     ) : (

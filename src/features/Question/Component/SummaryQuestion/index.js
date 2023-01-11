@@ -74,7 +74,7 @@ function SummaryQuestion(props) {
                             <i className='far fa-thumbs-down'></i>
                             {dislikes}
                         </button>
-                    </div>
+</div>
                 </div>
             </div>
         </div>
