@@ -12,7 +12,7 @@ function GuestRoute(props) {
 
     return !isAuth
         ? props.children
-        : <Navigate to='/dashboard' />
+        : <Navigate to='/question' />
 }
 
 export default GuestRoute;

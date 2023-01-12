@@ -37,6 +37,7 @@ import {
     StarIcon,
     StarGrayIcon,
 } from "../../assets/icons/Icons.js";
+import { NavLink } from "react-router-dom";
 
 LandingPage.propTypes = {};
 
@@ -64,12 +65,12 @@ function LandingPage(props) {
                                             các giải pháp tốt nhất cho vấn đề
                                             trong mã nguồn của bạn.
                                         </p>
-                                        <button
-                                            type="button"
+                                        <NavLink
+                                            to="/sign-up"
                                             className="ButtonPrimary"
                                         >
                                             Đăng ký ngay
-                                        </button>
+                                        </NavLink>
                                         <div
                                             className="d-flex mt-10 mt-md-15 justify-content-between"
                                             style={{ width: "25rem" }}
@@ -826,12 +827,12 @@ function LandingPage(props) {
                                             Nơi các nhà phát triển và lập trình
                                             viên trao đổi kiến thức
                                         </p>
-                                        <button
-                                            type="button"
-                                            className="ButtonPrimary fs-6"
+                                        <NavLink
+                                            to="/sign-up"
+                                            className="ButtonPrimary text-decoration-none fs-6"
                                         >
                                             Tham gia ngay
-                                        </button>
+                                        </NavLink>
                                     </div>
                                 </Zoom>
                             </div>
