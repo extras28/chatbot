@@ -15,12 +15,12 @@ function QuestionDetailScreen(props) {
     const { isGettingDetailQuestion, detailQuestion } = useSelector(
         (state) => state?.question
     );
-    const id = localStorage.getItem(PreferenceKeys.questionId);
-    useEffect(() => {
-        if (id) {
-            dispatch(thunkGetDetailQuestion({ _id: id }));
-        }
-    }, [id]);
+    // const id = localStorage.getItem(PreferenceKeys.questionId);
+    // useEffect(() => {
+    //     if (id) {
+    //         dispatch(thunkGetDetailQuestion({ _id: id }));
+    //     }
+    // }, [id]);
 
     console.log(detailQuestion);
     return (
@@ -66,6 +66,9 @@ function QuestionDetailScreen(props) {
                     )}
                     <div className="mt-6">
                         <h1>Câu trả lời</h1>
+                        <div>
+                            danh sách câu trả lời
+                        </div>
                     </div>
                 </div>
             </div>
