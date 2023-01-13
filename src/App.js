@@ -17,8 +17,6 @@ import UserListScreen from "features/UserListScreen";
 import RequestToResetPass from "features/Auth/RequestToResetPass";
 import AccountListener from "features/Account/AccountListener";
 import Question from "features/Question";
-import PersonalInformation from "features/EditProfile/PersonalInformation"
-import ChangePassword from "features/EditProfile/ChangePassword";
 import Tag from "features/TagScreen";
 import Account from "features/Account";
 // import Admin from "Admin";
