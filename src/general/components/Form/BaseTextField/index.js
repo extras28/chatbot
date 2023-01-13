@@ -21,6 +21,7 @@ BaseTextField.propTypes = {
     autoComplete: PropTypes.string,
     labelStyle: PropTypes.object,
     require: PropTypes.bool,
+    additionalClassName: PropTypes.string,
 };
 
 BaseTextField.defaultProps = {
@@ -40,12 +41,13 @@ BaseTextField.defaultProps = {
     additionalInputClassName: '',
     autoComplete: 'on',
     labelStyle: {},
-    require: false
+    require: false,
+    additionalClassName: ''
 };
 
 function BaseTextField(props) {
     // MARK: --- Params ---
-    const { name, fieldProps, fieldHelper, fieldMeta, type, label, placeholder, disabled, text, className, spellCheck, additionLabelClassName, additionalInputClassName, autoComplete, labelStyle, require } = props;
+    const { name, fieldProps, fieldHelper, fieldMeta, type, label, placeholder, disabled, text, className, spellCheck, additionLabelClassName, additionalInputClassName, autoComplete, labelStyle, require, additionalClassName } = props;
     const { error, touched } = fieldMeta;
     const isError = error && touched;
 
@@ -61,7 +63,7 @@ function BaseTextField(props) {
 
 
     return (
-        <div className='BaseTextField'>
+        <div className={`${additionalClassName} BaseTextField`}>
             <div className={className}>
                 {
                     label

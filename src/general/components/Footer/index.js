@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import logo from "../../../assets/images/icon.png";
+import Nav from 'react-bootstrap/Nav';
 
 FooterDashboard.propTypes = {};
 
 function FooterDashboard(props) {
   return (
+    
     <div className="bg-white py-5">
       <div className="container py-5">
         <footer className="py-5">
