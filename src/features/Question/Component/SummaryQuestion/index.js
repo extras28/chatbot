@@ -65,18 +65,18 @@ function SummaryQuestion(props) {
                     </div>
                     <div className='d-flex'>
                         <button className='btn'>
-                            <i className='far fa-comment'></i>
+                            <i className='fas fa-comment'></i>
                             {comments}
                         </button>
                         <button className='btn'>
-                            <i className='far fa-thumbs-up'></i>
+                            <i className='fas fa-thumbs-up'></i>
                             {likes}
                         </button>
                         <button className='btn'>
-                            <i className='far fa-thumbs-down'></i>
+                            <i className='fas fa-thumbs-down'></i>
                             {dislikes}
                         </button>
-</div>
+                    </div>
                 </div>
             </div>
         </div>
