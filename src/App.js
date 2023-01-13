@@ -4,17 +4,13 @@ import AppToast from "general/components/AppToast";
 import { Suspense, useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 // router
-// import HomeScreen from "features/LandingPage/screens/HomeScreen";
 import AppDialog from "general/components/AppDialog";
 import AppNotFound from "general/components/AppNotFound";
-// import { injectStore } from "general/helpers/WebsocketHelper";
 import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignInScreen from "features/Auth/SignInScreen";
 import SignUpScreen from "features/Auth/SignUpScreen";
-import Profile from "features/Profile";
 import LandingPage from "features/LandingPage";
-import CreateQuestionScreen from "features/CreateQuestionScreen";
 import GuestRoute from "general/components/AppRoutes/GuestRoute";
 import PrivateRoute from "general/components/AppRoutes/PrivateRoute";
 import UserListScreen from "features/UserListScreen";
@@ -56,7 +52,6 @@ function App() {
             console.log(`${sTag} will dismiss`);
         };
     }, []);
-    // const auth = useSelector((state) => state?.auth?.loggedIn);
 
     return (
         <>
@@ -69,18 +64,7 @@ function App() {
                         {/* Landing Page */}
                         <Route path='' element={<LandingPage />} />
 
-
                         <Route path='users/*' element={<UserListScreen />} />
-
-                        {/* Profle */}
-                        <Route
-                            path='Profile/*'
-                            element={
-                                // <PrivateRoute>
-                                <Profile />
-                                // </PrivateRou>
-                            }
-                        />
 
                         {/* Account */}
                         <Route
@@ -119,12 +103,6 @@ function App() {
                             }
                         />
 
-                        {/* Create quétion */}
-                        <Route
-                            path='/create-question'
-                            element={<CreateQuestionScreen />}
-                        />
-
                         {/* Question */}
                         <Route path='question/*' element={<Question />} />
 
@@ -142,12 +120,8 @@ function App() {
             {/* Toast */}
             <AppToast />
             {/* Listener */}
-            {/* <DataCommonListener /> */}
             {/* Account Listener */}
             <AccountListener />
-            {/* <DashboardListener /> */}
-            {/* Firebase Listener */}
-            {/* <FirebaseListener /> */}
         </>
     );
 }
