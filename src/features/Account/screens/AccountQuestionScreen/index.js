@@ -45,13 +45,8 @@ function AccountQuestionScreen(props) {
                             <div className='d-flex flex-wrap justify-content-between'>
                                 <div
                                     className='fs-5 my-2 font-weight-bolder'
-                                    onClick={async () => {
-                                        dispatch(
-                                            thunkGetDetailQuestion({
-                                                _id: item._id,
-                                            })
-                                        );
-                                        navigate("/question/detail");
+                                    onClick={() => {
+                                        navigate(`/question/detail${item?._id}`);
                                     }}
                                     style={{ cursor: "pointer" }}>
                                     {item.title}
