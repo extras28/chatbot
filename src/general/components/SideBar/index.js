@@ -9,22 +9,21 @@ SideBar.propTypes = {
     className: PropTypes.string,
     loggedIn: PropTypes.bool,
     headerHeight: PropTypes.string,
-    selected: PropTypes.string
+    selected: PropTypes.string,
 };
 
 SideBar.defaultProps = {
     className: "",
     loggedIn: false,
     headerHeight: "78",
-    selected: ""
+    selected: "",
 };
 
 function SideBar(props) {
     const { className, headerHeight, selected } = props;
     const loggedIn = UserHelper.checkAccessTokenValid();
     let [showSideBar, setShowSideBar] = useState(true);
-    let [dropdownSideBar_MobileMode, setDropdownSideBar_MobileMode] =
-        useState(false);
+    let [dropdownSideBar_MobileMode, setDropdownSideBar_MobileMode] = useState(false);
     const handleShowSideBar = () => {
         setShowSideBar(!showSideBar);
     };
@@ -40,117 +39,103 @@ function SideBar(props) {
             // style={{ top: `${headerHeight}px` }}
         >
             <div
-                className="d-flex text-decoration-none align-items-center w-100"
+                className='d-flex text-decoration-none align-items-center w-100'
                 style={{
                     color: "#fff",
                     height: "5rem",
-                }}
-            >
-                <NavLink
-                    to="/"
-                    className="d-flex w-100 mx-4 align-items-center fs-5 fw-normal "
-                >
-                    <i className="fab fa-forumbee d-flex fa-2x ms-lg-2"></i>
+                }}>
+                <NavLink to='/' className='d-flex w-100 mx-4 align-items-center fs-5 fw-normal '>
+                    <i className='fab fa-forumbee d-flex fa-2x ms-lg-2'></i>
                     {showSideBar && (
-                        <div className="d-none d-lg-flex ms-2 text-white mr-lg-25">
-                            Code<div className="fw-bolder">Helper</div>
+                        <div className='d-none d-lg-flex ms-2 text-white mr-lg-25'>
+                            Code<div className='fw-bolder'>Helper</div>
                         </div>
                     )}
                 </NavLink>
                 {showSideBar && (
                     <i
-                        className="ButtonShowSideBar fas fa-caret-circle-left d-none d-lg-flex"
-                        onClick={handleShowSideBar}
-                    ></i>
+                        className='ButtonShowSideBar fas fa-caret-circle-left d-none d-lg-flex'
+                        onClick={handleShowSideBar}></i>
                 )}
                 {!showSideBar && (
-                    <div className="ButtonShowSideBar d-none d-lg-flex">
+                    <div className='ButtonShowSideBar d-none d-lg-flex'>
                         <i
-                            className="fas fa-caret-circle-right"
+                            className='fas fa-caret-circle-right'
                             style={{ fontSize: "2rem" }}
-                            onClick={handleShowSideBar}
-                        ></i>
+                            onClick={handleShowSideBar}></i>
                     </div>
                 )}
             </div>
-            <div className="d-none d-sm-inline-flex flex-column align-items-center w-100">
-                <div className="MenuSideBar w-100 mt-5">
+            <div className='d-none d-sm-inline-flex flex-column align-items-center w-100'>
+                <div className='MenuSideBar w-100 mt-5'>
                     <MenuItem
-                        className={
-                            selected === "questions" ? "MenuItem_active" : ""
-                        }
-                        classNameTitle="d-none d-lg-block"
-                        url="/question"
+                        className={selected === "questions" ? "MenuItem_active" : ""}
+                        classNameTitle='d-none d-lg-block'
+                        url='/question'
                         text={showSideBar ? "Câu hỏi" : ""}
-                        title="Câu hỏi"
-                        icon="fas fa-list-ul"
+                        title='Câu hỏi'
+                        icon='fas fa-list-ul'
                     />
                     <MenuItem
                         className={selected === "users" ? "MenuItem_active" : ""}
-                        classNameTitle="d-none d-lg-block"
-                        url="/users"
+                        classNameTitle='d-none d-lg-block'
+                        url='/users'
                         text={showSideBar ? "Người dùng" : ""}
-                        title="Người dùng"
-                        icon="far fa-users"
+                        title='Người dùng'
+                        icon='far fa-users'
                     />
                     <MenuItem
                         className={selected === "tag" ? "MenuItem_active" : ""}
-                        classNameTitle="d-none d-lg-block"
-                        url="/tag"
+                        classNameTitle='d-none d-lg-block'
+                        url='/tag'
                         text={showSideBar ? "Thẻ" : ""}
-                        title="Thẻ"
-                        icon="far fa-tags"
+                        title='Thẻ'
+                        icon='far fa-tags'
                     />
                     <MenuItem
                         className={selected === "ranking" ? "MenuItem_active" : ""}
-                        classNameTitle="d-none d-lg-block"
-                        url=""
+                        classNameTitle='d-none d-lg-block'
+                        url=''
                         text={showSideBar ? "Xếp hạng" : ""}
-                        title="Xếp hạng"
-                        icon="far fa-trophy-alt"
+                        title='Xếp hạng'
+                        icon='far fa-trophy-alt'
                     />
                 </div>
                 {loggedIn && (
-                    <div className="w-100 d-flex flex-column align-items-center">
+                    <div className='w-100 d-flex flex-column align-items-center'>
                         {showSideBar && (
-                            <div className="MenuTitle d-none d-lg-block fw-bolder text-white opacity-80 col-9 mb-2 mt-5">
+                            <div className='MenuTitle d-none d-lg-block fw-bolder text-white opacity-80 col-9 mb-2 mt-5'>
                                 DI CHUYỂN ĐẾN
                             </div>
                         )}
-                        <div className="d-block d-lg-none w-100 border border-bottom border-secondary my-5"></div>
+                        <div className='d-block d-lg-none w-100 border border-bottom border-secondary my-5'></div>
                         {!showSideBar && (
-                            <div className="d-none d-lg-block w-100 border border-bottom border-secondary my-5"></div>
+                            <div className='d-none d-lg-block w-100 border border-bottom border-secondary my-5'></div>
                         )}
-                        <div className="MenuSideBar w-100">
+                        <div className='MenuSideBar w-100'>
                             <MenuItem
-                                className={
-                                    selected === "my-question" ? "MenuItem_active" : ""
-                                }
-                                classNameTitle="d-none d-lg-block"
-                                url=""
+                                className={selected === "my-question" ? "MenuItem_active" : ""}
+                                classNameTitle='d-none d-lg-block'
+                                url=''
                                 text={showSideBar ? "Câu hỏi của bạn" : ""}
-                                title="Câu hỏi của bạn"
-                                icon="far fa-question-circle"
+                                title='Câu hỏi của bạn'
+                                icon='far fa-question-circle'
                             />
                             <MenuItem
-                                className={
-                                    selected === "my-answer" ? "MenuItem_active" : ""
-                                }
-                                classNameTitle="d-none d-lg-block"
-                                url=""
+                                className={selected === "my-answer" ? "MenuItem_active" : ""}
+                                classNameTitle='d-none d-lg-block'
+                                url=''
                                 text={showSideBar ? "Câu trả lời của bạn" : ""}
-                                title="Câu trả lời của bạn"
-                                icon="far fa-comment"
+                                title='Câu trả lời của bạn'
+                                icon='fas fa-comment'
                             />
                             <MenuItem
-                                className={
-                                    selected === "like" ? "MenuItem_active" : ""
-                                }
-                                classNameTitle="d-none d-lg-block"
-                                url=""
+                                className={selected === "like" ? "MenuItem_active" : ""}
+                                classNameTitle='d-none d-lg-block'
+                                url=''
                                 text={showSideBar ? "Yêu thích" : ""}
-                                title="Yêu thích"
-                                icon="far fa-heart"
+                                title='Yêu thích'
+                                icon='far fa-heart'
                             />
                         </div>
                     </div>
@@ -159,108 +144,92 @@ function SideBar(props) {
             <div
                 className={`IconFooter d-none d-sm-flex flex-sm-fill flex-column justify-content-end ${
                     showSideBar && `flex-lg-row align-items-lg-end`
-                }`}
-            >
-                <i className="fab fa-github cursor-pointer hover-opacity-60"></i>
-                <i className="fab fa-instagram cursor-pointer hover-opacity-60"></i>
-                <i className="fab fa-facebook cursor-pointer hover-opacity-60"></i>
+                }`}>
+                <i className='fab fa-github cursor-pointer hover-opacity-60'></i>
+                <i className='fab fa-instagram cursor-pointer hover-opacity-60'></i>
+                <i className='fab fa-facebook cursor-pointer hover-opacity-60'></i>
             </div>
             {dropdownSideBar_MobileMode && (
                 <button
-                    className="btn_dropdownSideBar d-block d-sm-none position-absolute"
+                    className='btn_dropdownSideBar d-block d-sm-none position-absolute'
                     onClick={handledropdownSideBar_MobileMode}
-                    style={{ padding: "0.8rem 1.2rem 0" }}
-                >
-                    <i className="fas fa-sort-up "></i>
+                    style={{ padding: "0.8rem 1.2rem 0" }}>
+                    <i className='fas fa-sort-up '></i>
                 </button>
             )}
             {!dropdownSideBar_MobileMode && (
                 <button
-                    className="btn_dropdownSideBar d-block d-sm-none position-absolute"
+                    className='btn_dropdownSideBar d-block d-sm-none position-absolute'
                     onClick={handledropdownSideBar_MobileMode}
-                    style={{ padding: "0.2rem 1.2rem 0.6rem" }}
-                >
-                    <i className="fas fa-sort-down "></i>
+                    style={{ padding: "0.2rem 1.2rem 0.6rem" }}>
+                    <i className='fas fa-sort-down '></i>
                 </button>
             )}
             {dropdownSideBar_MobileMode && (
                 <div
-                    className="d-inline-flex d-sm-none position-absolute flex-column align-items-center"
+                    className='d-inline-flex d-sm-none position-absolute flex-column align-items-center'
                     style={{
                         top: "5rem",
                         left: "0.5rem",
                         backgroundColor: "#3F4254",
                         width: "18rem",
-                    }}
-                >
-                    <div className="MenuSideBar w-100">
+                    }}>
+                    <div className='MenuSideBar w-100'>
                         <MenuItem
-                            className={
-                                selected === "questions" ? "MenuItem_active" : ""
-                            }
-                            url="/dashboard"
-                            text="Câu hỏi"
-                            title="Câu hỏi"
-                            icon="fas fa-list-ul text-white"
+                            className={selected === "questions" ? "MenuItem_active" : ""}
+                            url='/dashboard'
+                            text='Câu hỏi'
+                            title='Câu hỏi'
+                            icon='fas fa-list-ul text-white'
                         />
                         <MenuItem
-                            className={
-                                selected === "users" ? "MenuItem_active" : ""
-                            }
-                            url="/users"
-                            text="Người dùng"
-                            title="Người dùng"
-                            icon="far fa-users text-white"
+                            className={selected === "users" ? "MenuItem_active" : ""}
+                            url='/users'
+                            text='Người dùng'
+                            title='Người dùng'
+                            icon='far fa-users text-white'
                         />
                         <MenuItem
                             className={selected === "tag" ? "MenuItem_active" : ""}
-                            url=""
-                            text="Thẻ"
-                            title="Thẻ"
-                            icon="far fa-tags text-white"
+                            url=''
+                            text='Thẻ'
+                            title='Thẻ'
+                            icon='far fa-tags text-white'
                         />
                         <MenuItem
-                            className={
-                                selected === "ranking" ? "MenuItem_active" : ""
-                            }
-                            url=""
-                            text="Xếp hạng"
-                            title="Xếp hạng"
-                            icon="far fa-trophy-alt text-white"
+                            className={selected === "ranking" ? "MenuItem_active" : ""}
+                            url=''
+                            text='Xếp hạng'
+                            title='Xếp hạng'
+                            icon='far fa-trophy-alt text-white'
                         />
                     </div>
                     {loggedIn && (
-                        <div className="w-100 d-flex flex-column align-items-center">
-                            <div className="MenuTitle d-block d-sm-none fw-bolder text-white opacity-80 col-9 mb-2 mt-5">
+                        <div className='w-100 d-flex flex-column align-items-center'>
+                            <div className='MenuTitle d-block d-sm-none fw-bolder text-white opacity-80 col-9 mb-2 mt-5'>
                                 DI CHUYỂN ĐẾN
                             </div>
-                            <div className="MenuSideBar w-100">
+                            <div className='MenuSideBar w-100'>
                                 <MenuItem
-                                    className={
-                                        selected === "my-question" ? "MenuItem_active" : ""
-                                    }
-                                    url=""
-                                    text="Câu hỏi của bạn"
-                                    title="Câu hỏi của bạn"
-                                    icon="far fa-question-circle text-white"
+                                    className={selected === "my-question" ? "MenuItem_active" : ""}
+                                    url=''
+                                    text='Câu hỏi của bạn'
+                                    title='Câu hỏi của bạn'
+                                    icon='far fa-question-circle text-white'
                                 />
                                 <MenuItem
-                                    className={
-                                        selected === "my-answer" ? "MenuItem_active" : ""
-                                    }
-                                    url=""
-                                    text="Câu trả lời của bạn"
-                                    title="Câu trả lời của bạn"
-                                    icon="far fa-comment text-white"
+                                    className={selected === "my-answer" ? "MenuItem_active" : ""}
+                                    url=''
+                                    text='Câu trả lời của bạn'
+                                    title='Câu trả lời của bạn'
+                                    icon='fas fa-comment text-white'
                                 />
                                 <MenuItem
-                                    className={
-                                        selected === "like" ? "MenuItem_active" : ""
-                                    }
-                                    url=""
-                                    text="Yêu thích"
-                                    title="Yêu thích"
-                                    icon="far fa-heart text-white"
+                                    className={selected === "like" ? "MenuItem_active" : ""}
+                                    url=''
+                                    text='Yêu thích'
+                                    title='Yêu thích'
+                                    icon='far fa-heart text-white'
                                 />
                             </div>
                         </div>

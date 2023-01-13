@@ -61,8 +61,7 @@ function QuestionsListScreen(props) {
                                     className='cursor-pointer custom-cell'
                                     key={index}
                                     onClick={async () => {
-                                        dispatch(thunkGetDetailQuestion({ _id: item._id }));
-                                        navigate("/question/detail");
+                                        navigate(`/question/detail/${item?._id}`);
                                     }}>
                                     <SummaryQuestion
                                         tags={item?.tagIds}
