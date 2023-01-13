@@ -4,6 +4,7 @@ import BaseLayout from "general/components/BaseLayout";
 import Loading from "general/components/Loading";
 import PreferenceKeys from "general/constants/PreferenceKey";
 import Utils from "general/utils/Utils";
+import useRouter from "Hooks/useRouter";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./style.scss";
@@ -12,63 +13,51 @@ QuestionDetailScreen.propTypes = {};
 
 function QuestionDetailScreen(props) {
     const dispatch = useDispatch();
-    const { isGettingDetailQuestion, detailQuestion } = useSelector(
-        (state) => state?.question
-    );
-    // const id = localStorage.getItem(PreferenceKeys.questionId);
-    // useEffect(() => {
-    //     if (id) {
-    //         dispatch(thunkGetDetailQuestion({ _id: id }));
-    //     }
-    // }, [id]);
+    const router = useRouter();
+    const { isGettingDetailQuestion, detailQuestion } = useSelector((state) => state?.question);
+    const questionId = router.query?._id;
+    console.log(location);
+    useEffect(() => {
+        if (questionId) {
+            dispatch(thunkGetDetailQuestion({ _id: questionId }));
+        }
+    }, [questionId]);
 
     console.log(detailQuestion);
     return (
-        <BaseLayout selected="questions">
-            <div className="container-xxl">
+        <BaseLayout selected='questions'>
+            <div className='container-xxl'>
                 <div>
                     {isGettingDetailQuestion ? (
-                        <div className="d-flex align-items-center justify-content-center mt-8">
-                            <Loading
-                                showBackground={false}
-                                message="Đang lấy dữ liệu"
-                            />
+                        <div className='d-flex align-items-center justify-content-center mt-8'>
+                            <Loading showBackground={false} message='Đang lấy dữ liệu' />
                         </div>
                     ) : detailQuestion ? (
                         <DetailQuestion
                             avatar={detailQuestion?.account?.avatar?.path}
                             fullname={detailQuestion?.account?.fullname}
-                            createdAt={Utils.formatDateTime(
-                                detailQuestion?.createdAt,
-                                "DD-MM-YYYY"
-                            )}
+                            createdAt={Utils.formatDateTime(detailQuestion?.createdAt, "DD-MM-YYYY")}
                             title={detailQuestion.title}
-                            contentTextProblem={
-                                detailQuestion.contentTextProblem
-                            }
+                            contentTextProblem={detailQuestion.contentTextProblem}
                             contentTextExpect={detailQuestion.contentTextExpect}
                             tags={detailQuestion?.tagIds}
-                            comments="15"
+                            comments='15'
                             likes={0}
                             dislikes={0}
                         />
                     ) : (
-                        <div className="mt-8">
+                        <div className='mt-8'>
                             <Empty
-                                text="Không có kết quả phù hợp"
-                                buttonText="Làm mới"
+                                text='Không có kết quả phù hợp'
+                                buttonText='Làm mới'
                                 visible={false}
-                                imageEmpty={
-                                    AppResource.images.errorStates.noMatchFound
-                                }
+                                imageEmpty={AppResource.images.errorStates.noMatchFound}
                             />
                         </div>
                     )}
-                    <div className="mt-6">
+                    <div className='mt-6'>
                         <h1>Câu trả lời</h1>
-                        <div>
-                            danh sách câu trả lời
-                        </div>
+                        <div>danh sách câu trả lời</div>
                     </div>
                 </div>
             </div>
