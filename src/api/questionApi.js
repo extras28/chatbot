@@ -30,6 +30,12 @@ const questionApi = {
         const url = "/question/update";
         return axiosClient.put(url, params);
     },
+
+    //delete quétion
+    deleteQuestion: (params) => {
+        const url = "/question/delete";
+        return axiosClient.delete(url, { params });
+    },
 };
 
 export default questionApi;
