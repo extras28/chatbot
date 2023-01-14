@@ -9,16 +9,16 @@
     i {
         color: #fff;
     }
-  }
-  .IconFooter {
+}
+.IconFooter {
     i {
         font-size: 1.5rem;
         color: #fff;
         padding: 0.5rem 1rem 0.5rem;
     }
-  }
-  
-  .ButtonShowSideBar {
+}
+
+.ButtonShowSideBar {
     position: absolute;
     cursor: pointer;
     border-radius: 50%;
@@ -30,18 +30,19 @@
     &:hover {
         transform: translateY(-2px);
     }
-  }
-  
-  .btn_dropdownSideBar {
-    top: 1.2rem;
-    right: -3.2rem;
+}
+
+.btn_dropdownSideBar {
+    position: fixed;
+    top: 1.1rem;
+    left: 4rem;
     border: none;
     border-radius: 0.5rem;
     outline: none;
     background-color: inherit;
     transition: all linear 0.2s;
     i {
-        color:#b5b5c3;
+        color: #b5b5c3;
         font-size: 1.5rem;
     }
     &:hover {
@@ -50,17 +51,21 @@
             color: #f48023;
         }
     }
-  }
-  
-  @media only screen and (max-width: 576px) {
+}
+
+@media only screen and (max-width: 576px) {
     .SideBar {
         min-height: fit-content;
         position: absolute;
         top: 0;
         background-color: transparent;
+        &_Logo {
+            position: fixed;
+            top: 1rem;
+            left: 0;
+        }
         i {
             color: #f48023;
         }
     }
-  }
-  
+}

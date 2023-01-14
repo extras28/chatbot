@@ -38,6 +38,14 @@ export const thunkCreateQuestion = createAsyncThunk(
     }
 );
 
+export const thunkEditQuestion = createAsyncThunk(
+    "question/update",
+    async (params) => {
+        const res = await questionApi.editQuestion(params);
+        return res;
+    }
+);
+
 const questionSlice = createSlice({
     name: "question",
     initialState: {
@@ -127,6 +135,13 @@ const questionSlice = createSlice({
             const { result } = action.payload;
             if (result === "success") {
                 ToastHelper.showSuccess("Thêm câu hỏi thành công.");
+            }
+        },
+        //get detail question
+        [thunkEditQuestion.fulfilled]: (state, action) => {
+            const { result } = action.payload;
+            if (result === "success") {
+                ToastHelper.showSuccess("Sửa câu hỏi thành công.");
             }
         },
     },
