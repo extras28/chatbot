@@ -46,7 +46,7 @@ function AccountQuestionScreen(props) {
                                 <div
                                     className='fs-5 my-2 font-weight-bolder'
                                     onClick={() => {
-                                        navigate(`/question/detail${item?._id}`);
+                                        navigate(`/question/detail/${item?._id}`);
                                     }}
                                     style={{ cursor: "pointer" }}>
                                     {item.title}

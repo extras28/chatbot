@@ -19,6 +19,7 @@ import AccountListener from "features/Account/AccountListener";
 import Question from "features/Question";
 import Tag from "features/TagScreen";
 import Account from "features/Account";
+import { injectStore } from "general/helpers/WebSocketClientHelper";
 // import Admin from "Admin";
 
 // Load BS
@@ -46,7 +47,7 @@ function App() {
     // MARK: --- Hooks ---
     useEffect(() => {
         console.log(`${sTag} did load`);
-        // injectStore(store);
+        injectStore(store);
 
         return () => {
             console.log(`${sTag} will dismiss`);
