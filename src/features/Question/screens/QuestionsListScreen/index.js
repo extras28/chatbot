@@ -37,7 +37,7 @@ function QuestionsListScreen(props) {
         dispatch(thunkGetQuestionsList(filters));
     }, [filters]);
     return (
-        <BaseLayout selected='questions'>
+        <BaseLayout selected="questions">
             <div className='container-xxl'>
                 <div className='max-w-200px'>
                     <BaseSearchBar

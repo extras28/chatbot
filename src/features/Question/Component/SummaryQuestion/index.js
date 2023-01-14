@@ -53,8 +53,8 @@ function SummaryQuestion(props) {
                 <div className='content'>
                     <p className='fw-bold fs-3'>{titleQuestion}</p>
                 </div>
-                <div className='d-flex justify-content-between align-items-center'>
-                    <div className='d-flex flex-fill'>
+                <div className='d-flex justify-content-between align-items-center flex-wrap'>
+                    <div className='d-flex flex-fill flex-wrap'>
                         {tags?.map((item, index) => {
                             return (
                                 <div key={index} className='badge badge-secondary mr-4 d-flex align-items-center'>
@@ -63,7 +63,7 @@ function SummaryQuestion(props) {
                             );
                         })}
                     </div>
-                    <div className='d-flex'>
+                    <div className='d-flex flex-wrap ms-auto'>
                         <button className='btn'>
                             <i className='fas fa-comment'></i>
                             {comments}

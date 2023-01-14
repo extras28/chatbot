@@ -110,58 +110,62 @@ function HeaderLandingPage(props) {
                     </div>
                 </NavLink>
             )}
-            {menu && (
-                <div className="HeaderLandingPageNav d-none d-md-flex flex-fill justify-content-end">
-                    <a href="#home" className="HeaderLandingPageNavItem">
-                        <span onClick={() => handleNavigate("/#home")}>
-                            Trang chủ
-                        </span>
-                    </a>
-                    <a
-                        href="#introduction"
-                        className="HeaderLandingPageNavItem"
-                    >
-                        <span onClick={() => handleNavigate("/#introduction")}>
-                            Giới thiệu
-                        </span>
-                    </a>
-                    <a href="#contact" className="HeaderLandingPageNavItem">
-                        <span onClick={() => handleNavigate("/#contact")}>
-                            Liên hệ
-                        </span>
-                    </a>
-                    <a className="HeaderLandingPageNavItem">
-                        <span onClick={() => handleNavigate("/question")}>
-                            Câu hỏi
-                        </span>
-                    </a>
-                </div>
-            )}
-            {buttonAddQuestion && (
-                <div className="d-flex flex-fill justify-content-end">
-                    <button
-                        onClick={() => {
-                            if (UserHelper.checkAccessTokenValid()) {
-                                navigate("/question/create");
-                            } else {
-                                navigate("/sign-in");
-                            }
-                        }}
-                        type="button"
-                        className="ButtonPrimary d-flex mx-4"
-                        title="Tạo câu hỏi"
-                    >
-                        <i className="far fa-plus-circle text-white"></i>
-                        <div className="d-flex ms-3">Tạo câu hỏi</div>
-                    </button>
-                </div>
-            )}
+            <div className="d-flex flex-fill justify-content-end">
+                {menu && (
+                    <div className="HeaderLandingPageNav d-none d-md-flex align-items-center justify-content-end">
+                        <a href="#home" className="HeaderLandingPageNavItem">
+                            <span onClick={() => handleNavigate("/#home")}>
+                                Trang chủ
+                            </span>
+                        </a>
+                        <a
+                            href="#introduction"
+                            className="HeaderLandingPageNavItem"
+                        >
+                            <span
+                                onClick={() => handleNavigate("/#introduction")}
+                            >
+                                Giới thiệu
+                            </span>
+                        </a>
+                        <a href="#contact" className="HeaderLandingPageNavItem">
+                            <span onClick={() => handleNavigate("/#contact")}>
+                                Liên hệ
+                            </span>
+                        </a>
+                        <a className="HeaderLandingPageNavItem">
+                            <span onClick={() => handleNavigate("/question")}>
+                                Câu hỏi
+                            </span>
+                        </a>
+                    </div>
+                )}
+                {buttonAddQuestion && (
+                    <div className="d-none d-md-flex justify-content-end">
+                        <button
+                            onClick={() => {
+                                if (UserHelper.checkAccessTokenValid()) {
+                                    navigate("/question/create");
+                                } else {
+                                    navigate("/sign-in");
+                                }
+                            }}
+                            type="button"
+                            className="ButtonPrimary d-flex mx-4"
+                            title="Tạo câu hỏi"
+                        >
+                            <i className="far fa-plus-circle text-white"></i>
+                            <div className="d-flex ms-3">Tạo câu hỏi</div>
+                        </button>
+                    </div>
+                )}
+            </div>
 
             {!loggedIn && (
                 <div>
                     {/* Screen >= 576px */}
                     {buttonSign && (
-                        <div className="d-none d-md-block">
+                        <div className="d-none d-lg-block">
                             <NavLink to="/sign-up">
                                 <button type="button" className="ButtonPrimary">
                                     <i className="far fa-user-plus me-2 text-white"></i>
@@ -179,7 +183,7 @@ function HeaderLandingPage(props) {
                         </div>
                     )}
                     {/* Screen < 576px */}
-                    <div className="d-flex d-md-none">
+                    <div className="d-flex d-lg-none">
                         <input type="checkbox" id="dropdownMenu-notLoggedIn" />
                         <label
                             htmlFor="dropdownMenu-notLoggedIn"
@@ -190,7 +194,7 @@ function HeaderLandingPage(props) {
                         <div id="overlay">
                             <ul className="d-flex flex-column justify-content-center align-items-center ps-0 m-0">
                                 {menu && (
-                                    <li>
+                                    <li className="d-flex d-md-none">
                                         <a
                                             className="dropdownMenuItem"
                                             href="#home"
@@ -200,7 +204,7 @@ function HeaderLandingPage(props) {
                                     </li>
                                 )}
                                 {menu && (
-                                    <li>
+                                    <li className="d-flex d-md-none">
                                         <a
                                             className="dropdownMenuItem"
                                             href="#introduction"
@@ -210,7 +214,7 @@ function HeaderLandingPage(props) {
                                     </li>
                                 )}
                                 {menu && (
-                                    <li>
+                                    <li className="d-flex d-md-none">
                                         <a
                                             className="dropdownMenuItem"
                                             href="#contact"
@@ -220,13 +224,24 @@ function HeaderLandingPage(props) {
                                     </li>
                                 )}
                                 {menu && (
-                                    <li>
+                                    <li className="d-flex d-md-none">
                                         <NavLink
                                             className="dropdownMenuItem"
                                             to="/question"
                                         >
                                             Câu hỏi
                                         </NavLink>
+                                    </li>
+                                )}
+                                {buttonAddQuestion && (
+                                    <li className="d-flex d-md-none">
+                                        <NavLink
+                                        className="dropdownMenuItem "
+                                        to="/question/create"
+                                    >
+                                        <i className="far fa-plus-circle mr-4"></i>
+                                        Tạo câu hỏi
+                                    </NavLink>
                                     </li>
                                 )}
                                 {buttonSign && (
@@ -256,7 +271,7 @@ function HeaderLandingPage(props) {
             )}
 
             {loggedIn && (
-                <div className="d-flex justify-content-center align-items-center">
+                <div className="d-flex justify-content-center ms-auto align-items-center">
                     {/* Screen >= 768px */}
                     <div className="d-none d-md-flex align-items-center">
                         <div className="bell mx-5">
@@ -338,7 +353,7 @@ function HeaderLandingPage(props) {
                             </div>
                         </div>
                     )}
-                    <div className="d-flex d-md-none">
+                    <div className="d-flex d-md-none ms-auto">
                         <input type="checkbox" id="dropdownMenu-loggedIn" />
                         <label
                             htmlFor="dropdownMenu-loggedIn"
@@ -380,7 +395,7 @@ function HeaderLandingPage(props) {
                                 <li>
                                     <NavLink
                                         className="dropdownMenuItem"
-                                        to="#"
+                                        to="/question/create"
                                     >
                                         <i className="far fa-plus-circle mr-4"></i>
                                         Tạo câu hỏi

@@ -44,7 +44,7 @@ function SideBar(props) {
                     color: "#fff",
                     height: "5rem",
                 }}>
-                <NavLink to='/' className='d-flex w-100 mx-4 align-items-center fs-5 fw-normal '>
+                <NavLink to='/' className=' SideBar_Logo d-flex mx-4 align-items-center fs-5 fw-normal '>
                     <i className='fab fa-forumbee d-flex fa-2x ms-lg-2'></i>
                     {showSideBar && (
                         <div className='d-none d-lg-flex ms-2 text-white mr-lg-25'>
@@ -151,7 +151,7 @@ function SideBar(props) {
             </div>
             {dropdownSideBar_MobileMode && (
                 <button
-                    className='btn_dropdownSideBar d-block d-sm-none position-absolute'
+                    className='btn_dropdownSideBar d-block d-sm-none'
                     onClick={handledropdownSideBar_MobileMode}
                     style={{ padding: "0.8rem 1.2rem 0" }}>
                     <i className='fas fa-sort-up '></i>
@@ -159,7 +159,7 @@ function SideBar(props) {
             )}
             {!dropdownSideBar_MobileMode && (
                 <button
-                    className='btn_dropdownSideBar d-block d-sm-none position-absolute'
+                    className='btn_dropdownSideBar d-block d-sm-none'
                     onClick={handledropdownSideBar_MobileMode}
                     style={{ padding: "0.2rem 1.2rem 0.6rem" }}>
                     <i className='fas fa-sort-down '></i>
@@ -167,7 +167,7 @@ function SideBar(props) {
             )}
             {dropdownSideBar_MobileMode && (
                 <div
-                    className='d-inline-flex d-sm-none position-absolute flex-column align-items-center'
+                    className='d-inline-flex d-sm-none position-fixed flex-column align-items-center'
                     style={{
                         top: "5rem",
                         left: "0.5rem",
@@ -177,7 +177,7 @@ function SideBar(props) {
                     <div className='MenuSideBar w-100'>
                         <MenuItem
                             className={selected === "questions" ? "MenuItem_active" : ""}
-                            url='/dashboard'
+                            url='/question'
                             text='Câu hỏi'
                             title='Câu hỏi'
                             icon='fas fa-list-ul text-white'

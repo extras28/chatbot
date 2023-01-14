@@ -45,7 +45,7 @@ function BaseLayout(props) {
                 <div>
                     {/* Content */}
                     <div
-                        className={`flex-grow-1 align-self-center d-flex flex-column justify-content-between m-8`}
+                        className={`flex-grow-1 align-self-center d-flex flex-column justify-content-between m-2 m-sm-4 m-md-8`}
                     >
                         {props.children}
                     </div>
