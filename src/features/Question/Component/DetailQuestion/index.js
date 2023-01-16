@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import UserHelper from "general/helpers/UserHelper";
 import MDEditor from "@uiw/react-md-editor";
 import Tag from "general/components/Tag";
-import "./style.scss"
+import "./style.scss";
+import { useSelector } from "react-redux";
 
 DetailQuestion.propTypes = {
     srcAvatar: PropTypes.string,
@@ -44,6 +45,10 @@ function DetailQuestion(props) {
         likes,
         dislikes,
     } = props;
+    const { currentAccount } = useSelector((state) => state?.auth);
+    const { detailQuestion } = useSelector((state) => state?.question);
+    const isMyQuestion = currentAccount?._id === detailQuestion?.account?._id;
+
     return (
         <div className="DetailQuestion bg-white rounded shadow p-5 p-md-10">
             <div className="d-flex align-items-center">
@@ -58,8 +63,42 @@ function DetailQuestion(props) {
                         alt="avatar"
                     />
                 </div>
-                <div className="flex-grow-1 mx-2">
+                <div className="flex-grow-1 flex-fill mx-2">
                     <div className="fw-bold fs-5 my-0">{fullname}</div>
+                </div>
+                <div>
+                    <button
+                        className="ButtonEllipsis show-option"
+                        id="dropdownMenuButton"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+                        <i className="fa-2x fal fa-ellipsis-v"></i>
+                    </button>
+
+                    {isMyQuestion && (
+                        <ul
+                            className="dropdown-menu my-4"
+                            aria-labelledby="dropdownMenuButton"
+                        >
+                            <li className="dropdown-item cursor-pointer pe-5">
+                                Chỉnh sửa câu hỏi
+                            </li>
+                            <li className="dropdown-item cursor-pointer">
+                                Xóa câu hỏi
+                            </li>
+                        </ul>
+                    )}
+                    {!isMyQuestion && (
+                        <ul
+                            className="dropdown-menu my-4"
+                            aria-labelledby="dropdownMenuButton"
+                        >
+                            <li className="dropdown-item cursor-pointer">
+                                Báo cáo
+                            </li>
+                        </ul>
+                    )}
                 </div>
             </div>
             <div className="content pt-4">
