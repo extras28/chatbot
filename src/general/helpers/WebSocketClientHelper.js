@@ -63,6 +63,17 @@ class WebsocketHelper {
         }, 5000);
     }
 
+    sendAnswer(answer) {
+        if (this.wsClient.readyState === 1) {
+            const data = {
+                code: "01",
+                answer: answer,
+            };
+
+            this.wsClient.send(JSON.stringify(data));
+        }
+    }
+
     // MARK: --- Utils functions ---
     processReceivedMessage(data) {
         try {
