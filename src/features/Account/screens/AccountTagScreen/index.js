@@ -8,9 +8,9 @@ import CellTag from "features/TagScreen/components/CellTag";
 import Empty from "general/components/Empty";
 import AppResource from "general/constants/AppResource";
 import Global from "general/utils/Global";
-import { Pagination } from "react-bootstrap";
 import { parseInt } from "lodash";
 import { thunkGetTagList } from "features/TagScreen/tagSlice";
+import Pagination from "general/components/Pagination";
 
 AccounttagScreen.propTypes = {};
 
@@ -63,7 +63,7 @@ function AccounttagScreen(props) {
                         return (
                             <div
                                 key={index}
-                                className="col-12 col-md-4 col-lg-3 col-xl-2 mb-7 cursor-pointer"
+                                className="col-12 col-md-4 col-lg-3 mb-7 cursor-pointer"
                             >
                                 <CellTag
                                     name={item?.name}

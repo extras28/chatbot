@@ -58,7 +58,7 @@ function AccountQuestionScreen(props) {
             {/* body */}
             <div className='card-body p-0'>
                 {isGettingQuestionsListOfUser ? (
-                    <div className='d-flex align-items-center justify-content-center'>
+                    <div className='d-flex align-items-center justify-content-center my-10'>
                         <Loading showBackground={false} message='Đang lấy dữ liệu' />
                     </div>
                 ) : questionsListOfUser?.length > 0 ? (

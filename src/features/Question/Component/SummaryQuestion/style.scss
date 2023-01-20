@@ -1,10 +1,20 @@
-.SummaryQuestion{.header-avatar {
+.SummaryQuestion{
+    .header-avatar {
     height: 45px;
     width: 45px;
     cursor: pointer;
   }
-  
-  
-  .button {
-      background-color: #fd7e14;
-  }}
+  &_Title {
+    transition: all ease 0.2s;
+      &:hover{
+        color: rgb(233, 97, 0);
+      }
+  }
+  &_IconReact{
+    transition: all ease 0.1s;
+    &:hover{
+        transform: translateY(-1px);
+      }
+  }
+
+}

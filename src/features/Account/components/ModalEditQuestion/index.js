@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import Utils from "general/utils/Utils";
 import MdEditor from "react-markdown-editor-lite";
 import MDEditor from "@uiw/react-md-editor";
-import { thunkEditQuestion } from "features/Question/questionSlice";
+import { thunkEditQuestion, thunkGetQuestionsListOfUser } from "features/Question/questionSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import BaseSearchBar from "general/components/Form/BaseSearchBar";
@@ -39,26 +39,28 @@ function ModalEditQuestion(props) {
         q: "",
     });
     const needToRefreshTagList = useRef(null);
-    const [selectedTags, setSelectedTags] = useState([]);
 
+    const [selectedTags, setSelectedTags] = useState([]);
     const formik = useFormik({
         initialValues: {
             title: "",
             contentTextProblem: "",
             contentTextExpect: "",
-            tagIds: questionItem?.tagIds,
+            tagIds: [],
         },
         onSubmit: async (values) => {
             const params = { _id: questionItem?._id, ...values };
-            console.log(params);
-            // try {
-            //     const res = await dispatch(thunkEditQuestion(params));
-            //     if (res) {
-            //         navigate("/question/list");
-            //     }
-            // } catch (err) {
-            //     console.log(`${err.message}`);
-            // }
+            // console.log(params);
+            try {
+                const res = await dispatch(thunkEditQuestion(params));
+                
+                if (res) {
+                    navigate("/account");
+                    await dispatch(thunkGetQuestionsListOfUser());
+                }
+            } catch (err) {
+                console.log(`${err.message}`);
+            }
         },
         validationSchema: Yup.object({
             title: Yup.string()
@@ -92,6 +94,7 @@ function ModalEditQuestion(props) {
     // MARK --- Hooks: ---
     useEffect(() => {
         if (questionItem) {
+            setSelectedTags(questionItem?.tagIds);
             formik.getFieldHelpers("title").setValue(questionItem?.title);
             formik
                 .getFieldHelpers("contentTextProblem")
@@ -99,7 +102,7 @@ function ModalEditQuestion(props) {
             formik
                 .getFieldHelpers("contentTextExpect")
                 .setValue(questionItem?.contentTextExpect);
-            formik.getFieldHelpers("tagIds").setValue(questionItem?.tagIds);
+            formik.getFieldHelpers("tagIds").setValue(questionItem?.tagIds?.map(item => item._id));
         }
     }, [questionItem]);
 
@@ -214,7 +217,7 @@ function ModalEditQuestion(props) {
                                                                         key={
                                                                             index
                                                                         }
-                                                                        className="col-12 col-md-4 col-lg-3 col-xl-2 mb-7 cursor-pointer"
+                                                                        className="col-12 col-md-4 mb-7 cursor-pointer"
                                                                         onClick={() => {
                                                                             formik
                                                                                 .getFieldHelpers(
@@ -415,7 +418,7 @@ function ModalEditQuestion(props) {
                             className={`font-weight-bold flex-grow-1 col ml-3 AppButton`}
                             variant="primary"
                             onClick={() => {
-                                // handleClose();
+                                handleClose();
                                 formik.handleSubmit();
                             }}
                         >

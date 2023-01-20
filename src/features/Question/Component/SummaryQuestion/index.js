@@ -13,7 +13,11 @@ SummaryQuestion.propTypes = {
     comments: PropTypes.string,
     likes: PropTypes.number,
     dislikes: PropTypes.number,
-    onClick: PropTypes.func,
+    clickQuestion: PropTypes.func,
+    clickLike: PropTypes.func,
+    colorIconLike: PropTypes.func,
+    clickDislike: PropTypes.string,
+    colorIconDislike: PropTypes.string,
 };
 
 SummaryQuestion.defaultProps = {
@@ -25,55 +29,83 @@ SummaryQuestion.defaultProps = {
     comments: "",
     likes: null,
     dislikes: null,
-    onClick: null,
+    clickQuestion: null,
+    clickLike: null,
+    clickDislike: null,
+    colorIconLike: "",
+    colorIconDislike: "",
 };
 
 function SummaryQuestion(props) {
-    const { avatar, userName, createAt, titleQuestion, tags, comments, likes, dislikes, onClick } = props;
+    const {
+        avatar,
+        userName,
+        createAt,
+        titleQuestion,
+        tags,
+        comments,
+        likes,
+        dislikes,
+        clickQuestion,
+        clickLike,
+        clickDislike,
+        colorIconLike,
+        colorIconDislike,
+    } = props;
     return (
-        <div className='my-5 SummaryQuestion cursor-pointer' onClick={onClick}>
-            <div className='comment p-5 bg-body shadow-sm rounded'>
-                <div className='d-flex'>
-                    <div className='flex-shrink-0'>
+        <div className="my-5 SummaryQuestion">
+            <div className="comment p-5 bg-body shadow-sm rounded">
+                <div className="d-flex">
+                    <div className="flex-shrink-0">
                         <img
-                            className='header-avatar rounded-circle'
+                            className="header-avatar rounded-circle"
                             src={avatar || UserHelper.getRandomAvatarUrl()}
                             onError={(e) => {
                                 e.target.onerror = null;
                                 e.target.src = UserHelper.getRandomAvatarUrl();
                             }}
-                            alt='avatar'
+                            alt="avatar"
                         />
                     </div>
-                    <div className='flex-grow-1 mx-2'>
-                        <p className='fw-bold fs-5 my-0'>{userName}</p>
-                        <p className='fw-normal fs-6'>{createAt}</p>
+                    <div className="flex-grow-1 mx-2">
+                        <p className="fw-bold fs-5 my-0">{userName}</p>
+                        <p className="fw-normal fs-6">Ngày tạo: {createAt}</p>
                     </div>
                 </div>
-                <div className='content'>
-                    <p className='fw-bold fs-3'>{titleQuestion}</p>
+                <div
+                    className="SummaryQuestion_Title content cursor-pointer"
+                    onClick={clickQuestion}
+                >
+                    <p className="fw-bold fs-4">{titleQuestion}</p>
                 </div>
-                <div className='d-flex justify-content-between align-items-center flex-wrap'>
-                    <div className='d-flex flex-fill flex-wrap'>
+                <div className="d-flex justify-content-between align-items-center flex-wrap">
+                    <div className="d-flex flex-fill flex-wrap">
                         {tags?.map((item, index) => {
                             return (
-                                <div key={index} className='badge badge-secondary mr-4 d-flex align-items-center'>
+                                <div
+                                    key={index}
+                                    className="badge badge-secondary mr-4 d-flex align-items-center"
+                                >
                                     <span>{item?.name}</span>
                                 </div>
                             );
                         })}
                     </div>
-                    <div className='d-flex flex-wrap ms-auto'>
-                        <button className='btn'>
-                            <i className='fas fa-comment'></i>
+                    <div className="d-flex flex-wrap ms-auto">
+                        <button className="btn SummaryQuestion_IconReact">
+                            <i className="fas fa-comment"></i>
                             {comments}
                         </button>
-                        <button className='btn'>
-                            <i className='fas fa-thumbs-up'></i>
+                        <button className="btn SummaryQuestion_IconReact" onClick={clickLike}>
+                            <i
+                                className={`fas fa-thumbs-up text-hover-primary ${colorIconLike}`}
+                            ></i>
                             {likes}
                         </button>
-                        <button className='btn'>
-                            <i className='fas fa-thumbs-down'></i>
+                        <button className="btn SummaryQuestion_IconReact" onClick={clickDislike}>
+                            <i
+                                className={`fas fa-thumbs-down text-hover-danger ${colorIconDislike}`}
+                            ></i>
                             {dislikes}
                         </button>
                     </div>
