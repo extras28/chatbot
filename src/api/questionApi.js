@@ -31,10 +31,16 @@ const questionApi = {
         return axiosClient.put(url, params);
     },
 
-    //delete quétion
+    //delete question
     deleteQuestion: (params) => {
         const url = "/question/delete";
         return axiosClient.delete(url, { params });
+    },
+
+    //vote question
+    voteQuestion: (params) => {
+        const url = "/question/react";
+        return axiosClient.post(url, params);
     },
 };
 

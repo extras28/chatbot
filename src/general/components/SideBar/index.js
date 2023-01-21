@@ -129,14 +129,6 @@ function SideBar(props) {
                                 title='Câu trả lời của bạn'
                                 icon='fas fa-comment'
                             />
-                            <MenuItem
-                                className={selected === "like" ? "MenuItem_active" : ""}
-                                classNameTitle='d-none d-lg-block'
-                                url=''
-                                text={showSideBar ? "Yêu thích" : ""}
-                                title='Yêu thích'
-                                icon='far fa-heart'
-                            />
                         </div>
                     </div>
                 )}
@@ -223,13 +215,6 @@ function SideBar(props) {
                                     text='Câu trả lời của bạn'
                                     title='Câu trả lời của bạn'
                                     icon='fas fa-comment text-white'
-                                />
-                                <MenuItem
-                                    className={selected === "like" ? "MenuItem_active" : ""}
-                                    url=''
-                                    text='Yêu thích'
-                                    title='Yêu thích'
-                                    icon='far fa-heart text-white'
                                 />
                             </div>
                         </div>

@@ -15,11 +15,13 @@ import {
     setPaginationQuestionPerPage,
     thunkGetDetailQuestion,
     thunkGetQuestionsList,
+    thunkVoteQuestion,
 } from "features/Question/questionSlice";
 import SummaryQuestion from "features/Question/Component/SummaryQuestion";
 import Global from "general/utils/Global";
 import Pagination from "general/components/Pagination";
 import { useNavigate } from "react-router-dom";
+import questionApi from "api/questionApi";
 
 QuestionsListScreen.propTypes = {};
 
@@ -31,13 +33,14 @@ function QuestionsListScreen(props) {
     });
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { currentAccount } = useSelector((state) => state?.auth);
     const { isGettingQuestionsList, questionsList, paginationListQuestion } = useSelector((state) => state?.question);
     // console.log(questionsList);
     useEffect(() => {
         dispatch(thunkGetQuestionsList(filters));
     }, [filters]);
     return (
-        <BaseLayout selected="questions">
+        <BaseLayout selected='questions'>
             <div className='container-xxl'>
                 <div className='max-w-200px'>
                     <BaseSearchBar
@@ -57,12 +60,7 @@ function QuestionsListScreen(props) {
                     ) : questionsList?.length > 0 ? (
                         questionsList?.map((item, index) => {
                             return (
-                                <div
-                                    className='cursor-pointer custom-cell'
-                                    key={index}
-                                    onClick={async () => {
-                                        navigate(`/question/detail/${item?._id}`);
-                                    }}>
+                                <div className='custom-cell' key={index}>
                                     <SummaryQuestion
                                         tags={item?.tagIds}
                                         avatar={item?.account?.avatar?.path}
@@ -70,8 +68,24 @@ function QuestionsListScreen(props) {
                                         createAt={Utils.formatDateTime(item?.createdAt, "DD-MM-YYYY")}
                                         titleQuestion={item?.title}
                                         comments='15'
-                                        likes={item?.like}
-                                        dislikes={item?.dislike}
+                                        likes={item?.likeCount ?? 0}
+                                        colorIconLike={item?.likes.includes(currentAccount._id) && "text-primary"}
+                                        colorIconDislike={item?.dislikes.includes(currentAccount._id) && "text-danger"}
+                                        dislikes={item?.dislikeCount ?? 0}
+                                        clickQuestion={async () => {
+                                            navigate(`/question/detail/${item?._id}`);
+                                        }}
+                                        clickLike={() => {
+                                            // await questionApi.voteQuestion({
+                                            //     _id: item?._id,
+                                            //     reactType: 1,
+                                            // });
+                                            // await dispatch(thunkGetQuestionsList(filters));
+                                            dispatch(thunkVoteQuestion({ _id: item?._id, reactType: 1 }));
+                                        }}
+                                        clickDislike={() => {
+                                            dispatch(thunkVoteQuestion({ _id: item?._id, reactType: 0 }));
+                                        }}
                                     />
                                 </div>
                             );

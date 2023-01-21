@@ -33,7 +33,7 @@ function DetailAnswer(props) {
         dislikes,
     } = props;
     return (
-        <div className="DetailAnswer bg-white rounded shadow my-3 p-5 px-md-10">
+        <div className="DetailAnswer w-100 bg-white rounded shadow my-3 p-5 px-md-10">
             <div className="d-flex align-items-center">
                 <div className="flex-shrink-0 symbol">
                     <img

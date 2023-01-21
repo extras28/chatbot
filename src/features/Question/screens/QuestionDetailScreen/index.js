@@ -83,8 +83,8 @@ function QuestionDetailScreen(props) {
                             contentTextExpect={detailQuestion.contentTextExpect}
                             tags={detailQuestion?.tagIds}
                             comments='15'
-                            likes={0}
-                            dislikes={0}
+                            likes={detailQuestion?.likeCount ?? 0}
+                            dislikes={detailQuestion?.dislikeCount ?? 0}
                         />
                     ) : (
                         <div className='mt-8'>
