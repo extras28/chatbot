@@ -31,6 +31,11 @@ export const thunkEditQuestion = createAsyncThunk("question/update", async (para
     return res;
 });
 
+export const thunkVoteQuestion = createAsyncThunk("question/vote", async (params) => {
+    const res = await questionApi.voteQuestion(params);
+    return res;
+});
+
 const questionSlice = createSlice({
     name: "question",
     initialState: {
@@ -128,6 +133,15 @@ const questionSlice = createSlice({
             const { result } = action.payload;
             if (result === "success") {
                 ToastHelper.showSuccess("Sửa câu hỏi thành công.");
+            }
+        },
+        [thunkVoteQuestion.fulfilled]: (state, action) => {
+            const { result, question } = action.payload;
+            const _id = action.meta.arg._id;
+            for (let i = 0; i < state.questionsList.length; i++) {
+                if (state.questionsList[i]._id === _id) {
+                    state.questionsList[i] = question;
+                }
             }
         },
     },

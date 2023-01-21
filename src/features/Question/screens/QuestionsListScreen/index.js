@@ -15,6 +15,7 @@ import {
     setPaginationQuestionPerPage,
     thunkGetDetailQuestion,
     thunkGetQuestionsList,
+    thunkVoteQuestion,
 } from "features/Question/questionSlice";
 import SummaryQuestion from "features/Question/Component/SummaryQuestion";
 import Global from "general/utils/Global";
@@ -32,21 +33,20 @@ function QuestionsListScreen(props) {
     });
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {currentAccount} = useSelector(state => state?.auth);
-    const { isGettingQuestionsList, questionsList, paginationListQuestion } =
-        useSelector((state) => state?.question);
+    const { currentAccount } = useSelector((state) => state?.auth);
+    const { isGettingQuestionsList, questionsList, paginationListQuestion } = useSelector((state) => state?.question);
     // console.log(questionsList);
     useEffect(() => {
         dispatch(thunkGetQuestionsList(filters));
     }, [filters]);
     return (
-        <BaseLayout selected="questions">
-            <div className="container-xxl">
-                <div className="max-w-200px">
+        <BaseLayout selected='questions'>
+            <div className='container-xxl'>
+                <div className='max-w-200px'>
                     <BaseSearchBar
-                        placeholder="Tìm kiếm câu hỏi"
+                        placeholder='Tìm kiếm câu hỏi'
                         value={filters.q}
-                        name="questionFilter"
+                        name='questionFilter'
                         onSubmit={(value) => {
                             setFilters({ ...filters, q: value });
                         }}
@@ -54,80 +54,59 @@ function QuestionsListScreen(props) {
                 </div>
                 <div>
                     {isGettingQuestionsList ? (
-                        <div className="d-flex align-items-center justify-content-center mt-8">
-                            <Loading
-                                showBackground={false}
-                                message="Đang lấy dữ liệu"
-                            />
+                        <div className='d-flex align-items-center justify-content-center mt-8'>
+                            <Loading showBackground={false} message='Đang lấy dữ liệu' />
                         </div>
                     ) : questionsList?.length > 0 ? (
                         questionsList?.map((item, index) => {
                             return (
-                                <div
-                                    className="custom-cell"
-                                    key={index}
-                                >
+                                <div className='custom-cell' key={index}>
                                     <SummaryQuestion
                                         tags={item?.tagIds}
                                         avatar={item?.account?.avatar?.path}
                                         userName={item?.account?.fullname}
-                                        createAt={Utils.formatDateTime(
-                                            item?.createdAt,
-                                            "DD-MM-YYYY"
-                                        )}
+                                        createAt={Utils.formatDateTime(item?.createdAt, "DD-MM-YYYY")}
                                         titleQuestion={item?.title}
-                                        comments="15"
+                                        comments='15'
                                         likes={item?.likeCount ?? 0}
                                         colorIconLike={item?.likes.includes(currentAccount._id) && "text-primary"}
                                         colorIconDislike={item?.dislikes.includes(currentAccount._id) && "text-danger"}
                                         dislikes={item?.dislikeCount ?? 0}
                                         clickQuestion={async () => {
-                                            navigate(
-                                                `/question/detail/${item?._id}`
-                                            );
+                                            navigate(`/question/detail/${item?._id}`);
                                         }}
-                                        clickLike={async () => {
-                                                await questionApi.voteQuestion({
-                                                    _id: item?._id,
-                                                    reactType: 1,
-                                                });
-                                                await dispatch(thunkGetQuestionsList(filters));
+                                        clickLike={() => {
+                                            // await questionApi.voteQuestion({
+                                            //     _id: item?._id,
+                                            //     reactType: 1,
+                                            // });
+                                            // await dispatch(thunkGetQuestionsList(filters));
+                                            dispatch(thunkVoteQuestion({ _id: item?._id, reactType: 1 }));
                                         }}
-                                        clickDislike={async () => {
-                                            await questionApi.voteQuestion({
-                                                _id: item?._id,
-                                                reactType: 0,
-                                            });
-                                            await dispatch(thunkGetQuestionsList(filters));
-                                    }}
+                                        clickDislike={() => {
+                                            dispatch(thunkVoteQuestion({ _id: item?._id, reactType: 0 }));
+                                        }}
                                     />
                                 </div>
                             );
                         })
                     ) : (
-                        <div className="mt-8">
+                        <div className='mt-8'>
                             <Empty
-                                text="Không có kết quả phù hợp"
-                                buttonText="Làm mới"
+                                text='Không có kết quả phù hợp'
+                                buttonText='Làm mới'
                                 visible={false}
-                                imageEmpty={
-                                    AppResource.images.errorStates.noMatchFound
-                                }
+                                imageEmpty={AppResource.images.errorStates.noMatchFound}
                             />
                         </div>
                     )}
                     <div>
                         {questionsList?.length > 0 && (
-                            <div className="d-flex align-items-center justify-content-center mt-0">
+                            <div className='d-flex align-items-center justify-content-center mt-0'>
                                 <Pagination
                                     rowsPerPage={paginationListQuestion.perPage}
-                                    rowCount={
-                                        paginationListQuestion.count ??
-                                        questionsList?.length
-                                    }
-                                    currentPage={
-                                        paginationListQuestion.currentPage ?? 1
-                                    }
+                                    rowCount={paginationListQuestion.count ?? questionsList?.length}
+                                    currentPage={paginationListQuestion.currentPage ?? 1}
                                     onChangePage={(newPage) => {
                                         let iNewPage = parseInt(newPage);
                                         Global.g_needToRefreshQuestions = true;
@@ -137,13 +116,8 @@ function QuestionsListScreen(props) {
                                         });
                                     }}
                                     onChangeRowsPerPage={(newPerPage) => {
-                                        const iNewPerPage =
-                                            parseInt(newPerPage);
-                                        dispatch(
-                                            setPaginationQuestionPerPage(
-                                                iNewPerPage
-                                            )
-                                        );
+                                        const iNewPerPage = parseInt(newPerPage);
+                                        dispatch(setPaginationQuestionPerPage(iNewPerPage));
                                         Global.g_needToRefreshQuestions = true;
                                         setFilters({
                                             ...filters,
