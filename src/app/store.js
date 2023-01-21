@@ -3,6 +3,7 @@ import authReducer from "./authSlice";
 import questionReducer from "../features/Question/questionSlice";
 import usersListReducer from "../features/UserListScreen/UsersListSlice";
 import tagReducer from "../features/TagScreen/tagSlice";
+import accountReducer from "../features/Account/accountSlice";
 
 const { configureStore } = require("@reduxjs/toolkit");
 
@@ -12,6 +13,7 @@ const rootReducer = {
     question: questionReducer,
     user: usersListReducer,
     tag: tagReducer,
+    account: accountReducer,
 };
 
 // app store

@@ -15,8 +15,8 @@ SummaryQuestion.propTypes = {
     dislikes: PropTypes.number,
     clickQuestion: PropTypes.func,
     clickLike: PropTypes.func,
-    colorIconLike: PropTypes.func,
-    clickDislike: PropTypes.string,
+    colorIconLike: PropTypes.string,
+    clickDislike: PropTypes.func,
     colorIconDislike: PropTypes.string,
 };
 

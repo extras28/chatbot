@@ -69,8 +69,10 @@ function QuestionsListScreen(props) {
                                         titleQuestion={item?.title}
                                         comments='15'
                                         likes={item?.likeCount ?? 0}
-                                        colorIconLike={item?.likes.includes(currentAccount._id) && "text-primary"}
-                                        colorIconDislike={item?.dislikes.includes(currentAccount._id) && "text-danger"}
+                                        colorIconLike={item?.likes.includes(currentAccount._id) ? "text-primary" : null}
+                                        colorIconDislike={
+                                            item?.dislikes.includes(currentAccount._id) ? "text-danger" : null
+                                        }
                                         dislikes={item?.dislikeCount ?? 0}
                                         clickQuestion={async () => {
                                             navigate(`/question/detail/${item?._id}`);
