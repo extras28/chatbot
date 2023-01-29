@@ -1,11 +1,22 @@
 import tagApi from "api/tagApi";
+import ToastHelper from "general/helpers/ToastHelper";
 import Global from "general/utils/Global";
 import _ from "lodash";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
+export const thunkCreateTag = createAsyncThunk("tag/create", async (params) => {
+    const res = await tagApi.createTag(params);
+    return res;
+});
+
 export const thunkGetTagList = createAsyncThunk("tag/find", async (params) => {
     const res = await tagApi.getTags(params);
+    return res;
+});
+
+export const thunkGetTagListOfUser = createAsyncThunk("tag/find-by-person", async (params) => {
+    const res = await tagApi.getTagsListOfUser(params);
     return res;
 });
 
@@ -13,8 +24,11 @@ const tagSlice = createSlice({
     name: "tag",
     initialState: {
         isGettingTags: false,
+        isCreatingTags: false,
         tags: [],
         paginationTags: { perPage: Global.gDefaultPagination },
+        tagsListOfUser: [],
+        paginationTagsListOfUser: { perPage: Global.gDefaultPagination },
     },
     reducers: {
         setPaginationTagPerPage: (state, action) => {
@@ -26,8 +40,29 @@ const tagSlice = createSlice({
                 },
             };
         },
+        setPaginationTagListOfUserPerPage: (state, action) => {
+            return {
+                ...state,
+                paginationTagsListOfUser: {
+                    ...state.paginationTagsListOfUser,
+                    perPage: action.payload,
+                },
+            };
+        },
     },
     extraReducers: {
+        //create tag
+        [thunkCreateTag.pending]: (state, action) => {
+            state.isCreatingTags = true;
+        },
+        [thunkCreateTag.rejected]: (state, action) => {
+            state.isCreatingTags = false;
+        },
+        [thunkCreateTag.fulfilled]: (state, action) => {
+            state.isCreatingTags = false;
+            
+        },
+
         //get tags list
         [thunkGetTagList.pending]: (state, action) => {
             state.isGettingTags = true;
@@ -49,9 +84,31 @@ const tagSlice = createSlice({
             }
             Global.g_needToRefreshTags = false;
         },
+
+        //get tags list of user
+        [thunkGetTagListOfUser.pending]: (state, action) => {
+            state.isGettingTags = true;
+        },
+        [thunkGetTagListOfUser.rejected]: (state, action) => {
+            state.isGettingTags = false;
+        },
+        [thunkGetTagListOfUser.fulfilled]: (state, action) => {
+            state.isGettingTags = false;
+            const { limit, page, tags, count } = action.payload;
+            state.tagsListOfUser = tags;
+            if (!_.isNull(count) && !_.isNull(page)) {
+                state.paginationTagsListOfUser = {
+                    ...state.paginationTagsListOfUser,
+                    currentPage: page,
+                    perPage: limit,
+                    count: count,
+                };
+            }
+            Global.g_needToRefreshTags = false;
+        },
     },
 });
 
 const { reducer, actions } = tagSlice;
-export const { setPaginationTagPerPage } = actions;
+export const { setPaginationTagPerPage, setPaginationTagListOfUserPerPage } = actions;
 export default reducer;

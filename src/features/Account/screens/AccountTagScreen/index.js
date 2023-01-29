@@ -9,8 +9,9 @@ import Empty from "general/components/Empty";
 import AppResource from "general/constants/AppResource";
 import Global from "general/utils/Global";
 import { parseInt } from "lodash";
-import { thunkGetTagList } from "features/TagScreen/tagSlice";
+import { thunkGetTagListOfUser } from "features/TagScreen/tagSlice";
 import Pagination from "general/components/Pagination";
+import ModalCreateTag from "features/TagScreen/components/ModalCreateTag";
 
 AccounttagScreen.propTypes = {};
 
@@ -22,13 +23,14 @@ function AccounttagScreen(props) {
         sortByCreateTime: "",
     });
     const dispatch = useDispatch();
-    const { tags, isGettingTags, paginationTags } = useSelector(
+    const [showModalCreateTag, setShowModalCreateTag] = useState(false);
+    const { tagsListOfUser, isGettingTags, paginationTagsListOfUser } = useSelector(
         (state) => state?.tag
     );
 
     // MARK: --- Hooks ---
     useEffect(() => {
-        dispatch(thunkGetTagList(filters));
+        dispatch(thunkGetTagListOfUser(filters));
     }, [filters, dispatch]);
     return (
         <div>
@@ -47,6 +49,10 @@ function AccounttagScreen(props) {
                     <AppButton
                         className="btn-blue"
                         text="Thêm thẻ mới"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            setShowModalCreateTag(true);
+                        }}
                     />
                 </div>
             </div>
@@ -58,8 +64,8 @@ function AccounttagScreen(props) {
                             message="Đang lấy dữ liệu"
                         />
                     </div>
-                ) : tags?.length > 0 ? (
-                    tags?.map((item, index) => {
+                ) : tagsListOfUser?.length > 0 ? (
+                    tagsListOfUser?.map((item, index) => {
                         return (
                             <div
                                 key={index}
@@ -90,9 +96,9 @@ function AccounttagScreen(props) {
                 <div>
                     <div className="d-flex align-items-center justify-content-center mt-0">
                         <Pagination
-                            rowsPerPage={paginationTags.perPage}
-                            rowCount={paginationTags.count ?? tags?.length}
-                            currentPage={paginationTags.currentPage ?? 1}
+                            rowsPerPage={paginationTagsListOfUser.perPage}
+                            rowCount={paginationTagsListOfUser.count ?? tagsListOfUser?.length}
+                            currentPage={paginationTagsListOfUser.currentPage ?? 1}
                             onChangePage={(newPage) => {
                                 let iNewPage = parseInt(newPage);
                                 Global.g_needToRefreshTags = true;
@@ -115,6 +121,10 @@ function AccounttagScreen(props) {
                     </div>
                 </div>
             </div>
+            <ModalCreateTag
+                onClose={() => setShowModalCreateTag(false)}
+                show={showModalCreateTag}
+            />
         </div>
     );
 }

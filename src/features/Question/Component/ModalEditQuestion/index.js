@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import Utils from "general/utils/Utils";
 import MdEditor from "react-markdown-editor-lite";
 import MDEditor from "@uiw/react-md-editor";
-import { thunkEditQuestion, thunkGetQuestionsListOfUser } from "features/Question/questionSlice";
+import { thunkEditQuestion, thunkGetDetailQuestion } from "features/Question/questionSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import BaseSearchBar from "general/components/Form/BaseSearchBar";
@@ -55,8 +55,8 @@ function ModalEditQuestion(props) {
                 const res = await dispatch(thunkEditQuestion(params));
                 
                 if (res) {
-                    navigate("/account");
-                    await dispatch(thunkGetQuestionsListOfUser());
+                    navigate(`/question/detail/${questionItem?._id}`);
+                    await dispatch(thunkGetDetailQuestion({ _id: questionItem?._id }));
                 }
             } catch (err) {
                 console.log(`${err.message}`);

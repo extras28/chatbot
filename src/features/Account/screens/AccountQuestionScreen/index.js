@@ -5,13 +5,13 @@ import { thunkGetDetailQuestion, thunkGetQuestionsListOfUser } from "features/Qu
 import Tag from "general/components/Tag";
 import Utils from "general/utils/Utils";
 import { useNavigate } from "react-router-dom";
-import ModalEditQuestion from "features/Account/components/ModalEditQuestion";
 import DialogModal from "general/components/DialogModal";
 import AppResource from "general/constants/AppResource";
 import Empty from "general/components/Empty";
 import Loading from "general/components/Loading";
 import questionApi from "api/questionApi";
 import ToastHelper from "general/helpers/ToastHelper";
+import ModalEditQuestion from "features/Question/Component/ModalEditQuestion";
 
 AccountQuestionScreen.propTypes = {};
 
