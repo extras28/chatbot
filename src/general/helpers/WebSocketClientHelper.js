@@ -1,4 +1,4 @@
-import { setAnswers } from "features/Question/questionSlice";
+import { deleteAnswer, setAnswers } from "features/Question/questionSlice";
 
 // import store from 'app/store';
 let store;
@@ -111,6 +111,9 @@ class WebsocketHelper {
             switch (code) {
                 case "00":
                     store?.dispatch(setAnswers(answer));
+                    break;
+                case "02":
+                    store?.dispatch(deleteAnswer(answer));
                     break;
 
                 default:

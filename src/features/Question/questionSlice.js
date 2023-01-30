@@ -71,6 +71,20 @@ const questionSlice = createSlice({
                 state.answers = state.answers.concat(action.payload);
             }
         },
+        deleteAnswer: (state, action) => {
+            console.log(action.payload);
+            if (!action.payload._id) {
+                state.answers = state.answers.filter((item) => item.tempId !== action.payload.tempId);
+            } else {
+                state.answers = state.answers.filter((item) => item._id !== action.payload._id);
+            }
+        },
+        reactAnswer: (state, action)=>{
+
+        },
+        updateAnswer: (state, action) => {
+
+        }
     },
     extraReducers: {
         //get questions list
@@ -166,5 +180,5 @@ const questionSlice = createSlice({
 });
 
 const { reducer, actions } = questionSlice;
-export const { setPaginationQuestionPerPage, setAnswers } = actions;
+export const { setPaginationQuestionPerPage, setAnswers, deleteAnswer } = actions;
 export default reducer;

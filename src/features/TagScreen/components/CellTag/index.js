@@ -44,9 +44,9 @@ function CellTag(props) {
                 </div>
                 <p className="q-max-line-4">{description}</p>
             </div>
-            <div className="d-flex justify-content-between flex-wrap">
-                <span className="text-muted">{`${numberOfQuestion} câu hỏi`}</span>
-                <span className="text-muted">{`${numberOfQuestion} câu hỏi trong tuần`}</span>
+            <div className='d-flex justify-content-between flex-wrap'>
+                <span className='text-muted'>{`${numberOfQuestion} câu hỏi`}</span>
+                {/* <span className='text-muted'>{`${numberOfQuestion} câu hỏi trong tuần`}</span> */}
             </div>
         </div>
     );
