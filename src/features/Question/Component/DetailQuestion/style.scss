@@ -4,6 +4,12 @@
         width: 2.5rem;
         cursor: pointer;
     }
+    &_Item{
+        transition: all ease 0.1s;
+        &:hover{
+            transform: translateY(-1px);
+          }
+      }
     .wmde-markdown {
         display: grid;
         width: auto;

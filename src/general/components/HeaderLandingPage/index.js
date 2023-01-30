@@ -13,6 +13,7 @@ import * as Yup from "yup";
 import BaseTextField from "../Form/BaseTextField";
 import ToastHelper from "general/helpers/ToastHelper";
 import Loading from "../Loading";
+import { OrangeIcon } from "../../../assets/icons/Icons";
 HeaderLandingPage.propTypes = {
     loggedIn: PropTypes.bool,
     searchBar: PropTypes.bool,
@@ -101,10 +102,11 @@ function HeaderLandingPage(props) {
                     to="/"
                     className="d-flex align-items-center fs-5 fw-normal "
                 >
-                    <i
+                    {/* <i
                         className="fab fa-forumbee d-flex fa-2x ms-sm-2"
                         style={{ color: "#F48023" }}
-                    ></i>
+                    ></i> */}
+                    <OrangeIcon className="ms-sm-2" />
                     <div className="d-none d-sm-flex ms-2 text-black">
                         Code<div className="fw-bolder">Helper</div>
                     </div>
@@ -236,12 +238,12 @@ function HeaderLandingPage(props) {
                                 {buttonAddQuestion && (
                                     <li className="d-flex d-md-none">
                                         <NavLink
-                                        className="dropdownMenuItem "
-                                        to="/question/create"
-                                    >
-                                        <i className="far fa-plus-circle mr-4"></i>
-                                        Tạo câu hỏi
-                                    </NavLink>
+                                            className="dropdownMenuItem "
+                                            to="/question/create"
+                                        >
+                                            <i className="far fa-plus-circle mr-4"></i>
+                                            Tạo câu hỏi
+                                        </NavLink>
                                     </li>
                                 )}
                                 {buttonSign && (
@@ -274,10 +276,10 @@ function HeaderLandingPage(props) {
                 <div className="d-flex justify-content-center ms-auto align-items-center">
                     {/* Screen >= 768px */}
                     <div className="d-none d-md-flex align-items-center">
-                        <div className="bell mx-5">
+                        {/* <div className="bell mx-5">
                             <i className="far fa-bell"></i>
                             <div></div>
-                        </div>
+                        </div> */}
                         <label className="d-flex" htmlFor="dropdownMenuButton">
                             <div className="HeaderLandingPage_Avatar">
                                 <img
@@ -401,7 +403,7 @@ function HeaderLandingPage(props) {
                                         Tạo câu hỏi
                                     </NavLink>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <NavLink
                                         className="dropdownMenuItem"
                                         to="#"
@@ -412,7 +414,7 @@ function HeaderLandingPage(props) {
                                             2
                                         </div>
                                     </NavLink>
-                                </li>
+                                </li> */}
                                 <li>
                                     <NavLink
                                         className="dropdownMenuItem"

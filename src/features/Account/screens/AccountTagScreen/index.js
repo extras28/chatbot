@@ -16,6 +16,7 @@ import ModalEditTag from "features/TagScreen/components/ModalEditTag";
 import tagApi from "api/tagApi";
 import DialogModal from "general/components/DialogModal";
 import ToastHelper from "general/helpers/ToastHelper";
+import { useNavigate } from "react-router-dom";
 
 AccounttagScreen.propTypes = {};
 
@@ -27,6 +28,7 @@ function AccounttagScreen(props) {
         sortByCreateTime: "",
     });
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [showModalCreateTag, setShowModalCreateTag] = useState(false);
     const [showModalEditTag, setShowModalEditTag] = useState(false);
     const [showModalDeleteTag, setShowModalDeleteTag] = useState(false);
@@ -120,6 +122,9 @@ function AccounttagScreen(props) {
                                     numberOfQuestion={item?.numberOfQuestion}
                                     questionPerWeek={item?.questionPerWeek}
                                     questionThisDay={item?.questionThisDay}
+                                    clickTag={async () => {
+                                        navigate(`/question/tagged/${item?._id}`);
+                                    }}
                                 />
                             </div>
                         );

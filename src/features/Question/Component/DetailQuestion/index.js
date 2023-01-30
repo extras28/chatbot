@@ -163,7 +163,10 @@ function DetailQuestion(props) {
                         return (
                             <div
                                 key={index}
-                                className="badge badge-secondary mr-4 d-flex align-items-center"
+                                className="DetailQuestion_Item badge badge-secondary mr-4 d-flex align-items-center cursor-pointer"
+                                onClick={async () => {
+                                    navigate(`/question/tagged/${item?._id}`);
+                                }}
                             >
                                 <span>{item?.name}</span>
                             </div>
@@ -171,15 +174,15 @@ function DetailQuestion(props) {
                     })}
                 </div>
                 <div className="d-flex flex-wrap ms-auto">
-                    <button className="btn DetailQuestion_IconReact" >
+                    <button className="btn DetailQuestion_Item" >
                         <i className="fas fa-comment"></i>
                         {comments}
                     </button>
-                    <button className="btn DetailQuestion_IconReact" onClick={clickLike}>
+                    <button className="btn DetailQuestion_Item" onClick={clickLike}>
                         <i className={`fas fa-thumbs-up text-hover-primary ${colorIconLike}`}></i>
                         {likes}
                     </button>
-                    <button className="btn DetailQuestion_IconReact" onClick={clickDislike}>
+                    <button className="btn DetailQuestion_Item" onClick={clickDislike}>
                         <i className={`fas fa-thumbs-down text-hover-danger ${colorIconDislike}`}></i>
                         {dislikes}
                     </button>

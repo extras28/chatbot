@@ -91,7 +91,7 @@ function ModalEditTag(props) {
             >
                 {/* header */}
                 <Modal.Header className="px-5 py-5 d-flex align-items-center justify-content-center position-relative">
-                    <Modal.Title className="">Thêm thẻ mới</Modal.Title>
+                    <Modal.Title className="">Chỉnh sửa thẻ</Modal.Title>
                     <div
                         className="btn btn-xs btn-icon btn-light btn-hover-secondary cursor-pointer position-absolute right-0 mr-5"
                         onClick={handleClose}

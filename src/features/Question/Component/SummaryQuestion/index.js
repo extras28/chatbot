@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Tag from "general/components/Tag";
 import "./style.scss";
 import UserHelper from "general/helpers/UserHelper";
+import { useNavigate } from "react-router-dom";
 
 SummaryQuestion.propTypes = {
     avatar: PropTypes.string,
@@ -52,6 +53,7 @@ function SummaryQuestion(props) {
         colorIconLike,
         colorIconDislike,
     } = props;
+    const navigate = useNavigate();
     return (
         <div className="my-5 SummaryQuestion">
             <div className="comment p-5 bg-body shadow-sm rounded">
@@ -84,7 +86,10 @@ function SummaryQuestion(props) {
                             return (
                                 <div
                                     key={index}
-                                    className="badge badge-secondary mr-4 d-flex align-items-center"
+                                    className="SummaryQuestion_Item badge badge-secondary mr-4 d-flex align-items-center cursor-pointer"
+                                    onClick={async () => {
+                                        navigate(`/question/tagged/${item?._id}`);
+                                    }}
                                 >
                                     <span>{item?.name}</span>
                                 </div>
@@ -92,17 +97,17 @@ function SummaryQuestion(props) {
                         })}
                     </div>
                     <div className="d-flex flex-wrap ms-auto">
-                        <button className="btn SummaryQuestion_IconReact">
+                        <button className="btn SummaryQuestion_Item">
                             <i className="fas fa-comment"></i>
                             {comments}
                         </button>
-                        <button className="btn SummaryQuestion_IconReact" onClick={clickLike}>
+                        <button className="btn SummaryQuestion_Item" onClick={clickLike}>
                             <i
                                 className={`fas fa-thumbs-up text-hover-primary ${colorIconLike}`}
                             ></i>
                             {likes}
                         </button>
-                        <button className="btn SummaryQuestion_IconReact" onClick={clickDislike}>
+                        <button className="btn SummaryQuestion_Item" onClick={clickDislike}>
                             <i
                                 className={`fas fa-thumbs-down text-hover-danger ${colorIconDislike}`}
                             ></i>
