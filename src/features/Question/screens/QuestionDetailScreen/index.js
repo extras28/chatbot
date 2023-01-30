@@ -16,6 +16,7 @@ import { useFormik } from "formik";
 import AppButton from "general/components/AppButton";
 import AppResource from "general/constants/AppResource";
 import WebsocketHelper from "../../../../general/helpers/WebSocketClientHelper";
+import { v4 as uuidv4 } from "uuid";
 
 QuestionDetailScreen.propTypes = {};
 
@@ -40,6 +41,7 @@ function QuestionDetailScreen(props) {
         onSubmit: async (values) => {
             try {
                 const params = { ...values };
+                params.tempId = uuidv4();
                 WebsocketHelper.sendAnswer(params);
             } catch (error) {
                 console.log(error.message);
@@ -100,6 +102,10 @@ function QuestionDetailScreen(props) {
                         {answers?.map((item, index) => {
                             return (
                                 <DetailAnswer
+                                    account={item?.account?._id}
+                                    deleteAnswer={(_id) => WebsocketHelper.deleteAnswer(item)}
+                                    _id={item?._id}
+                                    tempId={item?.tempId}
                                     key={index}
                                     fullname={item?.account?.fullname}
                                     createdAt='14-01-2023'
