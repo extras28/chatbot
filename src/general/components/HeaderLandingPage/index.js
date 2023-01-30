@@ -13,7 +13,7 @@ import * as Yup from "yup";
 import BaseTextField from "../Form/BaseTextField";
 import ToastHelper from "general/helpers/ToastHelper";
 import Loading from "../Loading";
-import { OrangeIcon } from "../../../assets/icons/Icons";
+import { LogoIcon } from "../../../assets/icons/Icons";
 HeaderLandingPage.propTypes = {
     loggedIn: PropTypes.bool,
     searchBar: PropTypes.bool,
@@ -102,7 +102,7 @@ function HeaderLandingPage(props) {
                         className="fab fa-forumbee d-flex fa-2x ms-sm-2"
                         style={{ color: "#F48023" }}
                     ></i> */}
-                    <OrangeIcon className="ms-sm-2" />
+                    <LogoIcon className="ms-sm-2" />
                     <div className="d-none d-sm-flex ms-2 text-black">
                         Code<div className="fw-bolder">Helper</div>
                     </div>

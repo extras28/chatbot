@@ -20,8 +20,8 @@ class WebsocketHelper {
 
     initWebsocket() {
         // console.log(AppConfigs.wsUrl);
-        // this.wsClient = new W3CWebSocket("wss://cnwebg8server.onrender.com/", "");
-        this.wsClient = new W3CWebSocket("ws://localhost:5000", "");
+        this.wsClient = new W3CWebSocket("wss://cnwebg8server.onrender.com/", "");
+        // this.wsClient = new W3CWebSocket("ws://localhost:5000", "");
 
         this.wsClient.onerror = () => {
             console.log(`${sTag} connection error`);

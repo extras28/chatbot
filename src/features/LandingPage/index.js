@@ -36,7 +36,7 @@ import {
     PythonIcon,
     StarIcon,
     StarGrayIcon,
-    OrangeIcon,
+    LogoIcon,
 } from "../../assets/icons/Icons.js";
 import { NavLink } from "react-router-dom";
 
@@ -808,7 +808,7 @@ function LandingPage(props) {
                                 <Zoom delay={400}>
                                     <div
                                         className="BoxScreen9 d-flex flex-column bg-white align-items-center justify-content-between my-20 py-10 px-20">
-                                        <OrangeIcon height="3.6rem" width="3.6rem" />
+                                        <LogoIcon height="3.6rem" width="3.6rem" />
                                         <h1
                                             className="fw-bold text-center"
                                             style={{ color: "#485763" }}

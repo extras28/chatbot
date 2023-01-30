@@ -17,6 +17,10 @@ const tagApi = {
         const url = "/tag/find";
         return axiosClient.get(url, { params });
     },
+    getDetailTag: (params) => {
+        const url = "/tag/detail";
+        return axiosClient.get(url, { params });
+    },
     getTagsListOfUser: (params) => {
         const url = "/tag/find-by-person";
         return axiosClient.get(url, { params });

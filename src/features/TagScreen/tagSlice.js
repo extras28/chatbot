@@ -20,6 +20,11 @@ export const thunkGetTagList = createAsyncThunk("tag/find", async (params) => {
     return res;
 });
 
+export const thunkGetTagDetail = createAsyncThunk("tag/detail", async (params) => {
+    const res = await tagApi.getDetailTag(params);
+    return res;
+});
+
 export const thunkGetTagListOfUser = createAsyncThunk("tag/find-by-person", async (params) => {
     const res = await tagApi.getTagsListOfUser(params);
     return res;
@@ -32,6 +37,7 @@ const tagSlice = createSlice({
         isCreatingTag: false,
         isUpdatingTag: false,
         tags: [],
+        detailTag: {},
         paginationTags: { perPage: Global.gDefaultPagination },
         tagsListOfUser: [],
         paginationTagsListOfUser: { perPage: Global.gDefaultPagination },
@@ -100,6 +106,11 @@ const tagSlice = createSlice({
                 };
             }
             Global.g_needToRefreshTags = false;
+        },
+
+        [thunkGetTagDetail.fulfilled]: (state, action) => {
+            const { tag }  = action.payload;
+            state.detailTag = tag;
         },
 
         //get tags list of user

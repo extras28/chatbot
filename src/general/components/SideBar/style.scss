@@ -9,14 +9,6 @@
     i {
         color: #fff;
     }
-    &_Logo {
-        &-White {
-            display: block;
-        }
-        &-Orange {
-            display: none;
-        }
-    }
 }
 .IconFooter {
     i {
@@ -71,12 +63,6 @@
             position: fixed;
             top: 1rem;
             left: 0;
-            &-White {
-                display: none;
-            }
-            &-Orange {
-                display: block;
-            }
         }
         i {
             color: #f48023;

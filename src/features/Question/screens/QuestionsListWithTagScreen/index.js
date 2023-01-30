@@ -23,6 +23,7 @@ import Pagination from "general/components/Pagination";
 import { useNavigate } from "react-router-dom";
 import questionApi from "api/questionApi";
 import useRouter from "Hooks/useRouter";
+import { thunkGetTagDetail } from "features/TagScreen/tagSlice";
 
 QuestionsListWithTagScreen.propTypes = {};
 
@@ -36,22 +37,20 @@ function QuestionsListWithTagScreen(props) {
     const navigate = useNavigate();
     const router = useRouter();
     const { currentAccount } = useSelector((state) => state?.auth);
+    const { detailTag } = useSelector((state) => state?.tag);
     const { isGettingQuestionsList, questionsList, paginationListQuestion } =
         useSelector((state) => state?.question);
     const tagId = router.query?._id;
     useEffect(() => {
         dispatch(thunkGetQuestionsList({ ...filters, tagId: tagId }));
+        dispatch(thunkGetTagDetail({ tagId: tagId }));
     }, [filters, tagId]);
     return (
         <BaseLayout selected="questions">
             <div className="container-xxl">
-                <h1>Danh sách câu hỏi được gắn thẻ [{tagId}]</h1>
+                <h1>Danh sách câu hỏi được gắn thẻ [{detailTag?.name}]</h1>
                 <p className="text-remaining" style={{fontSize:"1.1rem"}}>
-                    Java is a high-level object-oriented programming language.
-                    Use this tag when you're having problems using or
-                    understanding the language itself. This tag is frequently
-                    used alongside other tags for libraries and/or frameworks
-                    used by Java developers.
+                {detailTag?.description}
                 </p>
                 <div className="max-w-200px">
                     <BaseSearchBar
