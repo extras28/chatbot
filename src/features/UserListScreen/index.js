@@ -13,6 +13,7 @@ import Empty from "general/components/Empty";
 import AppResource from "general/constants/AppResource";
 import Pagination from "general/components/Pagination";
 import Global from "general/utils/Global";
+import { useNavigate } from "react-router-dom";
 
 UserListScreen.propTypes = {};
 function UserListScreen(props) {
@@ -22,9 +23,8 @@ function UserListScreen(props) {
         limit: Global.gDefaultPagination,
     });
     const dispatch = useDispatch();
-    const { isGettingUsersList, usersList, paginationListUser } = useSelector(
-        (state) => state?.user
-    );
+    const navigate = useNavigate();
+    const { isGettingUsersList, usersList, paginationListUser } = useSelector((state) => state?.user);
     useEffect(() => {
         dispatch(thunkGetUsersList(filters));
     }, [filters]);
@@ -43,16 +43,16 @@ function UserListScreen(props) {
             <div className='row mt-8 mx-0'>
                 {isGettingUsersList ? (
                     <div className='d-flex align-items-center justify-content-center'>
-                        <Loading
-                            showBackground={false}
-                            message='Đang lấy dữ liệu'
-                        />
+                        <Loading showBackground={false} message='Đang lấy dữ liệu' />
                     </div>
                 ) : usersList?.length > 0 ? (
                     usersList?.map((item, index) => {
                         if (item?.accountLevel !== "ADMIN") {
                             return (
                                 <div
+                                    onClick={() => {
+                                        navigate(`/account/${item?._id}`);
+                                    }}
                                     key={index}
                                     className='UserListScreen_Cell col-12 col-md-6 col-lg-4 col-xl-3 mb-7 cursor-pointer'>
                                     <SummaryUser
@@ -73,9 +73,7 @@ function UserListScreen(props) {
                             text='Không có kết quả phù hợp'
                             buttonText='Làm mới'
                             visible={false}
-                            imageEmpty={
-                                AppResource.images.errorStates.noSearchFound
-                            }
+                            imageEmpty={AppResource.images.errorStates.noSearchFound}
                         />
                     </div>
                 )}
@@ -83,9 +81,7 @@ function UserListScreen(props) {
                     <div className='d-flex align-items-center justify-content-center mt-0'>
                         <Pagination
                             rowsPerPage={paginationListUser.perPage}
-                            rowCount={
-                                paginationListUser.count ?? usersList?.length
-                            }
+                            rowCount={paginationListUser.count ?? usersList?.length}
                             currentPage={paginationListUser.currentPage ?? 1}
                             onChangePage={(newPage) => {
                                 let iNewPage = parseInt(newPage);

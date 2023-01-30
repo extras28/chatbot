@@ -12,6 +12,7 @@ import Loading from "general/components/Loading";
 import questionApi from "api/questionApi";
 import ToastHelper from "general/helpers/ToastHelper";
 import ModalEditQuestion from "features/Question/Component/ModalEditQuestion";
+import useRouter from "Hooks/useRouter";
 
 AccountQuestionScreen.propTypes = {};
 
@@ -22,13 +23,15 @@ function AccountQuestionScreen(props) {
     const [showModalEditQuestion, setShowModalEditQuestion] = useState(false);
     const [showModalDeleteQuestion, setShowModalDeleteQuestion] = useState(false);
     const [selectedQuestion, setSelectedQuestion] = useState({});
+    const [thisAccount, setThisAccount] = useState({});
+    const { isGettingAccountInfor, account } = useSelector((state) => state?.account);
+    const router = useRouter();
+    const accountId = router.query?.accountId;
+    const { currentAccount } = useSelector((state) => state?.auth);
+
     useEffect(() => {
-        async function handleGetQuestionsListOfUser() {
-            await dispatch(thunkGetQuestionsListOfUser());
-        }
-        handleGetQuestionsListOfUser();
-        return () => {};
-    }, []);
+        dispatch(thunkGetQuestionsListOfUser({ _id: account?._id }));
+    }, [account]);
 
     async function handleDeleteQuestion() {
         const res = await questionApi.deleteQuestion({ _id: selectedQuestion?._id });
@@ -37,6 +40,14 @@ function AccountQuestionScreen(props) {
             await dispatch(thunkGetQuestionsListOfUser());
         }
     }
+
+    useEffect(() => {
+        if (currentAccount?._id === account?._id) {
+            setThisAccount(currentAccount);
+        } else {
+            setThisAccount(account);
+        }
+    }, [account, accountId]);
 
     return (
         <div className='card mb-5 mb-xl-10 position-relative'>

@@ -50,14 +50,7 @@ const AppData = {
         },
     ],
     // phan trang
-    perPageItems: [
-        { value: 5 },
-        { value: 10 },
-        { value: 20 },
-        { value: 30 },
-        { value: 50 },
-        { value: 100 },
-    ],
+    perPageItems: [{ value: 5 }, { value: 10 }, { value: 20 }, { value: 30 }, { value: 50 }, { value: 100 }],
 
     //tag
     tagFilters: [
@@ -72,6 +65,14 @@ const AppData = {
         { value: "MALE", text: "Nam" },
         { value: "FEMALE", text: "Nữ" },
         { value: "UNKNOWN", text: "Không xác định" },
+    ],
+
+    //question
+    quetionFilter: [
+        { value: "", text: "Tất cả" },
+        { value: -1, text: "Nhiều dislike nhất" },
+        { value: 1, text: "Nhiều like nhất" },
+        { value: 0, text: "Mới nhất" },
     ],
 };
 

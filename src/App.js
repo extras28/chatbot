@@ -69,7 +69,7 @@ function App() {
 
                         {/* Account */}
                         <Route
-                            path='account/*'
+                            path='account/:accountId/*'
                             element={
                                 <PrivateRoute>
                                     <Account />

@@ -2,6 +2,7 @@ import questionApi from "api/questionApi";
 import PreferenceKeys from "general/constants/PreferenceKey";
 import ToastHelper from "general/helpers/ToastHelper";
 import Global from "general/utils/Global";
+import useRouter from "Hooks/useRouter";
 import _ from "lodash";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
@@ -50,6 +51,8 @@ const questionSlice = createSlice({
         questionsListOfUser: [],
         detailQuestion: {},
         paginationListQuestion: { perPage: Global.gDefaultPagination },
+
+        answers: [],
     },
     reducers: {
         setPaginationQuestionPerPage: (state, action) => {
@@ -60,6 +63,13 @@ const questionSlice = createSlice({
                     perPage: action.payload,
                 },
             };
+        },
+        setAnswers: (state, action) => {
+            console.log(action.payload);
+            const { account, content, questionId } = action.payload;
+            if (questionId === state.detailQuestion._id) {
+                state.answers = state.answers.concat(action.payload);
+            }
         },
     },
     extraReducers: {
@@ -122,7 +132,7 @@ const questionSlice = createSlice({
             const { _id } = action.meta.arg;
             if (result === "success") {
                 state.detailQuestion = question;
-                localStorage.setItem(PreferenceKeys.questionId, _id);
+                state.answers = question.answer;
             }
         },
 
@@ -156,5 +166,5 @@ const questionSlice = createSlice({
 });
 
 const { reducer, actions } = questionSlice;
-export const { setPaginationQuestionPerPage } = actions;
+export const { setPaginationQuestionPerPage, setAnswers } = actions;
 export default reducer;

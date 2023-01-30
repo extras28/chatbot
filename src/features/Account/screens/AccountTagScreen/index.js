@@ -55,12 +55,12 @@ function AccounttagScreen(props) {
     }, [filters, dispatch]);
     return (
         <div>
-            <div className="d-flex flex-wrap justify-content-between align-items-center mx-4">
-                <div className="max-w-250px">
+            <div className='d-flex flex-wrap justify-content-between align-items-center mx-4'>
+                <div className='max-w-250px'>
                     <BaseSearchBar
                         value={filters.q}
-                        name="tag-filter"
-                        placeholder="Tìm kiếm..."
+                        name='tag-filter'
+                        placeholder='Tìm kiếm...'
                         onSubmit={(value) => {
                             setFilters({ ...filters, q: value });
                         }}
@@ -77,21 +77,15 @@ function AccounttagScreen(props) {
                     />
                 </div>
             </div>
-            <div className="row mt-8 mx-0">
+            <div className='row mt-8 mx-0'>
                 {isGettingTags ? (
-                    <div className="d-flex align-items-center justify-content-center">
-                        <Loading
-                            showBackground={false}
-                            message="Đang lấy dữ liệu"
-                        />
+                    <div className='d-flex align-items-center justify-content-center'>
+                        <Loading showBackground={false} message='Đang lấy dữ liệu' />
                     </div>
                 ) : tagsListOfUser?.length > 0 ? (
                     tagsListOfUser?.map((item, index) => {
                         return (
-                            <div
-                                key={index}
-                                className="col-12 col-md-4 col-lg-3 mb-7 cursor-pointer"
-                            >
+                            <div key={index} className='col-12 col-md-4 col-lg-3 mb-7 cursor-pointer'>
                                 <CellTag
                                     name={item?.name}
                                     isMyTag={
@@ -132,17 +126,15 @@ function AccounttagScreen(props) {
                 ) : (
                     <div>
                         <Empty
-                            text="Không có kết quả phù hợp"
-                            buttonText="Làm mới"
+                            text='Không có kết quả phù hợp'
+                            buttonText='Làm mới'
                             visible={false}
-                            imageEmpty={
-                                AppResource.images.errorStates.noSearchFound
-                            }
+                            imageEmpty={AppResource.images.errorStates.noSearchFound}
                         />
                     </div>
                 )}
                 <div>
-                    <div className="d-flex align-items-center justify-content-center mt-0">
+                    <div className='d-flex align-items-center justify-content-center mt-0'>
                         <Pagination
                             rowsPerPage={paginationTagsListOfUser.perPage}
                             rowCount={

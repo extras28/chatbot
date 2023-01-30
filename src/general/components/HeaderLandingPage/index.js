@@ -35,15 +35,12 @@ HeaderLandingPage.defaultProps = {
 function HeaderLandingPage(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { isChangingPassword, currentAccount } = useSelector(
-        (state) => state?.auth
-    );
+    const { isChangingPassword, currentAccount } = useSelector((state) => state?.auth);
     const loggedIn = UserHelper.checkAccessTokenValid();
     const { logo, menu, buttonAddQuestion, buttonSign } = props;
     let [showSearchBar, setShowSearchBar] = useState(false);
     const [showLogOutModal, setShowLogOutModal] = useState(false);
-    const [showChangePasswordModal, setShowChangePasswordModal] =
-        useState(false);
+    const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
     const handleShowSearchBar = () => {
         setShowSearchBar(!showSearchBar);
     };
@@ -94,9 +91,8 @@ function HeaderLandingPage(props) {
 
     return (
         <div
-            className="HeaderLandingPage d-flex sticky-top justify-content-between align-items-center shadow-sm px-5 py-4 ps-5 bg-body"
-            style={{ zIndex: "1000" }}
-        >
+            className='HeaderLandingPage d-flex sticky-top justify-content-between align-items-center shadow-sm px-5 py-4 ps-5 bg-body'
+            style={{ zIndex: "1000" }}>
             {logo && (
                 <NavLink
                     to="/"
@@ -112,38 +108,25 @@ function HeaderLandingPage(props) {
                     </div>
                 </NavLink>
             )}
-            <div className="d-flex flex-fill justify-content-end">
+            <div className='d-flex flex-fill justify-content-end'>
                 {menu && (
-                    <div className="HeaderLandingPageNav d-none d-md-flex align-items-center justify-content-end">
-                        <a href="#home" className="HeaderLandingPageNavItem">
-                            <span onClick={() => handleNavigate("/#home")}>
-                                Trang chủ
-                            </span>
+                    <div className='HeaderLandingPageNav d-none d-md-flex align-items-center justify-content-end'>
+                        <a href='#home' className='HeaderLandingPageNavItem'>
+                            <span onClick={() => handleNavigate("/#home")}>Trang chủ</span>
                         </a>
-                        <a
-                            href="#introduction"
-                            className="HeaderLandingPageNavItem"
-                        >
-                            <span
-                                onClick={() => handleNavigate("/#introduction")}
-                            >
-                                Giới thiệu
-                            </span>
+                        <a href='#introduction' className='HeaderLandingPageNavItem'>
+                            <span onClick={() => handleNavigate("/#introduction")}>Giới thiệu</span>
                         </a>
-                        <a href="#contact" className="HeaderLandingPageNavItem">
-                            <span onClick={() => handleNavigate("/#contact")}>
-                                Liên hệ
-                            </span>
+                        <a href='#contact' className='HeaderLandingPageNavItem'>
+                            <span onClick={() => handleNavigate("/#contact")}>Liên hệ</span>
                         </a>
-                        <a className="HeaderLandingPageNavItem">
-                            <span onClick={() => handleNavigate("/question")}>
-                                Câu hỏi
-                            </span>
+                        <a className='HeaderLandingPageNavItem'>
+                            <span onClick={() => handleNavigate("/question")}>Câu hỏi</span>
                         </a>
                     </div>
                 )}
                 {buttonAddQuestion && (
-                    <div className="d-none d-md-flex justify-content-end">
+                    <div className='d-none d-md-flex justify-content-end'>
                         <button
                             onClick={() => {
                                 if (UserHelper.checkAccessTokenValid()) {
@@ -152,12 +135,11 @@ function HeaderLandingPage(props) {
                                     navigate("/sign-in");
                                 }
                             }}
-                            type="button"
-                            className="ButtonPrimary d-flex mx-4"
-                            title="Tạo câu hỏi"
-                        >
-                            <i className="far fa-plus-circle text-white"></i>
-                            <div className="d-flex ms-3">Tạo câu hỏi</div>
+                            type='button'
+                            className='ButtonPrimary d-flex mx-4'
+                            title='Tạo câu hỏi'>
+                            <i className='far fa-plus-circle text-white'></i>
+                            <div className='d-flex ms-3'>Tạo câu hỏi</div>
                         </button>
                     </div>
                 )}
@@ -167,100 +149,73 @@ function HeaderLandingPage(props) {
                 <div>
                     {/* Screen >= 576px */}
                     {buttonSign && (
-                        <div className="d-none d-lg-block">
-                            <NavLink to="/sign-up">
-                                <button type="button" className="ButtonPrimary">
-                                    <i className="far fa-user-plus me-2 text-white"></i>
+                        <div className='d-none d-lg-block'>
+                            <NavLink to='/sign-up'>
+                                <button type='button' className='ButtonPrimary'>
+                                    <i className='far fa-user-plus me-2 text-white'></i>
                                     Đăng ký
                                 </button>
                             </NavLink>
-                            <NavLink to="/sign-in">
-                                <button
-                                    type="button"
-                                    className="ButtonCancel ms-3"
-                                >
+                            <NavLink to='/sign-in'>
+                                <button type='button' className='ButtonCancel ms-3'>
                                     Đăng nhập
                                 </button>
                             </NavLink>
                         </div>
                     )}
                     {/* Screen < 576px */}
-                    <div className="d-flex d-lg-none">
-                        <input type="checkbox" id="dropdownMenu-notLoggedIn" />
-                        <label
-                            htmlFor="dropdownMenu-notLoggedIn"
-                            id="overlay-button"
-                        >
+                    <div className='d-flex d-lg-none'>
+                        <input type='checkbox' id='dropdownMenu-notLoggedIn' />
+                        <label htmlFor='dropdownMenu-notLoggedIn' id='overlay-button'>
                             <span></span>
                         </label>
-                        <div id="overlay">
-                            <ul className="d-flex flex-column justify-content-center align-items-center ps-0 m-0">
+                        <div id='overlay'>
+                            <ul className='d-flex flex-column justify-content-center align-items-center ps-0 m-0'>
                                 {menu && (
-                                    <li className="d-flex d-md-none">
-                                        <a
-                                            className="dropdownMenuItem"
-                                            href="#home"
-                                        >
+                                    <li className='d-flex d-md-none'>
+                                        <a className='dropdownMenuItem' href='#home'>
                                             Trang chủ
                                         </a>
                                     </li>
                                 )}
                                 {menu && (
-                                    <li className="d-flex d-md-none">
-                                        <a
-                                            className="dropdownMenuItem"
-                                            href="#introduction"
-                                        >
+                                    <li className='d-flex d-md-none'>
+                                        <a className='dropdownMenuItem' href='#introduction'>
                                             Giới thiệu
                                         </a>
                                     </li>
                                 )}
                                 {menu && (
-                                    <li className="d-flex d-md-none">
-                                        <a
-                                            className="dropdownMenuItem"
-                                            href="#contact"
-                                        >
+                                    <li className='d-flex d-md-none'>
+                                        <a className='dropdownMenuItem' href='#contact'>
                                             Liên hệ
                                         </a>
                                     </li>
                                 )}
                                 {menu && (
-                                    <li className="d-flex d-md-none">
-                                        <NavLink
-                                            className="dropdownMenuItem"
-                                            to="/question"
-                                        >
+                                    <li className='d-flex d-md-none'>
+                                        <NavLink className='dropdownMenuItem' to='/question'>
                                             Câu hỏi
                                         </NavLink>
                                     </li>
                                 )}
                                 {buttonAddQuestion && (
-                                    <li className="d-flex d-md-none">
-                                        <NavLink
-                                            className="dropdownMenuItem "
-                                            to="/question/create"
-                                        >
-                                            <i className="far fa-plus-circle mr-4"></i>
+                                    <li className='d-flex d-md-none'>
+                                        <NavLink className='dropdownMenuItem ' to='/question/create'>
+                                            <i className='far fa-plus-circle mr-4'></i>
                                             Tạo câu hỏi
                                         </NavLink>
                                     </li>
                                 )}
                                 {buttonSign && (
-                                    <li className="border-bottom-0 py-4">
-                                        <NavLink to="/sign-up">
-                                            <button
-                                                type="button"
-                                                className="ButtonPrimary py-2 px-7"
-                                            >
+                                    <li className='border-bottom-0 py-4'>
+                                        <NavLink to='/sign-up'>
+                                            <button type='button' className='ButtonPrimary py-2 px-7'>
                                                 Đăng ký
                                             </button>
                                         </NavLink>
-                                        <NavLink to="/sign-in">
-                                            <button
-                                                type="button"
-                                                className="ButtonCancel py-2 ms-3"
-                                            >
+                                        <NavLink to='/sign-in'>
+                                            <button type='button' className='ButtonCancel py-2 ms-3'>
                                                 Đăng nhập
                                             </button>
                                         </NavLink>
@@ -273,7 +228,7 @@ function HeaderLandingPage(props) {
             )}
 
             {loggedIn && (
-                <div className="d-flex justify-content-center ms-auto align-items-center">
+                <div className='d-flex justify-content-center ms-auto align-items-center'>
                     {/* Screen >= 768px */}
                     <div className="d-none d-md-flex align-items-center">
                         {/* <div className="bell mx-5">
@@ -283,57 +238,41 @@ function HeaderLandingPage(props) {
                         <label className="d-flex" htmlFor="dropdownMenuButton">
                             <div className="HeaderLandingPage_Avatar">
                                 <img
-                                    src={
-                                        currentAccount?.avatar?.path ||
-                                        UserHelper.getRandomAvatarUrl()
-                                    }
+                                    src={currentAccount?.avatar?.path || UserHelper.getRandomAvatarUrl()}
                                     onError={(e) => {
                                         e.target.onerror = null;
-                                        e.target.src =
-                                            UserHelper.getRandomAvatarUrl();
+                                        e.target.src = UserHelper.getRandomAvatarUrl();
                                     }}
-                                    alt="avatar"
+                                    alt='avatar'
                                 />
                             </div>
                             <button
-                                className="show-option"
-                                id="dropdownMenuButton"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                            >
-                                <i className="fas fa-sort-down"></i>
+                                className='show-option'
+                                id='dropdownMenuButton'
+                                data-bs-toggle='dropdown'
+                                aria-expanded='false'>
+                                <i className='fas fa-sort-down'></i>
                             </button>
 
-                            <ul
-                                className="dropdown-menu my-4"
-                                aria-labelledby="dropdownMenuButton"
-                            >
+                            <ul className='dropdown-menu my-4' aria-labelledby='dropdownMenuButton'>
                                 <li>
                                     <a
-                                        className="dropdown-item pe-5"
-                                        href="#"
-                                        onClick={() => navigate("/account")}
-                                    >
+                                        className='dropdown-item pe-5'
+                                        href='#'
+                                        onClick={() => navigate(`/account/${currentAccount?._id}`)}>
                                         Thông tin cá nhân
                                     </a>
                                 </li>
                                 <li>
                                     <a
-                                        className="dropdown-item"
-                                        href="#"
-                                        onClick={() =>
-                                            setShowChangePasswordModal(true)
-                                        }
-                                    >
+                                        className='dropdown-item'
+                                        href='#'
+                                        onClick={() => setShowChangePasswordModal(true)}>
                                         Đổi mật khẩu
                                     </a>
                                 </li>
                                 <li>
-                                    <a
-                                        className="dropdown-item"
-                                        href="#"
-                                        onClick={() => setShowLogOutModal(true)}
-                                    >
+                                    <a className='dropdown-item' href='#' onClick={() => setShowLogOutModal(true)}>
                                         Đăng xuất
                                     </a>
                                 </li>
@@ -343,63 +282,48 @@ function HeaderLandingPage(props) {
 
                     {/* Screen < 768px */}
                     {menu && (
-                        <div className="dropdownMenuLandingPage d-block d-md-none">
-                            <button className="btn_dropdown">
-                                <i className="fas fa-sort-down "></i>
+                        <div className='dropdownMenuLandingPage d-block d-md-none'>
+                            <button className='btn_dropdown'>
+                                <i className='fas fa-sort-down '></i>
                             </button>
-                            <div className="dropdownMenuDetail">
-                                <a href="#home">Trang chủ</a>
-                                <a href="#introduction">Giới thiệu</a>
-                                <a href="#contact">Liên hệ</a>
-                                <NavLink to="/question">Câu hỏi</NavLink>
+                            <div className='dropdownMenuDetail'>
+                                <a href='#home'>Trang chủ</a>
+                                <a href='#introduction'>Giới thiệu</a>
+                                <a href='#contact'>Liên hệ</a>
+                                <NavLink to='/question'>Câu hỏi</NavLink>
                             </div>
                         </div>
                     )}
-                    <div className="d-flex d-md-none ms-auto">
-                        <input type="checkbox" id="dropdownMenu-loggedIn" />
-                        <label
-                            htmlFor="dropdownMenu-loggedIn"
-                            id="overlay-button"
-                        >
+                    <div className='d-flex d-md-none ms-auto'>
+                        <input type='checkbox' id='dropdownMenu-loggedIn' />
+                        <label htmlFor='dropdownMenu-loggedIn' id='overlay-button'>
                             <span></span>
                         </label>
-                        <div id="overlay">
-                            <ul className="d-flex flex-column justify-content-center align-items-center ps-0 m-0 text-start">
+                        <div id='overlay'>
+                            <ul className='d-flex flex-column justify-content-center align-items-center ps-0 m-0 text-start'>
                                 <li>
-                                    <div className="d-flex flex-column align-items-center py-4">
+                                    <div className='d-flex flex-column align-items-center py-4'>
                                         <img
-                                            className="header-sm-avatar"
-                                            src={
-                                                currentAccount?.avatar?.path ||
-                                                UserHelper.getRandomAvatarUrl()
-                                            }
+                                            className='header-sm-avatar'
+                                            src={currentAccount?.avatar?.path || UserHelper.getRandomAvatarUrl()}
                                             onError={(e) => {
                                                 e.target.onerror = null;
-                                                e.target.src =
-                                                    UserHelper.getRandomAvatarUrl();
+                                                e.target.src = UserHelper.getRandomAvatarUrl();
                                             }}
-                                            alt="avatar"
+                                            alt='avatar'
                                         />
-                                        <div className="fs-6 fw-bold pt-2">
-                                            {currentAccount?.fullname}
-                                        </div>
+                                        <div className='fs-6 fw-bold pt-2'>{currentAccount?.fullname}</div>
                                     </div>
                                 </li>
                                 <li>
-                                    <NavLink
-                                        className="dropdownMenuItem"
-                                        to="/account"
-                                    >
-                                        <i className="far fa-user-circle mr-4"></i>
+                                    <NavLink className='dropdownMenuItem' to='/account'>
+                                        <i className='far fa-user-circle mr-4'></i>
                                         Thông tin cá nhân
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink
-                                        className="dropdownMenuItem"
-                                        to="/question/create"
-                                    >
-                                        <i className="far fa-plus-circle mr-4"></i>
+                                    <NavLink className='dropdownMenuItem' to='/question/create'>
+                                        <i className='far fa-plus-circle mr-4'></i>
                                         Tạo câu hỏi
                                     </NavLink>
                                 </li>
@@ -410,28 +334,20 @@ function HeaderLandingPage(props) {
                                     >
                                         <i className="far fa-bell mr-4"></i>
                                         Thông báo
-                                        <div className="notificationNumber ms-auto text-white rounded-circle">
-                                            2
-                                        </div>
+                                        <div className='notificationNumber ms-auto text-white rounded-circle'>2</div>
                                     </NavLink>
                                 </li> */}
                                 <li>
                                     <NavLink
-                                        className="dropdownMenuItem"
-                                        onClick={() =>
-                                            setShowChangePasswordModal(true)
-                                        }
-                                    >
-                                        <i className="far fa-unlock-alt mr-4"></i>
+                                        className='dropdownMenuItem'
+                                        onClick={() => setShowChangePasswordModal(true)}>
+                                        <i className='far fa-unlock-alt mr-4'></i>
                                         Đổi mật khẩu
                                     </NavLink>
                                 </li>
-                                <li className="border-bottom-0">
-                                    <NavLink
-                                        className="dropdownMenuItem"
-                                        onClick={() => setShowLogOutModal(true)}
-                                    >
-                                        <i className="far fa-sign-out mr-4"></i>
+                                <li className='border-bottom-0'>
+                                    <NavLink className='dropdownMenuItem' onClick={() => setShowLogOutModal(true)}>
+                                        <i className='far fa-sign-out mr-4'></i>
                                         Đăng xuất
                                     </NavLink>
                                 </li>
@@ -443,9 +359,9 @@ function HeaderLandingPage(props) {
             <DialogModal
                 show={showLogOutModal}
                 onClose={() => setShowLogOutModal(false)}
-                icon="fad fa-user text-danger"
-                title="Đăng xuất"
-                description="Bạn có chắc chắn muốn đăng xuất?"
+                icon='fad fa-user text-danger'
+                title='Đăng xuất'
+                description='Bạn có chắc chắn muốn đăng xuất?'
                 onExecute={async () => {
                     await dispatch(thunkSignOut()).then(() => {
                         UserHelper.signOut();
@@ -456,20 +372,19 @@ function HeaderLandingPage(props) {
             <DialogModal
                 show={showChangePasswordModal}
                 onClose={() => setShowChangePasswordModal(false)}
-                icon="fad fa-user-lock text-danger"
-                title="Đổi mật khẩu"
+                icon='fad fa-user-lock text-danger'
+                title='Đổi mật khẩu'
                 close={false}
-                onExecute={formik.handleSubmit}
-            >
-                <form className="w-100" onSubmit={formik.handleSubmit}>
+                onExecute={formik.handleSubmit}>
+                <form className='w-100' onSubmit={formik.handleSubmit}>
                     <div>
                         <div>
                             <BaseTextField
                                 require={true}
-                                type="password"
-                                name="password"
-                                placeholder="Nhập mật khẩu cũ..."
-                                label="Mật khẩu cũ"
+                                type='password'
+                                name='password'
+                                placeholder='Nhập mật khẩu cũ...'
+                                label='Mật khẩu cũ'
                                 fieldHelper={formik.getFieldHelpers("password")}
                                 fieldProps={formik.getFieldProps("password")}
                                 fieldMeta={formik.getFieldMeta("password")}
@@ -478,13 +393,11 @@ function HeaderLandingPage(props) {
                         <div>
                             <BaseTextField
                                 require={true}
-                                type="password"
-                                name="newPassword"
-                                placeholder="Nhập mật khẩu mới..."
-                                label="Mật khẩu mới"
-                                fieldHelper={formik.getFieldHelpers(
-                                    "newPassword"
-                                )}
+                                type='password'
+                                name='newPassword'
+                                placeholder='Nhập mật khẩu mới...'
+                                label='Mật khẩu mới'
+                                fieldHelper={formik.getFieldHelpers("newPassword")}
                                 fieldProps={formik.getFieldProps("newPassword")}
                                 fieldMeta={formik.getFieldMeta("newPassword")}
                             />
@@ -492,28 +405,19 @@ function HeaderLandingPage(props) {
                         <div>
                             <BaseTextField
                                 require={true}
-                                type="password"
-                                name="confirmPassword"
-                                placeholder="Nhập lại mật khẩu mới..."
-                                label="Nhập lại mật khẩu mới"
-                                fieldHelper={formik.getFieldHelpers(
-                                    "confirmPassword"
-                                )}
-                                fieldProps={formik.getFieldProps(
-                                    "confirmPassword"
-                                )}
-                                fieldMeta={formik.getFieldMeta(
-                                    "confirmPassword"
-                                )}
+                                type='password'
+                                name='confirmPassword'
+                                placeholder='Nhập lại mật khẩu mới...'
+                                label='Nhập lại mật khẩu mới'
+                                fieldHelper={formik.getFieldHelpers("confirmPassword")}
+                                fieldProps={formik.getFieldProps("confirmPassword")}
+                                fieldMeta={formik.getFieldMeta("confirmPassword")}
                             />
                         </div>
                     </div>
                     {isChangingPassword && (
-                        <div className="d-flex align-items-center justify-content-center m-4">
-                            <Loading
-                                showBackground={false}
-                                message="Vui lòng đợi trong ít phút"
-                            />
+                        <div className='d-flex align-items-center justify-content-center m-4'>
+                            <Loading showBackground={false} message='Vui lòng đợi trong ít phút' />
                         </div>
                     )}
                 </form>
