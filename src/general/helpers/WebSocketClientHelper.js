@@ -1,3 +1,5 @@
+import { setAnswers } from "features/Question/questionSlice";
+
 // import store from 'app/store';
 let store;
 
@@ -18,11 +20,12 @@ class WebsocketHelper {
 
     initWebsocket() {
         // console.log(AppConfigs.wsUrl);
-        this.wsClient = new W3CWebSocket("wss://cnwebg8server.onrender.com/", "");
+        // this.wsClient = new W3CWebSocket("wss://cnwebg8server.onrender.com/", "");
+        this.wsClient = new W3CWebSocket("ws://localhost:5000", "");
 
         this.wsClient.onerror = () => {
             console.log(`${sTag} connection error`);
-            store?.dispatch(setOnlineStatus(false));
+            // store?.dispatch(setOnlineStatus(false));
             this.autoReconnect();
         };
 
@@ -66,8 +69,30 @@ class WebsocketHelper {
     sendAnswer(answer) {
         if (this.wsClient.readyState === 1) {
             const data = {
+                code: "00",
+                answer: answer,
+            };
+
+            this.wsClient.send(JSON.stringify(data));
+        }
+    }
+
+    updateAnswer(answer) {
+        if (this.wsClient.readyState === 1) {
+            const data = {
                 code: "01",
                 answer: answer,
+            };
+
+            this.wsClient.send(JSON.stringify(data));
+        }
+    }
+
+    deleteAnswer(answerId) {
+        if (this.wsClient.readyState === 1) {
+            const data = {
+                code: "02",
+                answer: answerId,
             };
 
             this.wsClient.send(JSON.stringify(data));
@@ -77,120 +102,128 @@ class WebsocketHelper {
     // MARK: --- Utils functions ---
     processReceivedMessage(data) {
         try {
-            console.log(`${sTag} received: ${JSON.stringify(data)}`);
+            // console.log(`${sTag} received: ${JSON.stringify(data)}`);
         } catch (error) {}
 
         if (data) {
-            let { code, result, message, tag } = data;
-            console.log({ data });
-            switch (
-                code
-                // case "01":
-                //   if (result === "success") {
-                //     store?.dispatch(setOnlineStatus(false));
-                //   }
-                //   break;
-                // case "403":
-                //   if (result === "failed") {
-                //     ToastHelper.showError(message);
-                //     store?.dispatch(setShowModalSigning(false));
-                //   }
-                //   break;
-                // case "03":
-                //   store.dispatch(thunkGetAccountInfor());
-                //   store.dispatch(setPaymentDoneFlag({}));
-                //   const paymentId = data.paymentId;
-                //   if (result === "success") {
-                //     ToastHelper.showSuccess(message);
-                //   } else {
-                //     ToastHelper.showError(message);
-                //   }
-                //   break;
-                // case "04":
-                //   const contractId = data.contractId;
-                //   if (result === "success") {
-                //     ToastHelper.showSuccess(message);
-                //     Global.g_signingSuccess = true;
+            let { code, answer } = data;
+            // console.log({ data });
+            switch (code) {
+                case "00":
+                    store?.dispatch(setAnswers(answer));
+                    break;
 
-                //     const jwtToken = sessionStorage.getItem(PreferenceKeys.jwtToken);
-                //     const navigateUrl = jwtToken
-                //       ? `/contract/contract-result/${contractId}?jwtToken=${jwtToken}`
-                //       : `/contract/contract-result/${contractId}`;
-
-                //     store?.dispatch(setShowModalSigning(false));
-
-                //     if (Utils.isValidNumber(contractId)) history.push(navigateUrl);
-                //   } else {
-                //     ToastHelper.showError(message);
-                //     store?.dispatch(setShowModalSigning(false));
-
-                //     // Cờ để biết quá trình ký thất bại
-                //     store?.dispatch(setSigningFailed(true));
-                //   }
-                //   break;
-                // case "06":
-                //   store?.dispatch(toggleFlagEKYC(result == "success"));
-                //   if (result === "success") {
-                //     ToastHelper.showSuccess(message);
-                //   } else {
-                //     ToastHelper.showError(message);
-                //     store?.dispatch(setShowModalSigning(false));
-                //   }
-
-                //   break;
-                // case "07":
-                //   if (!tag) {
-                //     store?.dispatch(toggleFlagEKYCESignCloud(result == "success"));
-                //   }
-
-                //   if (tag == "PREPARE_CERTIFICATE_FOR_SIGN_CLOUD") {
-                //     store?.dispatch(
-                //       toggleFlagPrepareCeritificateESignCloudSuccess(
-                //         result == "success"
-                //       )
-                //     );
-                //   }
-                //   if (result === "success") {
-                //     ToastHelper.showSuccess(message);
-                //   } else {
-                //     ToastHelper.showError(message);
-
-                //     // Cờ để biết quá trình ký thất bại
-                //     store?.dispatch(setSigningFailed(true));
-                //   }
-
-                //   break;
-                // case "08":
-                //   if (result === "success") {
-                //     const contractId = data.contractId;
-                //     const jwtToken = sessionStorage.getItem(PreferenceKeys.jwtToken);
-                //     store
-                //       ?.dispatch(thunkGetContractDetail({ contractId, jwtToken }))
-                //       .then(() => {
-                //         store?.dispatch(changeHistoryListenStatus(2));
-                //       });
-                //   }
-                //   break;
-                // case "207":
-                //   if (result === "failed") {
-                //     store?.dispatch(changeHistoryListenStatus(3));
-                //   }
-                // case "600":
-                //   // co thong bao moi
-                //   // load lai danh sach thong bao
-                //   // dispatch...
-                //   const { title, content } = data;
-                //   // ToastHelper.showSuccess(`${title} - ${content}`);
-                //   store.dispatch(
-                //     thunkGetAccountNotification({
-                //       params: { page: 0, limit: Global.gDefaultPagination },
-                //     })
-                //   );
-                //   break;
-                // default:
-                //   break;
-            ) {
+                default:
+                    break;
             }
+            // switch (
+            //     code
+            // case "01":
+            //   if (result === "success") {
+            //     store?.dispatch(setOnlineStatus(false));
+            //   }
+            //   break;
+            // case "403":
+            //   if (result === "failed") {
+            //     ToastHelper.showError(message);
+            //     store?.dispatch(setShowModalSigning(false));
+            //   }
+            //   break;
+            // case "03":
+            //   store.dispatch(thunkGetAccountInfor());
+            //   store.dispatch(setPaymentDoneFlag({}));
+            //   const paymentId = data.paymentId;
+            //   if (result === "success") {
+            //     ToastHelper.showSuccess(message);
+            //   } else {
+            //     ToastHelper.showError(message);
+            //   }
+            //   break;
+            // case "04":
+            //   const contractId = data.contractId;
+            //   if (result === "success") {
+            //     ToastHelper.showSuccess(message);
+            //     Global.g_signingSuccess = true;
+
+            //     const jwtToken = sessionStorage.getItem(PreferenceKeys.jwtToken);
+            //     const navigateUrl = jwtToken
+            //       ? `/contract/contract-result/${contractId}?jwtToken=${jwtToken}`
+            //       : `/contract/contract-result/${contractId}`;
+
+            //     store?.dispatch(setShowModalSigning(false));
+
+            //     if (Utils.isValidNumber(contractId)) history.push(navigateUrl);
+            //   } else {
+            //     ToastHelper.showError(message);
+            //     store?.dispatch(setShowModalSigning(false));
+
+            //     // Cờ để biết quá trình ký thất bại
+            //     store?.dispatch(setSigningFailed(true));
+            //   }
+            //   break;
+            // case "06":
+            //   store?.dispatch(toggleFlagEKYC(result == "success"));
+            //   if (result === "success") {
+            //     ToastHelper.showSuccess(message);
+            //   } else {
+            //     ToastHelper.showError(message);
+            //     store?.dispatch(setShowModalSigning(false));
+            //   }
+
+            //   break;
+            // case "07":
+            //   if (!tag) {
+            //     store?.dispatch(toggleFlagEKYCESignCloud(result == "success"));
+            //   }
+
+            //   if (tag == "PREPARE_CERTIFICATE_FOR_SIGN_CLOUD") {
+            //     store?.dispatch(
+            //       toggleFlagPrepareCeritificateESignCloudSuccess(
+            //         result == "success"
+            //       )
+            //     );
+            //   }
+            //   if (result === "success") {
+            //     ToastHelper.showSuccess(message);
+            //   } else {
+            //     ToastHelper.showError(message);
+
+            //     // Cờ để biết quá trình ký thất bại
+            //     store?.dispatch(setSigningFailed(true));
+            //   }
+
+            //   break;
+            // case "08":
+            //   if (result === "success") {
+            //     const contractId = data.contractId;
+            //     const jwtToken = sessionStorage.getItem(PreferenceKeys.jwtToken);
+            //     store
+            //       ?.dispatch(thunkGetContractDetail({ contractId, jwtToken }))
+            //       .then(() => {
+            //         store?.dispatch(changeHistoryListenStatus(2));
+            //       });
+            //   }
+            //   break;
+            // case "207":
+            //   if (result === "failed") {
+            //     store?.dispatch(changeHistoryListenStatus(3));
+            //   }
+            // case "600":
+            //   // co thong bao moi
+            //   // load lai danh sach thong bao
+            //   // dispatch...
+            //   const { title, content } = data;
+            //   // ToastHelper.showSuccess(`${title} - ${content}`);
+            //   store.dispatch(
+            //     thunkGetAccountNotification({
+            //       params: { page: 0, limit: Global.gDefaultPagination },
+            //     })
+            //   );
+            //   break;
+            // default:
+            //   break;
+            // ) {
+            // }
 
             // if (result === 'success') {
             //     switch (command) {

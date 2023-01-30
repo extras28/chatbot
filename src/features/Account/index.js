@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import BaseLayout from "general/components/BaseLayout";
 import Utils from "general/utils/Utils";
@@ -8,8 +8,10 @@ import AccountProfile from "./screens/AccountProfile";
 import AccountQuestionScreen from "./screens/AccountQuestionScreen";
 import AccounttagScreen from "./screens/AccountTagScreen";
 import AccountAnswerScreen from "./screens/AccountAnswerScreen";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ModalChangeAvatar from "./components/ModalChangeAvatar";
+import useRouter from "Hooks/useRouter";
+import { thunkGetAccountDetail } from "./accountSlice";
 
 Account.propTypes = {
     fullname: PropTypes.string,
@@ -23,19 +25,40 @@ Account.defaultProps = {
     avatar: "",
 };
 
-const tabs = ["Thông tin cá nhân", "Câu hỏi", "Tag", "Câu trả lời"];
+const tabs = ["Thông tin cá nhân", "Câu hỏi", "Tag"];
 
 function Account(props) {
     // MARK: --- Params ---
     const { fullname, email, avatar } = props;
     const [selectedTab, setSelectedTab] = useState(tabs[0]);
     const { currentAccount } = useSelector((state) => state?.auth);
+    const { isGettingAccountInfor, account } = useSelector((state) => state?.account);
     const [showModalChangeAvatar, setShowModalChangeAvatar] = useState(false);
+    const [thisAccount, setThisAccount] = useState({});
+    const router = useRouter();
+    const accountId = router.query?.accountId;
+    const dispatch = useDispatch();
 
     // MARK: --- Functions ---
     function handleSelectedTab(newTab) {
         setSelectedTab(newTab);
     }
+
+    // MARK: --- Hooks ---
+    useEffect(() => {
+        console.log(accountId);
+        if (accountId) {
+            dispatch(thunkGetAccountDetail({ _id: accountId }));
+        }
+    }, [accountId]);
+
+    useEffect(() => {
+        if (currentAccount?._id === account?._id) {
+            setThisAccount(currentAccount);
+        } else {
+            setThisAccount(account);
+        }
+    }, [account, accountId, currentAccount]);
 
     return (
         <BaseLayout>
@@ -55,7 +78,7 @@ function Account(props) {
                                     <div className=' position-relative'>
                                         <div className='symbol symbol-120 symbol-lg-150 symbol-fixed mt-n3'>
                                             <img
-                                                src={currentAccount?.avatar?.path || UserHelper.getRandomAvatarUrl()}
+                                                src={thisAccount?.avatar?.path || UserHelper.getRandomAvatarUrl()}
                                                 onError={(e) => {
                                                     e.target.onerror = null;
                                                     e.target.src = UserHelper.getRandomAvatarUrl();
@@ -68,19 +91,21 @@ function Account(props) {
                                                 }}
                                             />
                                         </div>
-                                        <label
-                                            className='position-absolute btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow'
-                                            style={{ top: "-8%", right: "-4%" }}
-                                            onClick={() => setShowModalChangeAvatar(true)}>
-                                            <i className='fas fa-pen'></i>
-                                        </label>
+                                        {currentAccount?._id === account?._id ? (
+                                            <label
+                                                className='position-absolute btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow'
+                                                style={{ top: "-8%", right: "-4%" }}
+                                                onClick={() => setShowModalChangeAvatar(true)}>
+                                                <i className='fas fa-pen'></i>
+                                            </label>
+                                        ) : null}
                                     </div>
                                 </div>
                                 <div>
                                     <p className='font-weight-bolder font-size-h3 text-remaining'>
-                                        {currentAccount?.fullname}
+                                        {thisAccount?.fullname}
                                     </p>
-                                    <p className='text-muted'>{currentAccount?.email}</p>
+                                    <p className='text-muted'>{thisAccount?.email}</p>
                                 </div>
                             </div>
                         </div>

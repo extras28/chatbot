@@ -22,7 +22,7 @@ QuestionDetailScreen.propTypes = {};
 function QuestionDetailScreen(props) {
     const dispatch = useDispatch();
     const router = useRouter();
-    const { isGettingDetailQuestion, detailQuestion } = useSelector((state) => state?.question);
+    const { isGettingDetailQuestion, detailQuestion, answers } = useSelector((state) => state?.question);
     const { currentAccount } = useSelector((state) => state?.auth);
     const questionId = router.query?._id;
     useEffect(() => {
@@ -33,26 +33,25 @@ function QuestionDetailScreen(props) {
 
     const formik = useFormik({
         initialValues: {
-            contentMyAnswer: "",
+            content: "",
             account: currentAccount,
             questionId: questionId,
         },
         onSubmit: async (values) => {
             try {
                 const params = { ...values };
-                console.log(params);
                 WebsocketHelper.sendAnswer(params);
             } catch (error) {
                 console.log(error.message);
             }
         },
         validationSchema: Yup.object({
-            contentMyAnswer: Yup.string().trim().required("Bạn chưa nhập câu trả lời của bạn"),
+            content: Yup.string().trim().required("Bạn chưa nhập câu trả lời của bạn"),
         }),
     });
 
     function handleEditMyAnswerChange({ html, text }) {
-        formik.getFieldHelpers("contentMyAnswer").setValue(text);
+        formik.getFieldHelpers("content").setValue(text);
     }
 
     async function onImageUpload(file) {
@@ -97,21 +96,20 @@ function QuestionDetailScreen(props) {
                         </div>
                     )}
                     <div className='d-flex flex-column justify-content-center align-items-start'>
-                        <h1 className='mt-6 mt-md-9 ms-3'>2 câu trả lời</h1>
-                        <DetailAnswer
-                            fullname='Nguyễn Quang Dũng'
-                            createdAt='14-01-2023'
-                            contentAnswer={detailQuestion.contentTextProblem}
-                            likes={0}
-                            dislikes={0}
-                        />
-                        <DetailAnswer
-                            fullname='Nguyễn Quang Dũng'
-                            createdAt='14-01-2023'
-                            contentAnswer={detailQuestion.contentTextProblem}
-                            likes={0}
-                            dislikes={0}
-                        />
+                        <h1 className='mt-6 mt-md-9 ms-3'>{`${answers?.length}`} câu trả lời</h1>
+                        {answers?.map((item, index) => {
+                            return (
+                                <DetailAnswer
+                                    key={index}
+                                    fullname={item?.account?.fullname}
+                                    createdAt='14-01-2023'
+                                    contentAnswer={item?.content}
+                                    likes={0}
+                                    dislikes={0}
+                                    avatar={item?.account?.avatar?.path}
+                                />
+                            );
+                        })}
                     </div>
 
                     {/* Thêm câu trả lời */}
@@ -129,7 +127,7 @@ function QuestionDetailScreen(props) {
                                     maxHeight: "600px",
                                 }}
                                 renderHTML={(text) => <MDEditor.Markdown source={text} />}
-                                value={formik.getFieldProps("contentMyAnswer").value}
+                                value={formik.getFieldProps("content").value}
                                 onChange={handleEditMyAnswerChange}
                             />
                         </div>

@@ -9,8 +9,9 @@ import Empty from "general/components/Empty";
 import AppResource from "general/constants/AppResource";
 import Global from "general/utils/Global";
 import { parseInt } from "lodash";
-import { thunkGetTagList } from "features/TagScreen/tagSlice";
 import Pagination from "general/components/Pagination";
+import { thunkGetTagByAccount } from "features/Account/accountSlice";
+import useRouter from "Hooks/useRouter";
 
 AccounttagScreen.propTypes = {};
 
@@ -22,49 +23,44 @@ function AccounttagScreen(props) {
         sortByCreateTime: "",
     });
     const dispatch = useDispatch();
-    const { tags, isGettingTags, paginationTags } = useSelector(
-        (state) => state?.tag
-    );
+    const { tags, isGettingTags, paginationTags, account } = useSelector((state) => state?.account);
+    const router = useRouter();
+    const accountId = router.query?.accountId;
+    const { currentAccount } = useSelector((state) => state?.auth);
 
     // MARK: --- Hooks ---
     useEffect(() => {
-        dispatch(thunkGetTagList(filters));
-    }, [filters, dispatch]);
+        dispatch(thunkGetTagByAccount({ ...filters, _id: accountId }));
+    }, [filters, dispatch, account]);
+
     return (
         <div>
-            <div className="d-flex flex-wrap justify-content-between align-items-center mx-4">
-                <div className="max-w-250px">
+            <div className='d-flex flex-wrap justify-content-between align-items-center mx-4'>
+                <div className='max-w-250px'>
                     <BaseSearchBar
                         value={filters.q}
-                        name="tag-filter"
-                        placeholder="Tìm kiếm..."
+                        name='tag-filter'
+                        placeholder='Tìm kiếm...'
                         onSubmit={(value) => {
                             setFilters({ ...filters, q: value });
                         }}
                     />
                 </div>
-                <div>
-                    <AppButton
-                        className="btn-blue"
-                        text="Thêm thẻ mới"
-                    />
-                </div>
+                {currentAccount?._id === account?._id ? (
+                    <div>
+                        <AppButton className='btn-blue' text='Thêm thẻ mới' />
+                    </div>
+                ) : null}
             </div>
-            <div className="row mt-8 mx-0">
+            <div className='row mt-8 mx-0'>
                 {isGettingTags ? (
-                    <div className="d-flex align-items-center justify-content-center">
-                        <Loading
-                            showBackground={false}
-                            message="Đang lấy dữ liệu"
-                        />
+                    <div className='d-flex align-items-center justify-content-center'>
+                        <Loading showBackground={false} message='Đang lấy dữ liệu' />
                     </div>
                 ) : tags?.length > 0 ? (
                     tags?.map((item, index) => {
                         return (
-                            <div
-                                key={index}
-                                className="col-12 col-md-4 col-lg-3 mb-7 cursor-pointer"
-                            >
+                            <div key={index} className='col-12 col-md-4 col-lg-3 mb-7 cursor-pointer'>
                                 <CellTag
                                     name={item?.name}
                                     description={item?.description}
@@ -78,17 +74,15 @@ function AccounttagScreen(props) {
                 ) : (
                     <div>
                         <Empty
-                            text="Không có kết quả phù hợp"
-                            buttonText="Làm mới"
+                            text='Không có kết quả phù hợp'
+                            buttonText='Làm mới'
                             visible={false}
-                            imageEmpty={
-                                AppResource.images.errorStates.noSearchFound
-                            }
+                            imageEmpty={AppResource.images.errorStates.noSearchFound}
                         />
                     </div>
                 )}
                 <div>
-                    <div className="d-flex align-items-center justify-content-center mt-0">
+                    <div className='d-flex align-items-center justify-content-center mt-0'>
                         <Pagination
                             rowsPerPage={paginationTags.perPage}
                             rowCount={paginationTags.count ?? tags?.length}
