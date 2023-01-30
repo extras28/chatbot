@@ -10,6 +10,11 @@ export const thunkCreateTag = createAsyncThunk("tag/create", async (params) => {
     return res;
 });
 
+export const thunkEditTag = createAsyncThunk("tag/update", async (params) => {
+    const res = await tagApi.editTag(params);
+    return res;
+});
+
 export const thunkGetTagList = createAsyncThunk("tag/find", async (params) => {
     const res = await tagApi.getTags(params);
     return res;
@@ -24,7 +29,8 @@ const tagSlice = createSlice({
     name: "tag",
     initialState: {
         isGettingTags: false,
-        isCreatingTags: false,
+        isCreatingTag: false,
+        isUpdatingTag: false,
         tags: [],
         paginationTags: { perPage: Global.gDefaultPagination },
         tagsListOfUser: [],
@@ -53,14 +59,25 @@ const tagSlice = createSlice({
     extraReducers: {
         //create tag
         [thunkCreateTag.pending]: (state, action) => {
-            state.isCreatingTags = true;
+            state.isCreatingTag = true;
         },
         [thunkCreateTag.rejected]: (state, action) => {
-            state.isCreatingTags = false;
+            state.isCreatingTag = false;
         },
         [thunkCreateTag.fulfilled]: (state, action) => {
-            state.isCreatingTags = false;
+            state.isCreatingTag = false;
             
+        },
+
+        //edit tag
+        [thunkEditTag.pending]: (state, action) => {
+            state.isUpdatingTag = true;
+        },
+        [thunkEditTag.rejected]: (state, action) => {
+            state.isUpdatingTag = false;
+        },
+        [thunkEditTag.fulfilled]: (state, action) => {
+            state.isUpdatingTag = false;
         },
 
         //get tags list

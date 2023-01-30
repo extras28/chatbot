@@ -9,9 +9,13 @@ import Empty from "general/components/Empty";
 import AppResource from "general/constants/AppResource";
 import Global from "general/utils/Global";
 import { parseInt } from "lodash";
-import { thunkGetTagListOfUser } from "features/TagScreen/tagSlice";
+import { setPaginationTagListOfUserPerPage, thunkGetTagListOfUser } from "features/TagScreen/tagSlice";
 import Pagination from "general/components/Pagination";
 import ModalCreateTag from "features/TagScreen/components/ModalCreateTag";
+import ModalEditTag from "features/TagScreen/components/ModalEditTag";
+import tagApi from "api/tagApi";
+import DialogModal from "general/components/DialogModal";
+import ToastHelper from "general/helpers/ToastHelper";
 
 AccounttagScreen.propTypes = {};
 
@@ -24,9 +28,24 @@ function AccounttagScreen(props) {
     });
     const dispatch = useDispatch();
     const [showModalCreateTag, setShowModalCreateTag] = useState(false);
-    const { tagsListOfUser, isGettingTags, paginationTagsListOfUser } = useSelector(
-        (state) => state?.tag
-    );
+    const [showModalEditTag, setShowModalEditTag] = useState(false);
+    const [showModalDeleteTag, setShowModalDeleteTag] = useState(false);
+    const [selectedTag, setSelectedTag] = useState({});
+    const { tagsListOfUser, isGettingTags, paginationTagsListOfUser } =
+        useSelector((state) => state?.tag);
+
+    async function handleDeleteTag() {
+        const res = await tagApi.deleteTag({
+            _id: selectedTag?._id,
+        });
+        // console.log(res);
+        if (res.result === "success") {
+            ToastHelper.showSuccess(
+                `Xóa thẻ ${selectedTag?.name} thành công`
+            );
+            await dispatch(thunkGetTagListOfUser());
+        }
+    }
 
     // MARK: --- Hooks ---
     useEffect(() => {
@@ -73,6 +92,30 @@ function AccounttagScreen(props) {
                             >
                                 <CellTag
                                     name={item?.name}
+                                    isMyTag={
+                                        <div className="d-flex align-items-center mb-2">
+                                            <a
+                                                className="btn btn-icon btn-sm btn-light-primary btn-hover-primary mr-2"
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    setSelectedTag(item);
+                                                    setShowModalEditTag(true);
+                                                }}
+                                            >
+                                                <i className="far fa-pen p-0 icon-1x" />
+                                            </a>
+                                            <a
+                                                className="btn btn-icon btn-sm btn-light-danger btn-hover-danger"
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    setSelectedTag(item);
+                                                    setShowModalDeleteTag(true);
+                                                }}
+                                            >
+                                                <i className="far fa-trash p-0 icon-1x" />
+                                            </a>
+                                        </div>
+                                    }
                                     description={item?.description}
                                     numberOfQuestion={item?.numberOfQuestion}
                                     questionPerWeek={item?.questionPerWeek}
@@ -97,8 +140,13 @@ function AccounttagScreen(props) {
                     <div className="d-flex align-items-center justify-content-center mt-0">
                         <Pagination
                             rowsPerPage={paginationTagsListOfUser.perPage}
-                            rowCount={paginationTagsListOfUser.count ?? tagsListOfUser?.length}
-                            currentPage={paginationTagsListOfUser.currentPage ?? 1}
+                            rowCount={
+                                paginationTagsListOfUser.count ??
+                                tagsListOfUser?.length
+                            }
+                            currentPage={
+                                paginationTagsListOfUser.currentPage ?? 1
+                            }
                             onChangePage={(newPage) => {
                                 let iNewPage = parseInt(newPage);
                                 Global.g_needToRefreshTags = true;
@@ -109,7 +157,7 @@ function AccounttagScreen(props) {
                             }}
                             onChangeRowsPerPage={(newPerPage) => {
                                 const iNewPerPage = parseInt(newPerPage);
-                                dispatch(setPaginationTagPerPage(iNewPerPage));
+                                dispatch(setPaginationTagListOfUserPerPage(iNewPerPage));
                                 Global.g_needToRefreshTags = true;
                                 setFilters({
                                     ...filters,
@@ -124,6 +172,18 @@ function AccounttagScreen(props) {
             <ModalCreateTag
                 onClose={() => setShowModalCreateTag(false)}
                 show={showModalCreateTag}
+            />
+            <ModalEditTag
+                onClose={() => setShowModalEditTag(false)}
+                show={showModalEditTag}
+                tagItem={selectedTag}
+            />
+            <DialogModal
+                title="Xóa Thẻ"
+                description={`Bạn có chắc muốn xóa thẻ ${selectedTag?.name}`}
+                show={showModalDeleteTag}
+                onClose={() => setShowModalDeleteTag(false)}
+                onExecute={handleDeleteTag}
             />
         </div>
     );

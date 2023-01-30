@@ -5,6 +5,14 @@ const tagApi = {
         const url = "/tag/create";
         return axiosClient.post(url, params);
     },
+    editTag: (params) => {
+        const url = "/tag/update";
+        return axiosClient.put(url, params);
+    },
+    deleteTag: (params) => {
+        const url = "/tag/delete";
+        return axiosClient.delete(url, {params});
+    },
     getTags: (params) => {
         const url = "/tag/find";
         return axiosClient.get(url, { params });
