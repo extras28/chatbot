@@ -96,7 +96,7 @@ function QuestionDetailScreen(props) {
                         </div>
                     )}
                     <div className='d-flex flex-column justify-content-center align-items-start'>
-                        <h1 className='mt-6 mt-md-9 ms-3'>2 câu trả lời</h1>
+                        <h1 className='mt-6 mt-md-9 ms-3'>{`${answers?.length}`} câu trả lời</h1>
                         {answers?.map((item, index) => {
                             return (
                                 <DetailAnswer

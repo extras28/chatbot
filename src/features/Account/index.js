@@ -25,7 +25,7 @@ Account.defaultProps = {
     avatar: "",
 };
 
-const tabs = ["Thông tin cá nhân", "Câu hỏi", "Tag", "Câu trả lời"];
+const tabs = ["Thông tin cá nhân", "Câu hỏi", "Tag"];
 
 function Account(props) {
     // MARK: --- Params ---
@@ -58,7 +58,7 @@ function Account(props) {
         } else {
             setThisAccount(account);
         }
-    }, [account, accountId]);
+    }, [account, accountId, currentAccount]);
 
     return (
         <BaseLayout>

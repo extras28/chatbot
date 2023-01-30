@@ -22,6 +22,8 @@ import Global from "general/utils/Global";
 import Pagination from "general/components/Pagination";
 import { useNavigate } from "react-router-dom";
 import questionApi from "api/questionApi";
+import DropdownSelect from "general/components/Form/DropdownSelect";
+import AppData from "general/constants/AppData";
 
 QuestionsListScreen.propTypes = {};
 
@@ -30,6 +32,9 @@ function QuestionsListScreen(props) {
         q: "",
         page: 1,
         limit: Global.gDefaultPagination,
+        like: "",
+        dislike: "",
+        sortByCreateTime: "",
     });
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -52,6 +57,38 @@ function QuestionsListScreen(props) {
                         }}
                     />
                 </div>
+                {/* <div>
+                    <DropdownSelect
+                        name='workingStatus'
+                        options={AppData.quetionFilter}
+                        value={filters.sortByCreateTime}
+                        onValueChanged={(newValue) => {
+                            switch (newValue) {
+                                case 0:
+                                    setFilters({
+                                        ...filters,
+                                        sortByCreateTime: 1,
+                                    });
+                                    break;
+                                case -1:
+                                    setFilters({
+                                        ...filters,
+                                        dislike: 1,
+                                    });
+                                    break;
+                                case 1:
+                                    setFilters({
+                                        ...filters,
+                                        like: 1,
+                                    });
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }}
+                        label='Bộ lọc'
+                    />
+                </div> */}
                 <div>
                     {isGettingQuestionsList ? (
                         <div className='d-flex align-items-center justify-content-center mt-8'>
@@ -67,7 +104,7 @@ function QuestionsListScreen(props) {
                                         userName={item?.account?.fullname}
                                         createAt={Utils.formatDateTime(item?.createdAt, "DD-MM-YYYY")}
                                         titleQuestion={item?.title}
-                                        comments='15'
+                                        comments={item?.answer}
                                         likes={item?.likeCount ?? 0}
                                         colorIconLike={item?.likes.includes(currentAccount._id) ? "text-primary" : null}
                                         colorIconDislike={
