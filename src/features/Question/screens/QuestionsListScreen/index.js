@@ -106,13 +106,16 @@ function QuestionsListScreen(props) {
                                         titleQuestion={item?.title}
                                         comments={item?.answer}
                                         likes={item?.likeCount ?? 0}
-                                        colorIconLike={item?.likes.includes(currentAccount._id) ? "text-primary" : null}
+                                        colorIconLike={item?.likes.includes(currentAccount._id) ? "text-primary" : ""}
                                         colorIconDislike={
-                                            item?.dislikes.includes(currentAccount._id) ? "text-danger" : null
+                                            item?.dislikes.includes(currentAccount._id) ? "text-danger" : ""
                                         }
                                         dislikes={item?.dislikeCount ?? 0}
                                         clickQuestion={async () => {
                                             navigate(`/question/detail/${item?._id}`);
+                                        }}
+                                        clickAccount= {async () => {
+                                            navigate(`/account/${item?.account?._id}`);
                                         }}
                                         clickLike={() => {
                                             // await questionApi.voteQuestion({

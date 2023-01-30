@@ -17,11 +17,14 @@ import AppButton from "general/components/AppButton";
 import AppResource from "general/constants/AppResource";
 import WebsocketHelper from "../../../../general/helpers/WebSocketClientHelper";
 import { v4 as uuidv4 } from "uuid";
+import { async } from "q";
+import { useNavigate } from "react-router";
 
 QuestionDetailScreen.propTypes = {};
 
 function QuestionDetailScreen(props) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const router = useRouter();
     const { isGettingDetailQuestion, detailQuestion, answers } = useSelector((state) => state?.question);
     const { currentAccount } = useSelector((state) => state?.auth);
@@ -88,6 +91,9 @@ function QuestionDetailScreen(props) {
                             dislikes={detailQuestion?.dislikeCount ?? 0}
                             colorIconLike={detailQuestion?.likes?.includes(currentAccount._id) ? "text-primary" : ""}
                             colorIconDislike={detailQuestion?.dislikes?.includes(currentAccount._id) ? "text-danger" : ""}
+                            clickAccount= {async () => {
+                                navigate(`/account/${detailQuestion?.account?._id}`);
+                            }}
                             clickLike={() => {
                                 dispatch(thunkVoteDetailQuestion({ _id: detailQuestion?._id, reactType: 1 }));
                             }}
@@ -111,6 +117,10 @@ function QuestionDetailScreen(props) {
                             return (
                                 <DetailAnswer
                                     account={item?.account?._id}
+                                    answer={item}
+                                    clickAccount= {async () => {
+                                        navigate(`/account/${item?.account?._id}`);
+                                    }}
                                     deleteAnswer={(_id) => WebsocketHelper.deleteAnswer(item)}
                                     _id={item?._id}
                                     tempId={item?.tempId}

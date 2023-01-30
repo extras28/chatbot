@@ -15,6 +15,7 @@ SummaryQuestion.propTypes = {
     likes: PropTypes.number,
     dislikes: PropTypes.number,
     clickQuestion: PropTypes.func,
+    clickAccount: PropTypes.func,
     clickLike: PropTypes.func,
     colorIconLike: PropTypes.string,
     clickDislike: PropTypes.func,
@@ -31,6 +32,7 @@ SummaryQuestion.defaultProps = {
     likes: null,
     dislikes: null,
     clickQuestion: null,
+    clickAccount: null,
     clickLike: null,
     clickDislike: null,
     colorIconLike: "",
@@ -48,6 +50,7 @@ function SummaryQuestion(props) {
         likes,
         dislikes,
         clickQuestion,
+        clickAccount,
         clickLike,
         clickDislike,
         colorIconLike,
@@ -61,6 +64,7 @@ function SummaryQuestion(props) {
                     <div className='flex-shrink-0'>
                         <img
                             className='header-avatar rounded-circle'
+                            onClick={clickAccount}
                             src={avatar || UserHelper.getRandomAvatarUrl()}
                             onError={(e) => {
                                 e.target.onerror = null;
@@ -70,7 +74,7 @@ function SummaryQuestion(props) {
                         />
                     </div>
                     <div className='flex-grow-1 mx-2'>
-                        <p className='fw-bold fs-5 my-0'>{userName}</p>
+                        <p className='fw-bold fs-5 my-0 cursor-pointer' onClick={clickAccount}>{userName}</p>
                         <p className='fw-normal fs-6'>Ngày tạo: {createAt}</p>
                     </div>
                 </div>
