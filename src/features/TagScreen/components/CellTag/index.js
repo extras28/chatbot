@@ -33,7 +33,7 @@ function CellTag(props) {
             </div>
             <div className='d-flex justify-content-between flex-wrap'>
                 <span className='text-muted'>{`${numberOfQuestion} câu hỏi`}</span>
-                <span className='text-muted'>{`${numberOfQuestion} câu hỏi trong tuần`}</span>
+                {/* <span className='text-muted'>{`${numberOfQuestion} câu hỏi trong tuần`}</span> */}
             </div>
         </div>
     );
