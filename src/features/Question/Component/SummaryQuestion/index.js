@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Tag from "general/components/Tag";
 import "./style.scss";
 import UserHelper from "general/helpers/UserHelper";
+import { useNavigate } from "react-router-dom";
 
 SummaryQuestion.propTypes = {
     avatar: PropTypes.string,
@@ -14,6 +15,7 @@ SummaryQuestion.propTypes = {
     likes: PropTypes.number,
     dislikes: PropTypes.number,
     clickQuestion: PropTypes.func,
+    clickAccount: PropTypes.func,
     clickLike: PropTypes.func,
     colorIconLike: PropTypes.string,
     clickDislike: PropTypes.func,
@@ -30,6 +32,7 @@ SummaryQuestion.defaultProps = {
     likes: null,
     dislikes: null,
     clickQuestion: null,
+    clickAccount: null,
     clickLike: null,
     clickDislike: null,
     colorIconLike: "",
@@ -47,11 +50,13 @@ function SummaryQuestion(props) {
         likes,
         dislikes,
         clickQuestion,
+        clickAccount,
         clickLike,
         clickDislike,
         colorIconLike,
         colorIconDislike,
     } = props;
+    const navigate = useNavigate();
     return (
         <div className='my-5 SummaryQuestion'>
             <div className='comment p-5 bg-body shadow-sm rounded'>
@@ -59,6 +64,7 @@ function SummaryQuestion(props) {
                     <div className='flex-shrink-0'>
                         <img
                             className='header-avatar rounded-circle'
+                            onClick={clickAccount}
                             src={avatar || UserHelper.getRandomAvatarUrl()}
                             onError={(e) => {
                                 e.target.onerror = null;
@@ -68,7 +74,7 @@ function SummaryQuestion(props) {
                         />
                     </div>
                     <div className='flex-grow-1 mx-2'>
-                        <p className='fw-bold fs-5 my-0'>{userName}</p>
+                        <p className='fw-bold fs-5 my-0 cursor-pointer' onClick={clickAccount}>{userName}</p>
                         <p className='fw-normal fs-6'>Ngày tạo: {createAt}</p>
                     </div>
                 </div>
@@ -79,7 +85,13 @@ function SummaryQuestion(props) {
                     <div className='d-flex flex-fill flex-wrap'>
                         {tags?.map((item, index) => {
                             return (
-                                <div key={index} className='badge badge-secondary mr-4 d-flex align-items-center'>
+                                <div
+                                    key={index}
+                                    className="SummaryQuestion_Item badge badge-secondary mr-4 d-flex align-items-center cursor-pointer"
+                                    onClick={async () => {
+                                        navigate(`/question/tagged/${item?._id}`);
+                                    }}
+                                >
                                     <span>{item?.name}</span>
                                 </div>
                             );

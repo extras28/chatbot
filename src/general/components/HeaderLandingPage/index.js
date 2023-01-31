@@ -13,6 +13,7 @@ import * as Yup from "yup";
 import BaseTextField from "../Form/BaseTextField";
 import ToastHelper from "general/helpers/ToastHelper";
 import Loading from "../Loading";
+import { LogoIcon } from "../../../assets/icons/Icons";
 HeaderLandingPage.propTypes = {
     loggedIn: PropTypes.bool,
     searchBar: PropTypes.bool,
@@ -93,10 +94,17 @@ function HeaderLandingPage(props) {
             className='HeaderLandingPage d-flex sticky-top justify-content-between align-items-center shadow-sm px-5 py-4 ps-5 bg-body'
             style={{ zIndex: "1000" }}>
             {logo && (
-                <NavLink to='/' className='d-flex align-items-center fs-5 fw-normal '>
-                    <i className='fab fa-forumbee d-flex fa-2x ms-sm-2' style={{ color: "#F48023" }}></i>
-                    <div className='d-none d-sm-flex ms-2 text-black'>
-                        Code<div className='fw-bolder'>Helper</div>
+                <NavLink
+                    to="/"
+                    className="d-flex align-items-center fs-5 fw-normal "
+                >
+                    {/* <i
+                        className="fab fa-forumbee d-flex fa-2x ms-sm-2"
+                        style={{ color: "#F48023" }}
+                    ></i> */}
+                    <LogoIcon className="ms-sm-2" />
+                    <div className="d-none d-sm-flex ms-2 text-black">
+                        Code<div className="fw-bolder">Helper</div>
                     </div>
                 </NavLink>
             )}
@@ -222,13 +230,13 @@ function HeaderLandingPage(props) {
             {loggedIn && (
                 <div className='d-flex justify-content-center ms-auto align-items-center'>
                     {/* Screen >= 768px */}
-                    <div className='d-none d-md-flex align-items-center'>
-                        <div className='bell mx-5'>
-                            <i className='far fa-bell'></i>
+                    <div className="d-none d-md-flex align-items-center">
+                        {/* <div className="bell mx-5">
+                            <i className="far fa-bell"></i>
                             <div></div>
-                        </div>
-                        <label className='d-flex' htmlFor='dropdownMenuButton'>
-                            <div className='HeaderLandingPage_Avatar'>
+                        </div> */}
+                        <label className="d-flex" htmlFor="dropdownMenuButton">
+                            <div className="HeaderLandingPage_Avatar">
                                 <img
                                     src={currentAccount?.avatar?.path || UserHelper.getRandomAvatarUrl()}
                                     onError={(e) => {
@@ -297,6 +305,7 @@ function HeaderLandingPage(props) {
                                     <div className='d-flex flex-column align-items-center py-4'>
                                         <img
                                             className='header-sm-avatar'
+                                            onClick={() => navigate(`/account/${currentAccount?._id}`)}
                                             src={currentAccount?.avatar?.path || UserHelper.getRandomAvatarUrl()}
                                             onError={(e) => {
                                                 e.target.onerror = null;
@@ -304,11 +313,11 @@ function HeaderLandingPage(props) {
                                             }}
                                             alt='avatar'
                                         />
-                                        <div className='fs-6 fw-bold pt-2'>{currentAccount?.fullname}</div>
+                                        <div className='fs-6 fw-bold pt-2' onClick={() => navigate(`/account/${currentAccount?._id}`)}>{currentAccount?.fullname}</div>
                                     </div>
                                 </li>
                                 <li>
-                                    <NavLink className='dropdownMenuItem' to='/account'>
+                                    <NavLink className='dropdownMenuItem' to = {`/account/${currentAccount?._id}`}>
                                         <i className='far fa-user-circle mr-4'></i>
                                         Thông tin cá nhân
                                     </NavLink>
@@ -319,13 +328,16 @@ function HeaderLandingPage(props) {
                                         Tạo câu hỏi
                                     </NavLink>
                                 </li>
-                                <li>
-                                    <NavLink className='dropdownMenuItem' to='#'>
-                                        <i className='far fa-bell mr-4'></i>
+                                {/* <li>
+                                    <NavLink
+                                        className="dropdownMenuItem"
+                                        to="#"
+                                    >
+                                        <i className="far fa-bell mr-4"></i>
                                         Thông báo
                                         <div className='notificationNumber ms-auto text-white rounded-circle'>2</div>
                                     </NavLink>
-                                </li>
+                                </li> */}
                                 <li>
                                     <NavLink
                                         className='dropdownMenuItem'

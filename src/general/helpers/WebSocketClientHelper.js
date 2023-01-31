@@ -1,4 +1,4 @@
-import { deleteAnswer, setAnswers } from "features/Question/questionSlice";
+import { deleteAnswer, reactAnswer, setAnswers, updateAnswer } from "features/Question/questionSlice";
 
 // import store from 'app/store';
 let store;
@@ -20,8 +20,8 @@ class WebsocketHelper {
 
     initWebsocket() {
         // console.log(AppConfigs.wsUrl);
-        // this.wsClient = new W3CWebSocket("wss://cnwebg8server.onrender.com/", "");
-        this.wsClient = new W3CWebSocket("ws://localhost:5000", "");
+        this.wsClient = new W3CWebSocket("wss://cnwebg8server.onrender.com/", "");
+        // this.wsClient = new W3CWebSocket("ws://localhost:5000", "");
 
         this.wsClient.onerror = () => {
             console.log(`${sTag} connection error`);
@@ -99,6 +99,19 @@ class WebsocketHelper {
         }
     }
 
+    reactAnswer(props) {
+        if (this.wsClient.readyState === 1) {
+            const data = {
+                code: "03",
+                answer: props.answer,
+                accountId: props.accountId,
+                reactType: props.reactType,
+            };
+
+            this.wsClient.send(JSON.stringify(data));
+        }
+    }
+
     // MARK: --- Utils functions ---
     processReceivedMessage(data) {
         try {
@@ -106,14 +119,20 @@ class WebsocketHelper {
         } catch (error) {}
 
         if (data) {
-            let { code, answer } = data;
+            let { code, answer, accountId, reactType } = data;
             // console.log({ data });
             switch (code) {
                 case "00":
                     store?.dispatch(setAnswers(answer));
                     break;
+                case "01":
+                    store?.dispatch(updateAnswer(answer));
+                    break;
                 case "02":
                     store?.dispatch(deleteAnswer(answer));
+                    break;
+                case "03":
+                    store?.dispatch(reactAnswer({ answer: answer, accountId: accountId, reactType: reactType }));
                     break;
 
                 default:

@@ -1,6 +1,6 @@
 import DetailAnswer from "features/Question/Component/DetailAnswer";
 import DetailQuestion from "features/Question/Component/DetailQuestion";
-import { thunkGetDetailQuestion } from "features/Question/questionSlice";
+import { thunkGetDetailQuestion, thunkVoteDetailQuestion } from "features/Question/questionSlice";
 import MdEditor from "react-markdown-editor-lite";
 import BaseLayout from "general/components/BaseLayout";
 import Loading from "general/components/Loading";
@@ -17,11 +17,14 @@ import AppButton from "general/components/AppButton";
 import AppResource from "general/constants/AppResource";
 import WebsocketHelper from "../../../../general/helpers/WebSocketClientHelper";
 import { v4 as uuidv4 } from "uuid";
+import { async } from "q";
+import { useNavigate } from "react-router";
 
 QuestionDetailScreen.propTypes = {};
 
 function QuestionDetailScreen(props) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const router = useRouter();
     const { isGettingDetailQuestion, detailQuestion, answers } = useSelector((state) => state?.question);
     const { currentAccount } = useSelector((state) => state?.auth);
@@ -86,6 +89,19 @@ function QuestionDetailScreen(props) {
                             comments='15'
                             likes={detailQuestion?.likeCount ?? 0}
                             dislikes={detailQuestion?.dislikeCount ?? 0}
+                            colorIconLike={detailQuestion?.likes?.includes(currentAccount._id) ? "text-primary" : ""}
+                            colorIconDislike={
+                                detailQuestion?.dislikes?.includes(currentAccount._id) ? "text-danger" : ""
+                            }
+                            clickAccount={async () => {
+                                navigate(`/account/${detailQuestion?.account?._id}`);
+                            }}
+                            clickLike={() => {
+                                dispatch(thunkVoteDetailQuestion({ _id: detailQuestion?._id, reactType: 1 }));
+                            }}
+                            clickDislike={() => {
+                                dispatch(thunkVoteDetailQuestion({ _id: detailQuestion?._id, reactType: 0 }));
+                            }}
                         />
                     ) : (
                         <div className='mt-8'>
@@ -102,7 +118,18 @@ function QuestionDetailScreen(props) {
                         {answers?.map((item, index) => {
                             return (
                                 <DetailAnswer
+                                    reactAnswer={(reactType) =>
+                                        WebsocketHelper.reactAnswer({
+                                            answer: item,
+                                            accountId: currentAccount?._id,
+                                            reactType: reactType,
+                                        })
+                                    }
                                     account={item?.account?._id}
+                                    answer={item}
+                                    clickAccount={async () => {
+                                        navigate(`/account/${item?.account?._id}`);
+                                    }}
                                     deleteAnswer={(_id) => WebsocketHelper.deleteAnswer(item)}
                                     _id={item?._id}
                                     tempId={item?.tempId}
@@ -110,8 +137,8 @@ function QuestionDetailScreen(props) {
                                     fullname={item?.account?.fullname}
                                     createdAt='14-01-2023'
                                     contentAnswer={item?.content}
-                                    likes={0}
-                                    dislikes={0}
+                                    likes={item?.likes}
+                                    dislikes={item?.dislikes}
                                     avatar={item?.account?.avatar?.path}
                                 />
                             );

@@ -17,6 +17,7 @@ import Empty from "general/components/Empty";
 import AppResource from "general/constants/AppResource";
 import CellTag from "features/TagScreen/components/CellTag";
 import Pagination from "general/components/Pagination";
+import { useNavigate } from "react-router-dom";
 
 ListTagScreen.propTypes = {};
 
@@ -29,6 +30,7 @@ function ListTagScreen(props) {
         sortByCreateTime: "",
     });
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { tags, isGettingTags, paginationTags } = useSelector(
         (state) => state?.tag
     );
@@ -100,6 +102,9 @@ function ListTagScreen(props) {
                                     numberOfQuestion={item?.numberOfQuestion}
                                     questionPerWeek={item?.questionPerWeek}
                                     questionThisDay={item?.questionThisDay}
+                                    clickTag={async () => {
+                                        navigate(`/question/tagged/${item?._id}`);
+                                    }}
                                 />
                             </div>
                         );

@@ -4,6 +4,7 @@ import MenuItem from "../MenuItem";
 import "./style.scss";
 import UserHelper from "general/helpers/UserHelper";
 import { NavLink } from "react-router-dom";
+import { LogoIcon } from "assets/icons/Icons";
 
 SideBar.propTypes = {
     className: PropTypes.string,
@@ -45,7 +46,8 @@ function SideBar(props) {
                     height: "5rem",
                 }}>
                 <NavLink to='/' className=' SideBar_Logo d-flex mx-4 align-items-center fs-5 fw-normal '>
-                    <i className='fab fa-forumbee d-flex fa-2x ms-lg-2'></i>
+                    {/* <i className='fab fa-forumbee d-flex fa-2x ms-lg-2'></i> */}
+                    <LogoIcon className=" ms-lg-2" />
                     {showSideBar && (
                         <div className='d-none d-lg-flex ms-2 text-white mr-lg-25'>
                             Code<div className='fw-bolder'>Helper</div>
@@ -92,14 +94,6 @@ function SideBar(props) {
                         title='Thẻ'
                         icon='far fa-tags'
                     />
-                    <MenuItem
-                        className={selected === "ranking" ? "MenuItem_active" : ""}
-                        classNameTitle='d-none d-lg-block'
-                        url=''
-                        text={showSideBar ? "Xếp hạng" : ""}
-                        title='Xếp hạng'
-                        icon='far fa-trophy-alt'
-                    />
                 </div>
                 {loggedIn && (
                     <div className='w-100 d-flex flex-column align-items-center'>
@@ -117,17 +111,17 @@ function SideBar(props) {
                                 className={selected === "my-question" ? "MenuItem_active" : ""}
                                 classNameTitle='d-none d-lg-block'
                                 url=''
-                                text={showSideBar ? "Câu hỏi của bạn" : ""}
-                                title='Câu hỏi của bạn'
+                                text={showSideBar ? "Câu hỏi của tôi" : ""}
+                                title='Câu hỏi của tôi'
                                 icon='far fa-question-circle'
                             />
                             <MenuItem
-                                className={selected === "my-answer" ? "MenuItem_active" : ""}
+                                className={selected === "my-tag" ? "MenuItem_active" : ""}
                                 classNameTitle='d-none d-lg-block'
                                 url=''
-                                text={showSideBar ? "Câu trả lời của bạn" : ""}
-                                title='Câu trả lời của bạn'
-                                icon='fas fa-comment'
+                                text={showSideBar ? "Thẻ của tôi" : ""}
+                                title='Thẻ của tôi'
+                                icon='far fa-tags'
                             />
                         </div>
                     </div>
@@ -188,13 +182,6 @@ function SideBar(props) {
                             title='Thẻ'
                             icon='far fa-tags text-white'
                         />
-                        <MenuItem
-                            className={selected === "ranking" ? "MenuItem_active" : ""}
-                            url=''
-                            text='Xếp hạng'
-                            title='Xếp hạng'
-                            icon='far fa-trophy-alt text-white'
-                        />
                     </div>
                     {loggedIn && (
                         <div className='w-100 d-flex flex-column align-items-center'>
@@ -205,16 +192,16 @@ function SideBar(props) {
                                 <MenuItem
                                     className={selected === "my-question" ? "MenuItem_active" : ""}
                                     url=''
-                                    text='Câu hỏi của bạn'
-                                    title='Câu hỏi của bạn'
+                                    text='Câu hỏi của tôi'
+                                    title='Câu hỏi của tôi'
                                     icon='far fa-question-circle text-white'
                                 />
                                 <MenuItem
-                                    className={selected === "my-answer" ? "MenuItem_active" : ""}
+                                    className={selected === "my-tag" ? "MenuItem_active" : ""}
                                     url=''
-                                    text='Câu trả lời của bạn'
-                                    title='Câu trả lời của bạn'
-                                    icon='fas fa-comment text-white'
+                                    text='Thẻ của tôi'
+                                    title='Thẻ của tôi'
+                                    icon='far fa-tags text-white'
                                 />
                             </div>
                         </div>
