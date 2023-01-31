@@ -305,6 +305,7 @@ function HeaderLandingPage(props) {
                                     <div className='d-flex flex-column align-items-center py-4'>
                                         <img
                                             className='header-sm-avatar'
+                                            onClick={() => navigate(`/account/${currentAccount?._id}`)}
                                             src={currentAccount?.avatar?.path || UserHelper.getRandomAvatarUrl()}
                                             onError={(e) => {
                                                 e.target.onerror = null;
@@ -312,11 +313,11 @@ function HeaderLandingPage(props) {
                                             }}
                                             alt='avatar'
                                         />
-                                        <div className='fs-6 fw-bold pt-2'>{currentAccount?.fullname}</div>
+                                        <div className='fs-6 fw-bold pt-2' onClick={() => navigate(`/account/${currentAccount?._id}`)}>{currentAccount?.fullname}</div>
                                     </div>
                                 </li>
                                 <li>
-                                    <NavLink className='dropdownMenuItem' to='/account'>
+                                    <NavLink className='dropdownMenuItem' to = {`/account/${currentAccount?._id}`}>
                                         <i className='far fa-user-circle mr-4'></i>
                                         Thông tin cá nhân
                                     </NavLink>

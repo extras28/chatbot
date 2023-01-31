@@ -33,11 +33,13 @@ function CellTag(props) {
     } = props;
     return (
         <div className="CellTag bg-white border rounded custom-cell p-5 h-100 d-flex flex-column justify-content-between"
-            onClick={clickTag}
+            
         >
             <div>
                 <div className="d-flex align-items-center justify-content-between">
-                    <p className="badge bg-secondary text-remaining">
+                    <p className="badge bg-secondary text-remaining"
+                        onClick={clickTag}
+                    >
                         {name}
                     </p>
                     {isMyTag}

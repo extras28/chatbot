@@ -22,6 +22,7 @@ DetailQuestion.propTypes = {
     comments: PropTypes.string,
     likes: PropTypes.number,
     dislikes: PropTypes.number,
+    clickAccount: PropTypes.func,
     clickLike: PropTypes.func,
     colorIconLike: PropTypes.string,
     clickDislike: PropTypes.func,
@@ -39,6 +40,7 @@ DetailQuestion.defaultProps = {
     comments: "",
     likes: null,
     dislikes: null,
+    clickAccount: null,
     clickLike: null,
     clickDislike: null,
     colorIconLike: "",
@@ -57,6 +59,7 @@ function DetailQuestion(props) {
         comments,
         likes,
         dislikes,
+        clickAccount,
         clickLike,
         clickDislike,
         colorIconLike,
@@ -83,6 +86,7 @@ function DetailQuestion(props) {
                 <div className="flex-shrink-0 symbol">
                     <img
                         className="DetailQuestion_Avatar"
+                        onClick={clickAccount}
                         src={avatar || UserHelper.getRandomAvatarUrl()}
                         onError={(e) => {
                             e.target.onerror = null;
@@ -92,7 +96,7 @@ function DetailQuestion(props) {
                     />
                 </div>
                 <div className="flex-grow-1 flex-fill mx-2">
-                    <div className="fw-bold fs-5 my-0">{fullname}</div>
+                    <div className="fw-bold fs-5 my-0 cursor-pointer" onClick={clickAccount}>{fullname}</div>
                 </div>
                 <div>
                     <button
