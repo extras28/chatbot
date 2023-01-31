@@ -67,7 +67,7 @@ function DetailQuestion(props) {
     } = props;
     const navigate = useNavigate();
     const { currentAccount } = useSelector((state) => state?.auth);
-    const { detailQuestion } = useSelector((state) => state?.question);
+    const { detailQuestion, answers } = useSelector((state) => state?.question);
     const isMyQuestion = currentAccount?._id === detailQuestion?.account?._id;
     const [showModalEditQuestion, setShowModalEditQuestion] = useState(false);
     const [showModalDeleteQuestion, setShowModalDeleteQuestion] = useState(false);
@@ -177,7 +177,7 @@ function DetailQuestion(props) {
                 <div className='d-flex flex-wrap ms-auto'>
                     <button className='btn DetailQuestion_Item'>
                         <i className='fas fa-comment'></i>
-                        {comments}
+                        {answers?.length}
                     </button>
                     <button className='btn DetailQuestion_Item' onClick={clickLike}>
                         <i className={`fas fa-thumbs-up text-hover-primary ${colorIconLike}`}></i>
