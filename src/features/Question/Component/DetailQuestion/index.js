@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import UserHelper from "general/helpers/UserHelper";
 import MDEditor from "@uiw/react-md-editor";
 import Tag from "general/components/Tag";
 import "./style.scss";
 import { useSelector } from "react-redux";
+import DialogModal from "general/components/DialogModal";
+import questionApi from "api/questionApi";
+import ToastHelper from "general/helpers/ToastHelper";
+import { useNavigate } from "react-router-dom";
+import ModalEditQuestion from "../ModalEditQuestion";
 
 DetailQuestion.propTypes = {
     srcAvatar: PropTypes.string,
@@ -17,6 +22,10 @@ DetailQuestion.propTypes = {
     comments: PropTypes.string,
     likes: PropTypes.number,
     dislikes: PropTypes.number,
+    clickLike: PropTypes.func,
+    colorIconLike: PropTypes.string,
+    clickDislike: PropTypes.func,
+    colorIconDislike: PropTypes.string,
 };
 
 DetailQuestion.defaultProps = {
@@ -30,6 +39,10 @@ DetailQuestion.defaultProps = {
     comments: "",
     likes: null,
     dislikes: null,
+    clickLike: null,
+    clickDislike: null,
+    colorIconLike: "",
+    colorIconDislike: "",
 };
 
 function DetailQuestion(props) {
@@ -44,10 +57,25 @@ function DetailQuestion(props) {
         comments,
         likes,
         dislikes,
+        clickLike,
+        clickDislike,
+        colorIconLike,
+        colorIconDislike,
     } = props;
+    const navigate = useNavigate();
     const { currentAccount } = useSelector((state) => state?.auth);
     const { detailQuestion } = useSelector((state) => state?.question);
     const isMyQuestion = currentAccount?._id === detailQuestion?.account?._id;
+    const [showModalEditQuestion, setShowModalEditQuestion] = useState(false);
+    const [showModalDeleteQuestion, setShowModalDeleteQuestion] = useState(false);
+
+    async function handleDeleteQuestion() {
+        const res = await questionApi.deleteQuestion({ _id: detailQuestion?._id });
+        if (res.result === "success") {
+            ToastHelper.showSuccess(`Xóa câu hỏi với tiêu đề ${detailQuestion?.title} thành công`);
+            navigate("/question/list");
+        }
+    }
 
     return (
         <div className="DetailQuestion bg-white rounded shadow p-5 p-md-10">
@@ -81,10 +109,20 @@ function DetailQuestion(props) {
                             className="dropdown-menu my-4"
                             aria-labelledby="dropdownMenuButton"
                         >
-                            <li className="dropdown-item cursor-pointer pe-5">
+                            <li className="dropdown-item cursor-pointer pe-5"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setShowModalEditQuestion(true);
+                                }}
+                            >
                                 Chỉnh sửa câu hỏi
                             </li>
-                            <li className="dropdown-item cursor-pointer">
+                            <li className="dropdown-item cursor-pointer"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setShowModalDeleteQuestion(true);
+                                }}
+                            >
                                 Xóa câu hỏi
                             </li>
                         </ul>
@@ -125,7 +163,10 @@ function DetailQuestion(props) {
                         return (
                             <div
                                 key={index}
-                                className="badge badge-secondary mr-4 d-flex align-items-center"
+                                className="DetailQuestion_Item badge badge-secondary mr-4 d-flex align-items-center cursor-pointer"
+                                onClick={async () => {
+                                    navigate(`/question/tagged/${item?._id}`);
+                                }}
                             >
                                 <span>{item?.name}</span>
                             </div>
@@ -133,20 +174,32 @@ function DetailQuestion(props) {
                     })}
                 </div>
                 <div className="d-flex flex-wrap ms-auto">
-                    <button className="btn">
+                    <button className="btn DetailQuestion_Item" >
                         <i className="fas fa-comment"></i>
                         {comments}
                     </button>
-                    <button className="btn">
-                        <i className="fas fa-thumbs-up"></i>
+                    <button className="btn DetailQuestion_Item" onClick={clickLike}>
+                        <i className={`fas fa-thumbs-up text-hover-primary ${colorIconLike}`}></i>
                         {likes}
                     </button>
-                    <button className="btn">
-                        <i className="fas fa-thumbs-down"></i>
+                    <button className="btn DetailQuestion_Item" onClick={clickDislike}>
+                        <i className={`fas fa-thumbs-down text-hover-danger ${colorIconDislike}`}></i>
                         {dislikes}
                     </button>
                 </div>
             </div>
+            <ModalEditQuestion
+                onClose={() => setShowModalEditQuestion(false)}
+                show={showModalEditQuestion}
+                questionItem={detailQuestion}
+            />
+            <DialogModal
+                title='Xóa câu hỏi'
+                description={`Bạn có chắc muốn xóa câu hỏi với tiêu đề ${detailQuestion?.title}`}
+                show={showModalDeleteQuestion}
+                onClose={() => setShowModalDeleteQuestion(false)}
+                onExecute={handleDeleteQuestion}
+            />
         </div>
     );
 }

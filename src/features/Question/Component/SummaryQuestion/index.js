@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Tag from "general/components/Tag";
 import "./style.scss";
 import UserHelper from "general/helpers/UserHelper";
+import { useNavigate } from "react-router-dom";
 
 SummaryQuestion.propTypes = {
     avatar: PropTypes.string,
@@ -52,6 +53,7 @@ function SummaryQuestion(props) {
         colorIconLike,
         colorIconDislike,
     } = props;
+    const navigate = useNavigate();
     return (
         <div className='my-5 SummaryQuestion'>
             <div className='comment p-5 bg-body shadow-sm rounded'>
@@ -79,7 +81,13 @@ function SummaryQuestion(props) {
                     <div className='d-flex flex-fill flex-wrap'>
                         {tags?.map((item, index) => {
                             return (
-                                <div key={index} className='badge badge-secondary mr-4 d-flex align-items-center'>
+                                <div
+                                    key={index}
+                                    className="SummaryQuestion_Item badge badge-secondary mr-4 d-flex align-items-center cursor-pointer"
+                                    onClick={async () => {
+                                        navigate(`/question/tagged/${item?._id}`);
+                                    }}
+                                >
                                     <span>{item?.name}</span>
                                 </div>
                             );

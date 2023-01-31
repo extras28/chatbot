@@ -36,6 +36,7 @@ import {
     PythonIcon,
     StarIcon,
     StarGrayIcon,
+    LogoIcon,
 } from "../../assets/icons/Icons.js";
 import { NavLink } from "react-router-dom";
 
@@ -525,7 +526,7 @@ function LandingPage(props) {
                                             </span>
                                         </label>
                                         <div className="SlideText1">
-                                            Trung bình Stack Overflow nhận được
+                                            Trung bình CodeHelper nhận được
                                             hơn 100 triệu lượt truy cập hàng
                                             tháng từ các nhà phát triển.
                                         </div>
@@ -807,13 +808,7 @@ function LandingPage(props) {
                                 <Zoom delay={400}>
                                     <div
                                         className="BoxScreen9 d-flex flex-column bg-white align-items-center justify-content-between my-20 py-10 px-20">
-                                        <i
-                                            className="fab fa-forumbee d-flex fa-3x"
-                                            style={{
-                                                color: AppResource.colors
-                                                    .featureColor,
-                                            }}
-                                        ></i>
+                                        <LogoIcon height="3.6rem" width="3.6rem" />
                                         <h1
                                             className="fw-bold text-center"
                                             style={{ color: "#485763" }}

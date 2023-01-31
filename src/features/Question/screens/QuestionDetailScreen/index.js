@@ -1,6 +1,6 @@
 import DetailAnswer from "features/Question/Component/DetailAnswer";
 import DetailQuestion from "features/Question/Component/DetailQuestion";
-import { thunkGetDetailQuestion } from "features/Question/questionSlice";
+import { thunkGetDetailQuestion, thunkVoteDetailQuestion } from "features/Question/questionSlice";
 import MdEditor from "react-markdown-editor-lite";
 import BaseLayout from "general/components/BaseLayout";
 import Loading from "general/components/Loading";
@@ -86,6 +86,14 @@ function QuestionDetailScreen(props) {
                             comments='15'
                             likes={detailQuestion?.likeCount ?? 0}
                             dislikes={detailQuestion?.dislikeCount ?? 0}
+                            colorIconLike={detailQuestion?.likes?.includes(currentAccount._id) ? "text-primary" : ""}
+                            colorIconDislike={detailQuestion?.dislikes?.includes(currentAccount._id) ? "text-danger" : ""}
+                            clickLike={() => {
+                                dispatch(thunkVoteDetailQuestion({ _id: detailQuestion?._id, reactType: 1 }));
+                            }}
+                            clickDislike={() => {
+                                dispatch(thunkVoteDetailQuestion({ _id: detailQuestion?._id, reactType: 0 }));
+                            }}
                         />
                     ) : (
                         <div className='mt-8'>

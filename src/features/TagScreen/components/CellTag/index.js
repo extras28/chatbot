@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 
 CellTag.propTypes = {
     name: PropTypes.string,
+    clickTag: PropTypes.func,
+    isMyTag: PropTypes.element,
     description: PropTypes.string,
     numberOfQuestion: PropTypes.number,
     questionPerWeek: PropTypes.number,
@@ -11,6 +13,8 @@ CellTag.propTypes = {
 
 CellTag.defaultProps = {
     name: "",
+    clickTag: null,
+    isMyTag: null,
     description: "",
     numberOfQuestion: 0,
     questionPerWeek: 0,
@@ -20,16 +24,25 @@ CellTag.defaultProps = {
 function CellTag(props) {
     const {
         name,
+        clickTag,
+        isMyTag,
         description,
         numberOfQuestion,
         questionPerWeek,
         questionThisDay,
     } = props;
     return (
-        <div className='CellTag bg-white border rounded custom-cell p-5 h-100 d-flex flex-column justify-content-between'>
+        <div className="CellTag bg-white border rounded custom-cell p-5 h-100 d-flex flex-column justify-content-between"
+            onClick={clickTag}
+        >
             <div>
-                <p className='badge  bg-secondary text-remaining'>{name}</p>
-                <p className='q-max-line-4'>{description}</p>
+                <div className="d-flex align-items-center justify-content-between">
+                    <p className="badge bg-secondary text-remaining">
+                        {name}
+                    </p>
+                    {isMyTag}
+                </div>
+                <p className="q-max-line-4">{description}</p>
             </div>
             <div className='d-flex justify-content-between flex-wrap'>
                 <span className='text-muted'>{`${numberOfQuestion} câu hỏi`}</span>

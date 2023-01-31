@@ -36,6 +36,10 @@ export const thunkVoteQuestion = createAsyncThunk("question/vote", async (params
     const res = await questionApi.voteQuestion(params);
     return res;
 });
+export const thunkVoteDetailQuestion = createAsyncThunk("question/vote-detail", async (params) => {
+    const res = await questionApi.voteQuestion(params);
+    return res;
+});
 
 const questionSlice = createSlice({
     name: "question",
@@ -167,6 +171,10 @@ const questionSlice = createSlice({
                     state.questionsList[i] = question;
                 }
             }
+        },
+        [thunkVoteDetailQuestion.fulfilled]: (state, action) => {
+            const { result, question } = action.payload;
+                    state.detailQuestion = question;
         },
     },
 });
