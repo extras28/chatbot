@@ -130,7 +130,9 @@ function QuestionDetailScreen(props) {
                                     clickAccount={async () => {
                                         navigate(`/account/${item?.account?._id}`);
                                     }}
-                                    deleteAnswer={(_id) => WebsocketHelper.deleteAnswer(item)}
+                                    deleteAnswer={(_id) =>
+                                        WebsocketHelper.deleteAnswer({ ...item, questionId: detailQuestion?._id })
+                                    }
                                     _id={item?._id}
                                     tempId={item?.tempId}
                                     key={index}

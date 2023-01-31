@@ -115,14 +115,14 @@ function SideBar(props) {
                                 title='Câu hỏi của tôi'
                                 icon='far fa-question-circle'
                             />
-                            <MenuItem
+                            {/* <MenuItem
                                 className={selected === "my-tag" ? "MenuItem_active" : ""}
                                 classNameTitle='d-none d-lg-block'
                                 url=''
                                 text={showSideBar ? "Thẻ của tôi" : ""}
                                 title='Thẻ của tôi'
                                 icon='far fa-tags'
-                            />
+                            /> */}
                         </div>
                     </div>
                 )}
