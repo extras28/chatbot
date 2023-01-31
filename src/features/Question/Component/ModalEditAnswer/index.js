@@ -8,7 +8,7 @@ import MdEditor from "react-markdown-editor-lite";
 import MDEditor from "@uiw/react-md-editor";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import WebsocketHelper from "../../../../general/helpers/WebSocketClientHelper";
 
 ModalEditAnswer.propTypes = {
     answerItem: PropTypes.object,
@@ -34,17 +34,15 @@ function ModalEditAnswer(props) {
             content: "",
         },
         onSubmit: async (values) => {
-            // const params = { _id: answerItem?._id, ...values };
-            // try {
-                
-            // } catch (err) {
-            //     console.log(`${err.message}`);
-            // }
+            const params = { ...answerItem, content: values.content };
+            try {
+                WebsocketHelper.updateAnswer(params);
+            } catch (err) {
+                console.log(`${err.message}`);
+            }
         },
         validationSchema: Yup.object({
-                content: Yup.string()
-                .trim()
-                .required("Bạn chưa nhập câu trả lời"),
+            content: Yup.string().trim().required("Bạn chưa nhập câu trả lời"),
         }),
     });
 
@@ -69,36 +67,32 @@ function ModalEditAnswer(props) {
         }
     }
     return (
-        <div className="ModalEditAnswer">
+        <div className='ModalEditAnswer'>
             <Modal
-                className=""
+                className=''
                 show={show && showing}
-                size="lg"
+                size='lg'
                 onHide={handleClose}
                 centered
                 onExited={() => {
                     // formik.handleReset();
-                }}
-            >
+                }}>
                 {/* header */}
-                <Modal.Header className="px-5 py-5 d-flex align-items-center justify-content-center position-relative">
-                    <Modal.Title className="">Chỉnh sửa câu trả lời</Modal.Title>
+                <Modal.Header className='px-5 py-5 d-flex align-items-center justify-content-center position-relative'>
+                    <Modal.Title className=''>Chỉnh sửa câu trả lời</Modal.Title>
                     <div
-                        className="btn btn-xs btn-icon btn-light btn-hover-secondary cursor-pointer position-absolute right-0 mr-5"
-                        onClick={handleClose}
-                    >
-                        <i className="far fa-times"></i>
+                        className='btn btn-xs btn-icon btn-light btn-hover-secondary cursor-pointer position-absolute right-0 mr-5'
+                        onClick={handleClose}>
+                        <i className='far fa-times'></i>
                     </div>
                 </Modal.Header>
                 {/* body */}
-                <Modal.Body className="bg-light">
-                    <form className="w-100">
+                <Modal.Body className='bg-light'>
+                    <form className='w-100'>
                         <div>
                             <div>
-                                <div className="d-flex flex-column mt-5 p-7 p-lg-10 border-1 bg-white shadow-sm rounded">
-                                    <div className="fs-5 fw-bold mb-3">
-                                        Câu trả lời
-                                    </div>
+                                <div className='d-flex flex-column mt-5 p-7 p-lg-10 border-1 bg-white shadow-sm rounded'>
+                                    <div className='fs-5 fw-bold mb-3'>Câu trả lời</div>
                                     <MdEditor
                                         view={{ html: false }}
                                         canView={{ fullScreen: false }}
@@ -120,22 +114,20 @@ function ModalEditAnswer(props) {
                 </Modal.Body>
                 {/* footer */}
                 <Modal.Footer>
-                    <div className="w-100 d-flex row">
+                    <div className='w-100 d-flex row'>
                         <Button
-                            className="font-weight-bold flex-grow-1 col mr-3 AppButton"
-                            variant="secondary"
-                            onClick={handleClose}
-                        >
+                            className='font-weight-bold flex-grow-1 col mr-3 AppButton'
+                            variant='secondary'
+                            onClick={handleClose}>
                             {`Huỷ`}
                         </Button>
                         <Button
                             className={`font-weight-bold flex-grow-1 col ml-3 AppButton`}
-                            variant="primary"
+                            variant='primary'
                             onClick={() => {
                                 handleClose();
                                 formik.handleSubmit();
-                            }}
-                        >
+                            }}>
                             Lưu lại
                         </Button>
                     </div>

@@ -81,57 +81,57 @@ function DetailQuestion(props) {
     }
 
     return (
-        <div className="DetailQuestion bg-white rounded shadow p-5 p-md-10">
-            <div className="d-flex align-items-center">
-                <div className="flex-shrink-0 symbol">
+        <div className='DetailQuestion bg-white rounded shadow p-5 p-md-10'>
+            <div className='d-flex align-items-center'>
+                <div className='flex-shrink-0 symbol'>
                     <img
-                        className="DetailQuestion_Avatar"
+                        className='DetailQuestion_Avatar'
                         onClick={clickAccount}
                         src={avatar || UserHelper.getRandomAvatarUrl()}
                         onError={(e) => {
                             e.target.onerror = null;
                             e.target.src = UserHelper.getRandomAvatarUrl();
                         }}
-                        alt="avatar"
+                        alt='avatar'
                     />
                 </div>
-                <div className="flex-grow-1 flex-fill mx-2">
-                    <div className="fw-bold fs-5 my-0 cursor-pointer" onClick={clickAccount}>{fullname}</div>
+                <div className='flex-grow-1 flex-fill mx-2'>
+                    <div className='fw-bold fs-5 my-0 cursor-pointer' onClick={clickAccount}>
+                        {fullname}
+                    </div>
                 </div>
                 <div>
-                    <button
-                        className="ButtonEllipsis show-option"
-                        id="dropdownMenuButton"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                    >
-                        <i className="fa-2x fal fa-ellipsis-v"></i>
-                    </button>
+                    {isMyQuestion ? (
+                        <button
+                            className='ButtonEllipsis show-option'
+                            id='dropdownMenuButton'
+                            data-bs-toggle='dropdown'
+                            aria-expanded='false'>
+                            <i className='fa-2x fal fa-ellipsis-v'></i>
+                        </button>
+                    ) : null}
 
                     {isMyQuestion && (
-                        <ul
-                            className="dropdown-menu my-4"
-                            aria-labelledby="dropdownMenuButton"
-                        >
-                            <li className="dropdown-item cursor-pointer pe-5"
+                        <ul className='dropdown-menu my-4' aria-labelledby='dropdownMenuButton'>
+                            <li
+                                className='dropdown-item cursor-pointer pe-5'
                                 onClick={(e) => {
                                     e.preventDefault();
                                     setShowModalEditQuestion(true);
-                                }}
-                            >
+                                }}>
                                 Chỉnh sửa câu hỏi
                             </li>
-                            <li className="dropdown-item cursor-pointer"
+                            <li
+                                className='dropdown-item cursor-pointer'
                                 onClick={(e) => {
                                     e.preventDefault();
                                     setShowModalDeleteQuestion(true);
-                                }}
-                            >
+                                }}>
                                 Xóa câu hỏi
                             </li>
                         </ul>
                     )}
-                    {!isMyQuestion && (
+                    {/* {!isMyQuestion && (
                         <ul
                             className="dropdown-menu my-4"
                             aria-labelledby="dropdownMenuButton"
@@ -140,53 +140,50 @@ function DetailQuestion(props) {
                                 Báo cáo
                             </li>
                         </ul>
-                    )}
+                    )} */}
                 </div>
             </div>
-            <div className="content pt-4">
-                <div className="fw-bold fs-3">{title}</div>
-                <div className="mt-1 fw-normal fs-6">Ngày tạo: {createdAt}</div>
+            <div className='content pt-4'>
+                <div className='fw-bold fs-3'>{title}</div>
+                <div className='mt-1 fw-normal fs-6'>Ngày tạo: {createdAt}</div>
             </div>
             <div
-                data-color-mode="light"
-                className="overflow-auto"
-                style={{ display: "grid", width: "auto", minWidth: "0" }}
-            >
+                data-color-mode='light'
+                className='overflow-auto'
+                style={{ display: "grid", width: "auto", minWidth: "0" }}>
                 <MDEditor.Markdown source={contentTextProblem} />
             </div>
             <div
-                data-color-mode="light"
-                className="mt-5 overflow-auto"
-                style={{ display: "grid", width: "auto", minWidth: "0" }}
-            >
+                data-color-mode='light'
+                className='mt-5 overflow-auto'
+                style={{ display: "grid", width: "auto", minWidth: "0" }}>
                 <MDEditor.Markdown source={contentTextExpect} />
             </div>
-            <div className="mt-5 d-flex justify-content-between align-items-center flex-wrap">
-                <div className="d-flex flex-fill flex-wrap">
+            <div className='mt-5 d-flex justify-content-between align-items-center flex-wrap'>
+                <div className='d-flex flex-fill flex-wrap'>
                     {tags?.map((item, index) => {
                         return (
                             <div
                                 key={index}
-                                className="DetailQuestion_Item badge badge-secondary mr-4 d-flex align-items-center cursor-pointer"
+                                className='DetailQuestion_Item badge badge-secondary mr-4 d-flex align-items-center cursor-pointer'
                                 onClick={async () => {
                                     navigate(`/question/tagged/${item?._id}`);
-                                }}
-                            >
+                                }}>
                                 <span>{item?.name}</span>
                             </div>
                         );
                     })}
                 </div>
-                <div className="d-flex flex-wrap ms-auto">
-                    <button className="btn DetailQuestion_Item" >
-                        <i className="fas fa-comment"></i>
+                <div className='d-flex flex-wrap ms-auto'>
+                    <button className='btn DetailQuestion_Item'>
+                        <i className='fas fa-comment'></i>
                         {comments}
                     </button>
-                    <button className="btn DetailQuestion_Item" onClick={clickLike}>
+                    <button className='btn DetailQuestion_Item' onClick={clickLike}>
                         <i className={`fas fa-thumbs-up text-hover-primary ${colorIconLike}`}></i>
                         {likes}
                     </button>
-                    <button className="btn DetailQuestion_Item" onClick={clickDislike}>
+                    <button className='btn DetailQuestion_Item' onClick={clickDislike}>
                         <i className={`fas fa-thumbs-down text-hover-danger ${colorIconDislike}`}></i>
                         {dislikes}
                     </button>

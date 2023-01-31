@@ -5,7 +5,7 @@ import Global from "general/utils/Global";
 import useRouter from "Hooks/useRouter";
 import _ from "lodash";
 
-const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
+const { createSlice, createAsyncThunk, current } = require("@reduxjs/toolkit");
 
 export const thunkGetQuestionsList = createAsyncThunk("question/find", async (params) => {
     const res = await questionApi.getQuestionsList(params);
@@ -79,12 +79,53 @@ const questionSlice = createSlice({
                 state.answers = state.answers.filter((item) => item._id !== action.payload._id);
             }
         },
-        reactAnswer: (state, action)=>{
-
+        reactAnswer: (state, action) => {
+            let reqAnswer = state.answers.find((item) => item.tempId == action.payload.answer.tempId);
+            const alreadyLike = reqAnswer.likes.includes(action.payload.accountId);
+            const alreadyDislike = reqAnswer.dislikes.includes(action.payload.accountId);
+            const accountId = action.payload.accountId;
+            const reactType = action.payload.reactType;
+            if (reactType == 1 && alreadyLike) {
+                reqAnswer.likeCount = reqAnswer.likeCount - 1;
+                reqAnswer.likes = reqAnswer.likes.filter((item) => item != accountId);
+            } else if (reactType == 1 && !alreadyLike) {
+                if (alreadyDislike) {
+                    reqAnswer.likeCount = reqAnswer.likeCount + 1;
+                    reqAnswer.dislikeCount = reqAnswer.dislikeCount - 1;
+                    reqAnswer.dislikes = reqAnswer.dislikes.filter((item) => item != accountId);
+                    reqAnswer.likes.push(accountId);
+                } else {
+                    reqAnswer.likeCount = reqAnswer.likeCount + 1;
+                    reqAnswer.likes.push(accountId);
+                }
+            } else if (reactType == 0 && alreadyDislike) {
+                reqAnswer.dislikeCount = reqAnswer.dislikeCount - 1;
+                reqAnswer.dislikes = reqAnswer.dislikes.filter((item) => item != accountId);
+            } else if (reactType == 0 && !alreadyDislike) {
+                if (alreadyLike) {
+                    reqAnswer.likeCount = reqAnswer.likeCount - 1;
+                    reqAnswer.dislikeCount = reqAnswer.dislikeCount + 1;
+                    reqAnswer.likes = reqAnswer.likes.filter((item) => item != accountId);
+                    reqAnswer.dislikes.push(accountId);
+                } else {
+                    reqAnswer.dislikeCount = reqAnswer.likeCount + 1;
+                    reqAnswer.dislikes.push(accountId);
+                }
+            }
+            for (let i = 0; i < state.answers.length; i++) {
+                if (state.answers[i].tempId == reqAnswer.tempId) {
+                    state.answers[i] = reqAnswer;
+                }
+            }
         },
         updateAnswer: (state, action) => {
-
-        }
+            console.log(action.payload);
+            for (let i = 0; i < state.answers.length; i++) {
+                if (state.answers[i].tempId === action.payload.tempId) {
+                    state.answers[i].content = action.payload.content;
+                }
+            }
+        },
     },
     extraReducers: {
         //get questions list
@@ -174,11 +215,11 @@ const questionSlice = createSlice({
         },
         [thunkVoteDetailQuestion.fulfilled]: (state, action) => {
             const { result, question } = action.payload;
-                    state.detailQuestion = question;
+            state.detailQuestion = question;
         },
     },
 });
 
 const { reducer, actions } = questionSlice;
-export const { setPaginationQuestionPerPage, setAnswers, deleteAnswer } = actions;
+export const { setPaginationQuestionPerPage, setAnswers, deleteAnswer, reactAnswer, updateAnswer } = actions;
 export default reducer;

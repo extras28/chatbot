@@ -90,8 +90,10 @@ function QuestionDetailScreen(props) {
                             likes={detailQuestion?.likeCount ?? 0}
                             dislikes={detailQuestion?.dislikeCount ?? 0}
                             colorIconLike={detailQuestion?.likes?.includes(currentAccount._id) ? "text-primary" : ""}
-                            colorIconDislike={detailQuestion?.dislikes?.includes(currentAccount._id) ? "text-danger" : ""}
-                            clickAccount= {async () => {
+                            colorIconDislike={
+                                detailQuestion?.dislikes?.includes(currentAccount._id) ? "text-danger" : ""
+                            }
+                            clickAccount={async () => {
                                 navigate(`/account/${detailQuestion?.account?._id}`);
                             }}
                             clickLike={() => {
@@ -116,9 +118,16 @@ function QuestionDetailScreen(props) {
                         {answers?.map((item, index) => {
                             return (
                                 <DetailAnswer
+                                    reactAnswer={(reactType) =>
+                                        WebsocketHelper.reactAnswer({
+                                            answer: item,
+                                            accountId: currentAccount?._id,
+                                            reactType: reactType,
+                                        })
+                                    }
                                     account={item?.account?._id}
                                     answer={item}
-                                    clickAccount= {async () => {
+                                    clickAccount={async () => {
                                         navigate(`/account/${item?.account?._id}`);
                                     }}
                                     deleteAnswer={(_id) => WebsocketHelper.deleteAnswer(item)}
@@ -128,8 +137,8 @@ function QuestionDetailScreen(props) {
                                     fullname={item?.account?.fullname}
                                     createdAt='14-01-2023'
                                     contentAnswer={item?.content}
-                                    likes={0}
-                                    dislikes={0}
+                                    likes={item?.likes}
+                                    dislikes={item?.dislikes}
                                     avatar={item?.account?.avatar?.path}
                                 />
                             );
