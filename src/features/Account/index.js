@@ -61,7 +61,7 @@ function Account(props) {
     }, [account, accountId, currentAccount]);
 
     return (
-        <BaseLayout>
+        <BaseLayout selected='personal-page'>
             <div className='Account flex-column-fluid'>
                 <div className='container-xxl'>
                     {/* account navbar */}

@@ -5,6 +5,7 @@ import "./style.scss";
 import UserHelper from "general/helpers/UserHelper";
 import { NavLink } from "react-router-dom";
 import { LogoIcon } from "assets/icons/Icons";
+import { useSelector } from "react-redux";
 
 SideBar.propTypes = {
     className: PropTypes.string,
@@ -22,6 +23,7 @@ SideBar.defaultProps = {
 
 function SideBar(props) {
     const { className, headerHeight, selected } = props;
+    const { currentAccount } = useSelector(state => state?.auth);
     const loggedIn = UserHelper.checkAccessTokenValid();
     let [showSideBar, setShowSideBar] = useState(true);
     let [dropdownSideBar_MobileMode, setDropdownSideBar_MobileMode] = useState(false);
@@ -108,21 +110,13 @@ function SideBar(props) {
                         )}
                         <div className='MenuSideBar w-100'>
                             <MenuItem
-                                className={selected === "my-question" ? "MenuItem_active" : ""}
+                                className={selected === "personal-page" ? "MenuItem_active" : ""}
                                 classNameTitle='d-none d-lg-block'
-                                url=''
-                                text={showSideBar ? "Câu hỏi của tôi" : ""}
-                                title='Câu hỏi của tôi'
-                                icon='far fa-question-circle'
+                                url={`/account/${currentAccount?._id}`}
+                                text={showSideBar ? "Trang cá nhân" : ""}
+                                title='Trang cá nhân'
+                                icon='far fa-user-circle'
                             />
-                            {/* <MenuItem
-                                className={selected === "my-tag" ? "MenuItem_active" : ""}
-                                classNameTitle='d-none d-lg-block'
-                                url=''
-                                text={showSideBar ? "Thẻ của tôi" : ""}
-                                title='Thẻ của tôi'
-                                icon='far fa-tags'
-                            /> */}
                         </div>
                     </div>
                 )}
@@ -177,7 +171,7 @@ function SideBar(props) {
                         />
                         <MenuItem
                             className={selected === "tag" ? "MenuItem_active" : ""}
-                            url=''
+                            url='/tag'
                             text='Thẻ'
                             title='Thẻ'
                             icon='far fa-tags text-white'
@@ -190,18 +184,11 @@ function SideBar(props) {
                             </div>
                             <div className='MenuSideBar w-100'>
                                 <MenuItem
-                                    className={selected === "my-question" ? "MenuItem_active" : ""}
-                                    url=''
-                                    text='Câu hỏi của tôi'
-                                    title='Câu hỏi của tôi'
-                                    icon='far fa-question-circle text-white'
-                                />
-                                <MenuItem
-                                    className={selected === "my-tag" ? "MenuItem_active" : ""}
-                                    url=''
-                                    text='Thẻ của tôi'
-                                    title='Thẻ của tôi'
-                                    icon='far fa-tags text-white'
+                                    className={selected === "personal-page" ? "MenuItem_active" : ""}
+                                    url={`/account/${currentAccount?._id}`}
+                                    text='Trang cá nhân'
+                                    title='Trang cá nhân'
+                                    icon='far fa-user-circle text-white'
                                 />
                             </div>
                         </div>
