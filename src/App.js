@@ -25,6 +25,7 @@ import { injectStore } from "general/helpers/WebSocketClientHelper";
 // Load BS
 
 require("bootstrap/dist/js/bootstrap.min");
+window.$ = window.jQuery = require('jquery');
 // Load KT plugins
 // require("assets/plugins/ktutil");
 // require("assets/plugins/ktmenu");
