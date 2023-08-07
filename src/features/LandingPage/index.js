@@ -29,18 +29,19 @@ import BaseTextArea from "general/components/Form/BaseTextArea";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import {
-    C_plusplusIcon,
-    C_sharpIcon,
-    CssIcon,
-    HtmlIcon,
-    JavaIcon,
-    JavascriptIcon,
-    LogoIcon,
-    PHPIcon,
-    PythonIcon,
-    StarGrayIcon,
-    StarIcon,
+  C_plusplusIcon,
+  C_sharpIcon,
+  CssIcon,
+  HtmlIcon,
+  JavaIcon,
+  JavascriptIcon,
+  LogoIcon,
+  PHPIcon,
+  PythonIcon,
+  StarGrayIcon,
+  StarIcon,
 } from "../../assets/icons/Icons.js";
+import MDEditor from "@uiw/react-md-editor";
 
 LandingPage.propTypes = {};
 
@@ -87,7 +88,18 @@ function LandingPage(props) {
           </form>
           <div className="row">
             <div className="col-12 font-size-lg font-weight-bolder">
-              {answerContent}
+              <div
+                data-color-mode="light"
+                className="border p-6 rounded border-primary"
+                style={{
+                  display: "grid",
+                  width: "auto",
+                  minWidth: "0",
+                  marginTop: "1rem",
+                }}
+              >
+                <MDEditor.Markdown source={answerContent} />
+              </div>
             </div>
           </div>
         </div>
