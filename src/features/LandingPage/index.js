@@ -116,22 +116,8 @@ function LandingPage(props) {
       />
       <div className="bg-white">
         {/* gpt streaming */}
-        <div className="container py-20">
-          <form onSubmit={formik.handleSubmit}>
-            <BaseTextArea
-              rows={10}
-              name="prompt"
-              fieldProps={formik.getFieldProps("prompt")}
-            />
-
-            <AppButton
-              className="btn-green"
-              text="Gửi"
-              beforIcon={<i className="fas fa-paper-plane mr-4 text-white"></i>}
-              // onClick={() => formik.handleSubmit()}
-            />
-          </form>
-          <div className="row">
+        <div className="container">
+          <div className="row py-20">
             <div className="col-12 font-size-lg font-weight-bolder">
               <div
                 data-color-mode="light"
@@ -147,6 +133,24 @@ function LandingPage(props) {
               </div>
             </div>
           </div>
+          <form onSubmit={formik.handleSubmit}>
+            <div className="d-flex flex-column">
+              <BaseTextArea
+                rows={10}
+                name="prompt"
+                fieldProps={formik.getFieldProps("prompt")}
+              />
+
+              <AppButton
+                className="btn-green align-self-end"
+                text="Gửi"
+                beforIcon={
+                  <i className="fas fa-paper-plane mr-4 text-white"></i>
+                }
+                // onClick={() => formik.handleSubmit()}
+              />
+            </div>
+          </form>
         </div>
         {/* Screen 1 */}
         <div className="Screen1" id="home">
