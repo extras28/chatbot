@@ -4,28 +4,27 @@ import AppToast from "general/components/AppToast";
 import { Suspense, useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 // router
-import AppDialog from "general/components/AppDialog";
-import AppNotFound from "general/components/AppNotFound";
-import { useSelector } from "react-redux";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Account from "features/Account";
+import AccountListener from "features/Account/AccountListener";
+import RequestToResetPass from "features/Auth/RequestToResetPass";
 import SignInScreen from "features/Auth/SignInScreen";
 import SignUpScreen from "features/Auth/SignUpScreen";
 import LandingPage from "features/LandingPage";
-import GuestRoute from "general/components/AppRoutes/GuestRoute";
-import PrivateRoute from "general/components/AppRoutes/PrivateRoute";
-import UserListScreen from "features/UserListScreen";
-import RequestToResetPass from "features/Auth/RequestToResetPass";
-import AccountListener from "features/Account/AccountListener";
 import Question from "features/Question";
 import Tag from "features/TagScreen";
-import Account from "features/Account";
+import UserListScreen from "features/UserListScreen";
+import AppDialog from "general/components/AppDialog";
+import AppNotFound from "general/components/AppNotFound";
+import GuestRoute from "general/components/AppRoutes/GuestRoute";
+import PrivateRoute from "general/components/AppRoutes/PrivateRoute";
 import { injectStore } from "general/helpers/WebSocketClientHelper";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import Admin from "Admin";
 
 // Load BS
 
 require("bootstrap/dist/js/bootstrap.min");
-window.$ = window.jQuery = require('jquery');
+window.$ = window.jQuery = require("jquery");
 // Load KT plugins
 // require("assets/plugins/ktutil");
 // require("assets/plugins/ktmenu");
@@ -45,87 +44,87 @@ window.$ = window.jQuery = require('jquery');
 const sTag = "[App]";
 
 function App() {
-    // MARK: --- Hooks ---
-    useEffect(() => {
-        console.log(`${sTag} did load`);
-        injectStore(store);
+  // MARK: --- Hooks ---
+  useEffect(() => {
+    console.log(`${sTag} did load`);
+    injectStore(store);
 
-        return () => {
-            console.log(`${sTag} will dismiss`);
-        };
-    }, []);
+    return () => {
+      console.log(`${sTag} will dismiss`);
+    };
+  }, []);
 
-    return (
-        <>
-            {/* Router */}
-            {/* <BrowserRouter> */}
-            <BrowserRouter>
-                {/* Suspense */}
-                <Suspense fallback={<div>Loading...</div>}>
-                    <Routes>
-                        {/* Landing Page */}
-                        <Route path='' element={<LandingPage />} />
+  return (
+    <>
+      {/* Router */}
+      {/* <BrowserRouter> */}
+      <BrowserRouter>
+        {/* Suspense */}
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            {/* Landing Page */}
+            <Route path="" element={<LandingPage />} />
 
-                        <Route path='users/*' element={<UserListScreen />} />
+            <Route path="users/*" element={<UserListScreen />} />
 
-                        {/* Account */}
-                        <Route
-                            path='account/:accountId/*'
-                            element={
-                                <PrivateRoute>
-                                    <Account />
-                                </PrivateRoute>
-                            }
-                        />
-                        {/* Sign in */}
-                        <Route
-                            path='/sign-in'
-                            element={
-                                <GuestRoute>
-                                    <SignInScreen />
-                                </GuestRoute>
-                            }
-                        />
-                        {/* Sign up */}
-                        <Route
-                            path='/sign-up'
-                            element={
-                                <GuestRoute>
-                                    <SignUpScreen />
-                                </GuestRoute>
-                            }
-                        />
-                        {/* Request to reset pass */}
-                        <Route
-                            path='/request-to-reset-pass'
-                            element={
-                                <GuestRoute>
-                                    <RequestToResetPass />
-                                </GuestRoute>
-                            }
-                        />
+            {/* Account */}
+            <Route
+              path="account/:accountId/*"
+              element={
+                <PrivateRoute>
+                  <Account />
+                </PrivateRoute>
+              }
+            />
+            {/* Sign in */}
+            <Route
+              path="/sign-in"
+              element={
+                <GuestRoute>
+                  <SignInScreen />
+                </GuestRoute>
+              }
+            />
+            {/* Sign up */}
+            <Route
+              path="/sign-up"
+              element={
+                <GuestRoute>
+                  <SignUpScreen />
+                </GuestRoute>
+              }
+            />
+            {/* Request to reset pass */}
+            <Route
+              path="/request-to-reset-pass"
+              element={
+                <GuestRoute>
+                  <RequestToResetPass />
+                </GuestRoute>
+              }
+            />
 
-                        {/* Question */}
-                        <Route path='question/*' element={<Question />} />
+            {/* Question */}
+            <Route path="question/*" element={<Question />} />
 
-                        {/* tag */}
-                        <Route path='tag/*' element={<Tag />} />
-                        {/* Not Found */}
-                        <Route path='*' element={<AppNotFound />} />
-                    </Routes>
-                </Suspense>
-            </BrowserRouter>
-            {/* </BrowserRouter> */}
+            {/* tag */}
+            <Route path="tag/*" element={<Tag />} />
+            {/* Not Found */}
+            <Route path="*" element={<AppNotFound />} />
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
+      {/* </BrowserRouter> */}
 
-            {/* App Dialog */}
-            <AppDialog />
-            {/* Toast */}
-            <AppToast />
-            {/* Listener */}
-            {/* Account Listener */}
-            <AccountListener />
-        </>
-    );
+      {/* App Dialog */}
+      <AppDialog />
+      {/* Toast */}
+      <AppToast />
+      {/* Listener */}
+      {/* Account Listener */}
+      <AccountListener />
+    </>
+  );
 }
 
 export default App;
