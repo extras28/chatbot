@@ -42,6 +42,7 @@ import {
   StarIcon,
 } from "../../assets/icons/Icons.js";
 import MDEditor from "@uiw/react-md-editor";
+import axios from "axios";
 
 LandingPage.propTypes = {};
 
@@ -53,13 +54,57 @@ function LandingPage(props) {
       mode: "streaming",
       prompt: "",
     },
-    onSubmit: async (values) => {
-      console.log(values);
-      const res = await gptApi.streamingChat(values);
-      setAnswerContent(res.data);
-      console.log(res);
+    onSubmit: (values) => {
+      handleStreamData(values);
+      // // const response = axios.post(url, params, {
+      // //   headers: {
+      // //     uuid: "123456",
+      // //   },
+      // // });
+      // const response = await axios({
+      //   method: "post",
+      //   url: url,
+      //   responseType: "stream",
+      //   headers: {
+      //     uuid: "123456",
+      //   },
+      //   data: values,
+      // });
+      // response.data.on("data", (chunk) => {
+      //   setAnswerContent((prev) => prev + chunk);
+      // });
     },
   });
+
+  async function handleStreamData(params) {
+    try {
+      setAnswerContent("");
+      const url = " https://chat-dev.saymee.vn/api/v1/gpt/prompt";
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          uuid: "123456",
+        },
+        body: JSON.stringify(params),
+      });
+
+      const reader = response.body.getReader();
+
+      while (true) {
+        const { done, value } = await reader.read();
+
+        if (done) {
+          break;
+        }
+
+        const chunk = new TextDecoder().decode(value);
+        setAnswerContent((prevData) => prevData + chunk);
+      }
+    } catch (error) {
+      console.error("Error streaming data:", error);
+    }
+  }
 
   return (
     <div className="min-vh-100 min-vw-90">
@@ -71,7 +116,7 @@ function LandingPage(props) {
       />
       <div className="bg-white">
         {/* gpt streaming */}
-        <div className="container my-20">
+        <div className="container py-20">
           <form onSubmit={formik.handleSubmit}>
             <BaseTextArea
               rows={10}
@@ -90,7 +135,7 @@ function LandingPage(props) {
             <div className="col-12 font-size-lg font-weight-bolder">
               <div
                 data-color-mode="light"
-                className="border p-6 rounded border-primary"
+                className="border p-6 rounded border-primary overflow-auto"
                 style={{
                   display: "grid",
                   width: "auto",
